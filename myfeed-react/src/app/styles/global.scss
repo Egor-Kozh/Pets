@@ -1,24 +1,19 @@
+@use "./themes/dark-theme.scss" as dark;
+@use "./themes/ligth-theme.scss" as ligth;
+
+$color-theme: "ligth";
+
 :root {
-  --color-gs-black: #101010;
-  --color-gs-dark-grey: #212121;
-  --color-gs-very-dark-grey: #303030;
-  --color-gs-grey: #686868;
-  --color-gs-ligther-gray: #bdbdbd;
-  --color-gs-ligther-gray0: #beb9b4;
-  --color-gs-very-light-grey: #f2f2f2;
-  --color-gs-lightest-grey: #f6f6f6;
-  --color-gs-white: #f6f6f6;
+  --background-color: #{ligth.$background-color};
+  --text-color: #{ligth.$text-color};
+}
 
-  --color-pr-default: #ee683e;
-  --color-pr-dark: #cd4e27;
-  --color-pr-ligth: #fd825d;
-  --color-pr-lighter1: #ffd1c3;
-  --color-pr-lighter2: #d2b7af;
-  --color-pr-lightest: #cd4e27;
+[color-theme="dark"] {
+  --background-color: #{dark.$background-color};
+  --text-color: #{dark.$text-color};
+}
 
-  --color-ad-red: #f03e3e;
-  --color-ad-green: #20c997;
-
-  --color-gradient1: #dbdbdb;
-  --color-gradient2: #000000;
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

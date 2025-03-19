@@ -1,3 +1,24 @@
-.dark {
-  --background: var(--color-gs-black);
-}
+$color-dark-black: #101010;
+$color-dark-dark-grey: #212121;
+$color-dark-very-dark-grey: #303030;
+$color-dark-grey: #686868;
+$color-dark-ligther-gray: #bdbdbd;
+$color-dark-ligther-gray0: #beb9b4;
+$color-dark-very-light-grey: #f2f2f2;
+$color-dark-lightest-grey: #f6f6f6;
+$color-dark-white: #f6f6f6;
+
+$color-dark-primary-default: #ee683e;
+$color-dark-primary-dark: #cd4e27;
+$color-dark-primary-ligth: #fd825d;
+$color-dark-primary-lighter: #d2b7af;
+$color-dark-primary-lightest: #cd4e27;
+
+$color-dark-additional-red: #f03e3e;
+$color-dark-additional-green: #20c997;
+
+$shadow-dark: blur(46%) translateX(4px) translateY(12px);
+$color-dark-gradient: #000000;
+
+$background-color: $color-dark-dark-grey;
+$text-color: $color-dark-white;
