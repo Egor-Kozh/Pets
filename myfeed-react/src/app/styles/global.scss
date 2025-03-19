@@ -1,16 +1,17 @@
+@use "scss-reset";
 @use "./themes/dark-theme.scss" as dark;
-@use "./themes/ligth-theme.scss" as ligth;
+@use "./themes/ligth-theme.scss" as light;
 
 $color-theme: "ligth";
 
 :root {
-  --background-color: #{ligth.$background-color};
-  --text-color: #{ligth.$text-color};
+  --background-color: #{light.$color-light-lighter-gray};
+  --text-color: #{light.$color-light-black};
 }
 
 [color-theme="dark"] {
-  --background-color: #{dark.$background-color};
-  --text-color: #{dark.$text-color};
+  --background-color: #{dark.$color-dark-dark-grey};
+  --text-color: #{dark.$color-dark-white};
 }
 
 body {
