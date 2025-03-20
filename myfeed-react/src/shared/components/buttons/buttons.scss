@@ -7,26 +7,31 @@
   --background-color-primary-loading: #{light.$color-light-primary-default};
   --background-color-primary-disabled: #{light.$color-light-lighter-gray0};
   --text-color-primary: #{light.$color-light-white};
+  --svg-color-primary: #{light.$color-light-white};
 
   --background-color-secondary: #{light.$color-light-white};
   --text-color-secondary-ititial: #{light.$color-light-primary-default};
   --text-color-secondary-hover: #{light.$color-light-primary-light};
+  --text-color-secondary-disabled: #{light.$color-light-lighter-gray0};
   --border-color-secondary-initial: #{light.$color-light-primary-default};
   --border-color-secondary-hover: #{light.$color-light-primary-light};
+  --border-color-secondary-disabled: #{light.$color-light-lighter-gray0};
+  --svg-color-secondary: #{light.$color-light-primary-default};
 }
 
 [color-theme="dark"] {
   --background-color-primary-initial: #{dark.$color-dark-primary-dark};
   --background-color-primary-hover: #{dark.$color-dark-primary-default};
   --background-color-primary-loading: #{dark.$color-dark-primary-dark};
-  --background-color-primary-disabled: #{light.$color-light-lighter-gray0};
-  --text-color-primary: #{light.$color-light-white};
+  --background-color-primary-disabled: #{dark.$color-dark-grey};
+  --text-color-primary: #{dark.$color-dark-white};
 
   --background-color-secondary: #{dark.$color-dark-very-dark-grey};
   --text-color-secondary-ititial: #{dark.$color-dark-primary-dark};
   --text-color-secondary-hover: #{dark.$color-dark-primary-default};
   --border-color-secondary-initial: #{dark.$color-dark-primary-dark};
   --border-color-secondary-hover: #{dark.$color-dark-primary-default};
+  --svg-color-secondary: #{dark.$color-dark-primary-dark};
 }
 
 .button {
@@ -37,11 +42,20 @@
   border-radius: 8px;
 
   font-size: 14px;
+
+  font-family: "Gilroy_Medium";
+
+  margin-top: 5px;
 }
 
 .primary {
   background-color: var(--background-color-primary-initial);
   color: var(--text-color-primary);
+
+  &-disabled {
+    background-color: var(--background-color-primary-disabled);
+    color: var(--text-color-primary);
+  }
 }
 .primary:hover {
   background-color: var(--background-color-primary-hover);
@@ -51,6 +65,12 @@
   background-color: var(--background-color-secondary);
   color: var(--text-color-secondary-ititial);
   border: 1px solid var(--border-color-secondary-initial);
+
+  &-disabled {
+    background-color: var(--background-color-secondary);
+    color: var(--text-color-secondary-disabled);
+    border: 1px solid var(--border-color-secondary-disabled);
+  }
 }
 .secondary:hover {
   border: 1px solid var(--border-color-secondary-hover);
@@ -69,4 +89,11 @@
   height: 44px;
 
   padding: 18px 10px;
+}
+
+.svg_primary {
+  fill: var(--svg-color-primary);
+}
+.svg_secondary {
+  fill: var(--svg-color-secondary);
 }

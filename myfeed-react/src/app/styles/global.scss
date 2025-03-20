@@ -1,20 +1,22 @@
 @use "scss-reset";
 @use "./themes/dark-theme.scss" as dark;
 @use "./themes/ligth-theme.scss" as light;
+@use "fonts";
 
 $color-theme: "ligth";
 
 :root {
-  --background-color: #{light.$color-light-lighter-gray};
+  --background-color: #{light.$color-light-white};
   --text-color: #{light.$color-light-black};
 }
 
 [color-theme="dark"] {
-  --background-color: #{dark.$color-dark-dark-grey};
+  --background-color: #{dark.$color-dark-black};
   --text-color: #{dark.$color-dark-white};
 }
 
 body {
+  font-family: "Gilroy_Bold";
   background-color: var(--background-color);
   color: var(--text-color);
 }

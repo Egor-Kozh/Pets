@@ -1,6 +1,5 @@
 import "../app/styles/global.scss";
 import { Button } from "../shared/components/buttons/button";
-import { ButtonsEnum } from "../shared/components/buttons/types";
 
 export const UiKit = () => {
   function toggleTheme() {
@@ -14,21 +13,27 @@ export const UiKit = () => {
       <p>Hello world!</p>
       <button onClick={toggleTheme}>Toggle Theme</button>
 
-      <Button
-        size={ButtonsEnum.SMALL}
-        type={ButtonsEnum.PRIMARY}
-        content="Текст"
-      />
-      <Button
-        size={ButtonsEnum.LARGE}
-        type={ButtonsEnum.PRIMARY}
-        content="Текст"
-      />
-      <Button
-        size={ButtonsEnum.SMALL}
-        type={ButtonsEnum.SECONDARY}
-        content="Текст"
-      />
+      <Button size={"small"} type={"primary"}>
+        Текст
+      </Button>
+      <Button size={"small"} type={"primary"} disabled>
+        Текст
+      </Button>
+      <Button size={"small"} type={"primary"} loading></Button>
+      <Button size={"large"} type={"primary"}>
+        Текст
+      </Button>
+      <Button size={"large"} type={"primary"} disabled>
+        Текст
+      </Button>
+      <Button size={"large"} type={"primary"} loading></Button>
+      <Button size={"small"} type={"secondary"}>
+        Текст
+      </Button>
+      <Button size={"small"} type={"secondary"} disabled>
+        Текст
+      </Button>
+      <Button size={"small"} type={"secondary"} loading></Button>
     </>
   );
 };
