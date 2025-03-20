@@ -1,5 +1,6 @@
 import "../app/styles/global.scss";
 import { Button } from "../shared/components/buttons/button";
+import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 
 export const UiKit = () => {
   function toggleTheme() {
@@ -34,6 +35,10 @@ export const UiKit = () => {
         Текст
       </Button>
       <Button size={"small"} type={"secondary"} loading></Button>
+
+      <RadioButton name="rad" id="1" value="text1" />
+      <RadioButton name="rad" id="2" value="text2" />
+      <RadioButton name="rad dis" id="3" value="text3" disabled checked />
     </>
   );
 };

@@ -91,9 +91,19 @@
   padding: 18px 10px;
 }
 
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .svg_primary {
   fill: var(--svg-color-primary);
+  animation: rotate 2s linear infinite;
 }
 .svg_secondary {
   fill: var(--svg-color-secondary);
+  animation: rotate 2s linear infinite;
 }
