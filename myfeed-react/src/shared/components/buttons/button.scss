@@ -1,0 +1,109 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --button-background-color-primary-initial: #{light.$color-light-primary-default};
+  --button-background-color-primary-hover: #{light.$color-light-primary-light};
+  --button-background-color-primary-loading: #{light.$color-light-primary-default};
+  --button-background-color-primary-disabled: #{light.$color-light-lighter-gray0};
+  --button-text-color-primary: #{light.$color-light-white};
+  --button-svg-color-primary: #{light.$color-light-white};
+
+  --button-background-color-secondary: #{light.$color-light-white};
+  --button-text-color-secondary-ititial: #{light.$color-light-primary-default};
+  --button-text-color-secondary-hover: #{light.$color-light-primary-light};
+  --button-text-color-secondary-disabled: #{light.$color-light-lighter-gray0};
+  --button-border-color-secondary-initial: #{light.$color-light-primary-default};
+  --button-border-color-secondary-hover: #{light.$color-light-primary-light};
+  --button-border-color-secondary-disabled: #{light.$color-light-lighter-gray0};
+  --button-svg-color-secondary: #{light.$color-light-primary-default};
+}
+
+[color-theme="dark"] {
+  --button-background-color-primary-initial: #{dark.$color-dark-primary-dark};
+  --button-background-color-primary-hover: #{dark.$color-dark-primary-default};
+  --button-background-color-primary-loading: #{dark.$color-dark-primary-dark};
+  --button-background-color-primary-disabled: #{dark.$color-dark-grey};
+  --button-text-color-primary: #{dark.$color-dark-white};
+
+  --button-background-color-secondary: #{dark.$color-dark-very-dark-grey};
+  --button-text-color-secondary-ititial: #{dark.$color-dark-primary-dark};
+  --button-text-color-secondary-hover: #{dark.$color-dark-primary-default};
+  --button-border-color-secondary-initial: #{dark.$color-dark-primary-dark};
+  --button-border-color-secondary-hover: #{dark.$color-dark-primary-default};
+  --button-svg-color-secondary: #{dark.$color-dark-primary-dark};
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+
+  font-family: "Gilroy_Medium";
+
+  margin-top: 5px;
+}
+
+.primary {
+  background-color: var(--button-background-color-primary-initial);
+  color: var(--button-text-color-primary);
+
+  &-disabled {
+    background-color: var(--button-background-color-primary-disabled);
+    color: var(--button-text-color-primary);
+  }
+}
+.primary:hover {
+  background-color: var(--button-background-color-primary-hover);
+}
+
+.secondary {
+  background-color: var(--button-background-color-secondary);
+  color: var(--button-text-color-secondary-ititial);
+  border: 1px solid var(--button-border-color-secondary-initial);
+
+  &-disabled {
+    background-color: var(--button-background-color-secondary);
+    color: var(--button-text-color-secondary-disabled);
+    border: 1px solid var(--button-border-color-secondary-disabled);
+  }
+}
+.secondary:hover {
+  border: 1px solid var(--button-border-color-secondary-hover);
+  color: var(--button-text-color-secondary-hover);
+}
+
+.small {
+  width: 164px;
+  height: 44px;
+
+  padding: 10px, 16px;
+}
+
+.large {
+  width: 343px;
+  height: 44px;
+
+  padding: 18px 10px;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.svg_primary {
+  fill: var(--button-svg-color-primary);
+  animation: rotate 2s linear infinite;
+}
+.svg_secondary {
+  fill: var(--button-svg-color-secondary);
+  animation: rotate 2s linear infinite;
+}

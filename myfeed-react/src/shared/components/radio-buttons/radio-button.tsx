@@ -15,15 +15,17 @@ export const RadioButton = ({
   checked,
 }: RadioButtonProps) => {
   return (
-    <>
+    <div className="radio_button">
       <input
+        className="input_radio"
         type="radio"
         id={id}
         name={name}
         disabled={disabled}
         checked={checked}
       />
-      <label htmlFor={id}>{value}</label>
-    </>
+      <label htmlFor={id}></label>
+      <span>{value}</span>
+    </div>
   );
 };

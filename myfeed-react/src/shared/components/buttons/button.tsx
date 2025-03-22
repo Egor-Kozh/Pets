@@ -1,5 +1,5 @@
 import className from "classnames";
-import "./buttons.scss";
+import "./button.scss";
 import SvgLoadingComponent from "./icons/components/loading";
 
 interface ButtonProps {
