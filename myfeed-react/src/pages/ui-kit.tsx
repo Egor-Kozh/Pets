@@ -1,6 +1,7 @@
 import "../app/styles/global.scss";
 import { Button } from "../shared/components/buttons/button";
 import { RadioButton } from "../shared/components/radio-buttons/radio-button";
+import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
 
 export const UiKit = () => {
@@ -45,6 +46,9 @@ export const UiKit = () => {
       <Toggle id="5" />
       <Toggle id="6" />
       <Toggle id="7" disabled />
+
+      <Tab type="auth" />
+      <Tab type="registr" />
     </>
   );
 };

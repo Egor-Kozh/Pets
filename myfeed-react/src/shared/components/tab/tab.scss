@@ -1,0 +1,74 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+}
+
+[color-theme="dark"] {
+}
+
+.tab {
+  margin-top: 5px;
+
+  width: 343px;
+  height: 32px;
+
+  display: flex;
+  flex-direction: row;
+
+  border: 1px solid #{light.$color-light-primary-default};
+  border-radius: 6px;
+
+  font-size: 16px;
+  font-family: "Gilroy_Regular";
+
+  &__autharization {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__registration {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.tab_auth {
+  .tab__autharization {
+    background-color: #{light.$color-light-primary-default};
+    color: #{light.$color-light-white};
+  }
+
+  .tab__registration {
+    background-color: #{light.$color-light-white};
+    color: #{light.$color-light-primary-default};
+  }
+}
+
+.tab_registr {
+  .tab__autharization {
+    background-color: #{light.$color-light-white};
+    color: #{light.$color-light-primary-default};
+  }
+
+  .tab__registration {
+    background-color: #{light.$color-light-primary-default};
+    color: #{light.$color-light-white};
+  }
+}
