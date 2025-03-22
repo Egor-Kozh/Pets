@@ -44,6 +44,7 @@ export const UiKit = () => {
 
       <Toggle id="5" />
       <Toggle id="6" />
+      <Toggle id="7" disabled />
     </>
   );
 };

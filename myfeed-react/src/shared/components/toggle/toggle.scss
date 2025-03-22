@@ -4,13 +4,19 @@
 :root {
   --toggle-background-color-checked: #{light.$color-light-primary-default};
   --toggle-background-color-unchecked: #{light.$color-light-darkest-grey};
+  --toggle-background-color-disabled: #{light.$color-light-very-light-grey};
+
   --toggle-circle-color: #{light.$color-light-white};
+  --toggle-circle-color-disabled: #{light.$color-light-grey};
 }
 
 [color-theme="dark"] {
   --toggle-background-color-checked: #{dark.$color-dark-primary-dark};
   --toggle-background-color-unchecked: #{dark.$color-dark-white};
+  --toggle-background-color-disabled: #{dark.$color-dark-very-dark-grey};
+
   --toggle-circle-color: #{dark.$color-dark-darkest-grey};
+  --toggle-circle-color-disabled: #{dark.$color-dark-darkest-grey};
 }
 
 .toggle {
@@ -61,5 +67,12 @@
   &:checked + label::after {
     left: unset;
     right: 1.5px;
+  }
+
+  &:disabled + label::before {
+    background-color: var(--toggle-background-color-disabled);
+  }
+  &:disabled + label::after {
+    background-color: var(--toggle-circle-color-disabled);
   }
 }
