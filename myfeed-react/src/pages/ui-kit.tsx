@@ -1,5 +1,6 @@
 import "../app/styles/global.scss";
 import { Button } from "../shared/components/buttons/button";
+import { Input } from "../shared/components/input/input";
 import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
@@ -49,6 +50,11 @@ export const UiKit = () => {
 
       <Tab type="auth" />
       <Tab type="registr" />
+
+      <Input id="8" placeholder="Placeholder" title="input" />
+      <Input id="9" type="password" title="input eye" />
+      <Input id="10" type="password" title="input eye/slash" />
+      <Input id="11" type="date" title="calender" />
     </>
   );
 };

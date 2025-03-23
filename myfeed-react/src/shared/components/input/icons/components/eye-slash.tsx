@@ -1,0 +1,12 @@
+const SvgEyeSlashComponent = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <path
+      stroke="#BDBDBD"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.2}
+      d="M4.046 8.223A10.477 10.477 0 0 0 2 12C3.291 16.338 7.309 19.5 12.065 19.5c.992 0 1.953-.138 2.863-.395M6.293 6.228A10.45 10.45 0 0 1 12.066 4.5c4.756 0 8.773 3.162 10.064 7.498a10.522 10.522 0 0 1-4.292 5.774M6.293 6.228 3.066 3m3.227 3.228 3.651 3.65m7.894 7.894L21.066 21m-3.228-3.228-3.651-3.65m0 0a3 3 0 1 0-4.243-4.243m4.243 4.242L9.944 9.88"
+    />
+  </svg>
+);
+export default SvgEyeSlashComponent;
