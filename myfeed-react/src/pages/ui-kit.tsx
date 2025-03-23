@@ -1,3 +1,4 @@
+import { useForm } from "react-hook-form";
 import "../app/styles/global.scss";
 import { Button } from "../shared/components/buttons/button";
 import { Input } from "../shared/components/input/input";
@@ -12,32 +13,44 @@ export const UiKit = () => {
     const newTheme = currentTheme === "light" ? "dark" : "light";
     html.setAttribute("color-theme", newTheme);
   }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<{ name: string; password: string }>();
+
+  const onSubmit = () => {
+    console.log(watch("name"));
+  };
+
   return (
     <>
       <p>Hello world!</p>
       <button onClick={toggleTheme}>Toggle Theme</button>
 
-      <Button size={"small"} type={"primary"}>
+      <Button size={"small"} typeView={"primary"}>
         Текст
       </Button>
-      <Button size={"small"} type={"primary"} disabled>
+      <Button size={"small"} typeView={"primary"} disabled>
         Текст
       </Button>
-      <Button size={"small"} type={"primary"} loading></Button>
-      <Button size={"large"} type={"primary"}>
+      <Button size={"small"} typeView={"primary"} loading></Button>
+      <Button size={"large"} typeView={"primary"}>
         Текст
       </Button>
-      <Button size={"large"} type={"primary"} disabled>
+      <Button size={"large"} typeView={"primary"} disabled>
         Текст
       </Button>
-      <Button size={"large"} type={"primary"} loading></Button>
-      <Button size={"small"} type={"secondary"}>
+      <Button size={"large"} typeView={"primary"} loading></Button>
+      <Button size={"small"} typeView={"secondary"}>
         Текст
       </Button>
-      <Button size={"small"} type={"secondary"} disabled>
+      <Button size={"small"} typeView={"secondary"} disabled>
         Текст
       </Button>
-      <Button size={"small"} type={"secondary"} loading></Button>
+      <Button size={"small"} typeView={"secondary"} loading></Button>
 
       <RadioButton name="rad" id="1" value="text1" />
       <RadioButton name="rad" id="2" value="text2" />
@@ -51,7 +64,36 @@ export const UiKit = () => {
       <Tab type="auth" />
       <Tab type="registr" />
 
-      <Input id="8" placeholder="Placeholder" title="input" />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          id="8"
+          placeholder="Placeholder"
+          title="input"
+          register={register("name", {
+            required: "required",
+          })}
+          wrong={errors.name ? true : false}
+        >
+          {errors.name && <span>{errors.name.message}</span>}
+        </Input>
+
+        <Input
+          id="20"
+          placeholder="Placeholder"
+          title="input"
+          type="password"
+          register={register("password", {
+            required: "required",
+          })}
+          wrong={errors.password ? true : false}
+        >
+          {errors.password && <span>{errors.password.message}</span>}
+        </Input>
+        <Button size={"small"} typeView={"primary"} type="submit">
+          Отправить
+        </Button>
+      </form>
+
       <Input id="9" type="password" title="input eye" />
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />

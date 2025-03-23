@@ -2,14 +2,27 @@ import { useState } from "react";
 import SvgEyeComponent from "./icons/components/eye";
 import SvgEyeSlashComponent from "./icons/components/eye-slash";
 import "./input.scss";
+import classNames from "classnames";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface InputProps {
   id: string;
   placeholder?: string;
   title?: string;
   type?: "password" | "date";
+  children?: React.ReactNode;
+  wrong?: boolean;
+  register?: UseFormRegisterReturn<string>;
 }
-export const Input = ({ id, placeholder, title, type }: InputProps) => {
+export const Input = ({
+  id,
+  placeholder,
+  title,
+  type,
+  children,
+  wrong,
+  register,
+}: InputProps) => {
   const [isNotVisible, setIsNotVisible] = useState(type === "password");
 
   const inputType = () => {
@@ -32,15 +45,23 @@ export const Input = ({ id, placeholder, title, type }: InputProps) => {
     }
   };
 
+  const inputClass = classNames("input", wrong && "wrong");
+
   return (
-    <div className="input">
+    <div className={inputClass}>
       <label htmlFor={id}>{title}</label>
       <div className="input__inner">
-        <input type={inputType()} placeholder={placeholder} id={id} />
+        <input
+          type={inputType()}
+          placeholder={placeholder}
+          id={id}
+          {...register}
+        />
         <div className="input__svg" onClick={handleLogoAction}>
           {handleChangeLogo()}
         </div>
       </div>
+      {children}
     </div>
   );
 };

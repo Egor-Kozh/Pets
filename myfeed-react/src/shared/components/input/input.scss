@@ -10,6 +10,8 @@
   --input-cursor-color: #{light.$color-light-primary-default};
 
   --input-text-color: #{light.$color-light-darkest-grey};
+
+  --input-wrong-color: #{light.$color-light-additional-red};
 }
 
 [color-theme="dark"] {
@@ -21,6 +23,8 @@
   --input-cursor-color: #{dark.$color-dark-primary-default};
 
   --input-text-color: #{dark.$color-dark-lightest-grey};
+
+  --input-wrong-color: #{dark.$color-dark-additional-red};
 }
 
 .input {
@@ -79,5 +83,21 @@
     .input__svg:hover {
       cursor: pointer;
     }
+  }
+}
+
+.wrong {
+  .input__inner {
+    border: 1px solid var(--input-wrong-color);
+
+    svg path {
+      stroke: var(--input-wrong-color);
+    }
+  }
+
+  span {
+    font-family: "Gilroy_Regular";
+    font-size: 12px;
+    color: var(--input-wrong-color);
   }
 }

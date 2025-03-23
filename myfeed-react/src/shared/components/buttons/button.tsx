@@ -3,28 +3,30 @@ import "./button.scss";
 import SvgLoadingComponent from "./icons/components/loading";
 
 interface ButtonProps {
-  type: "primary" | "secondary";
+  typeView: "primary" | "secondary";
   size: "small" | "large";
   disabled?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
+  type?: string;
 }
 export const Button = ({
-  type,
+  typeView,
   size,
   disabled = false,
   loading = false,
   children,
+  type,
 }: ButtonProps) => {
   const buttonClass = className(
     "button",
-    disabled ? type + "-disabled" : type,
+    disabled ? typeView + "-disabled" : typeView,
     size
   );
 
   return (
-    <button disabled={disabled} className={buttonClass}>
-      {loading ? <SvgLoadingComponent type={`svg_${type}`} /> : children}
+    <button disabled={disabled} className={buttonClass} type={type}>
+      {loading ? <SvgLoadingComponent type={`svg_${typeView}`} /> : children}
     </button>
   );
 };
