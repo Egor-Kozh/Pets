@@ -1,4 +1,4 @@
-import "./toggle.scss";
+import styles from "./toggle.module.scss";
 
 interface ToggleProps {
   id: string;
@@ -6,11 +6,11 @@ interface ToggleProps {
 }
 export const Toggle = ({ id, disabled }: ToggleProps) => {
   return (
-    <div className="toggle">
+    <div className={styles.toggle}>
       <input
         type="checkbox"
         id={id}
-        className="input_checkbox"
+        className={styles.input_checkbox}
         disabled={disabled}
       />
       <label htmlFor={id}></label>

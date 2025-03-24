@@ -101,3 +101,24 @@
     color: var(--input-wrong-color);
   }
 }
+
+.large {
+  width: 663px;
+
+  .input__inner {
+    height: fit-content;
+
+    textarea {
+      height: 22px;
+      background-color: var(--input-background-color);
+      color: var(--input-text-color);
+      caret-color: var(--input-cursor-color);
+      width: 100%;
+      font-family: "Gilroy_Regular";
+      font-size: 16px;
+      resize: none;
+      overflow: hidden;
+      line-height: 22px;
+    }
+  }
+}

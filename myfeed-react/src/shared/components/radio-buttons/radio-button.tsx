@@ -1,4 +1,4 @@
-import "./radio-button.scss";
+import styles from "./radio-button.module.scss";
 
 interface RadioButtonProps {
   id: string;
@@ -15,9 +15,9 @@ export const RadioButton = ({
   checked,
 }: RadioButtonProps) => {
   return (
-    <div className="radio_button">
+    <div className={styles.radio_button}>
       <input
-        className="input_radio"
+        className={styles.input_radio}
         type="radio"
         id={id}
         name={name}

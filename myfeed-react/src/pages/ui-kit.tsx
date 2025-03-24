@@ -97,6 +97,7 @@ export const UiKit = () => {
       <Input id="9" type="password" title="input eye" />
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />
+      <Input id="112" title="large" large />
     </>
   );
 };

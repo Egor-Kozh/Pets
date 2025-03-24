@@ -1,5 +1,5 @@
 import className from "classnames";
-import "./button.scss";
+import styles from "./button.module.scss";
 import SvgLoadingComponent from "./icons/components/loading";
 
 interface ButtonProps {
@@ -21,9 +21,9 @@ export const Button = ({
   id,
 }: ButtonProps) => {
   const buttonClass = className(
-    "button",
-    disabled ? typeView + "-disabled" : typeView,
-    size
+    styles.button,
+    disabled ? styles[typeView + "-disabled"] : styles[typeView],
+    styles[size]
   );
 
   return (

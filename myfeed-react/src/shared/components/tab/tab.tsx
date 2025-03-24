@@ -1,26 +1,23 @@
 import { Button } from "../buttons/button";
-import "./tab.scss";
-import classNames from "classnames";
+import styles from "./tab.module.scss";
 
 interface TabProps {
   type: "auth" | "registr";
 }
 export const Tab = ({ type }: TabProps) => {
-  const tabClass = classNames("tab", `tab_${type}`);
-
   return (
-    <div className={tabClass}>
+    <div className={styles.tab}>
       <Button
         typeView={type === "auth" ? "primary" : "secondary"}
-        size={"small"}
-        id={"auth"}
+        size="small"
+        id={styles.auth}
       >
         Авторизация
       </Button>
       <Button
         typeView={type === "registr" ? "primary" : "secondary"}
-        size={"small"}
-        id={"registr"}
+        size="small"
+        id={styles.registr}
       >
         Регистрация
       </Button>
