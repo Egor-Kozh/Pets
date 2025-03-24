@@ -4,6 +4,7 @@ import SvgEyeSlashComponent from "./icons/components/eye-slash";
 import "./input.scss";
 import classNames from "classnames";
 import { UseFormRegisterReturn } from "react-hook-form";
+import SvgErrorComponent from "./icons/components/error";
 
 interface InputProps {
   id: string;
@@ -36,6 +37,8 @@ export const Input = ({
       case "password":
         if (isNotVisible) return <SvgEyeSlashComponent />;
         else return <SvgEyeComponent />;
+      case undefined:
+        if (wrong) return <SvgErrorComponent />;
     }
   };
 
