@@ -8,7 +8,7 @@ interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | "reset";
   id?: string;
 }
 export const Button = ({

@@ -26,27 +26,27 @@ export const UiKit = () => {
       <p>Hello world!</p>
       <Toggle id="changerTheme" onClick={setTheme} />
 
-      <Button size={"small"} typeView={"primary"}>
+      <Button size="small" typeView="primary">
         Текст
       </Button>
-      <Button size={"small"} typeView={"primary"} disabled>
+      <Button size="small" typeView="primary" disabled>
         Текст
       </Button>
-      <Button size={"small"} typeView={"primary"} loading></Button>
-      <Button size={"large"} typeView={"primary"}>
+      <Button size="small" typeView="primary" loading></Button>
+      <Button size="large" typeView="primary">
         Текст
       </Button>
-      <Button size={"large"} typeView={"primary"} disabled>
+      <Button size="large" typeView="primary" disabled>
         Текст
       </Button>
-      <Button size={"large"} typeView={"primary"} loading></Button>
-      <Button size={"small"} typeView={"secondary"}>
+      <Button size="large" typeView="primary" loading></Button>
+      <Button size="small" typeView="secondary">
         Текст
       </Button>
-      <Button size={"small"} typeView={"secondary"} disabled>
+      <Button size="small" typeView="secondary" disabled>
         Текст
       </Button>
-      <Button size={"small"} typeView={"secondary"} loading></Button>
+      <Button size="small" typeView="secondary" loading></Button>
 
       <RadioButton name="rad" id="1" value="text1" />
       <RadioButton name="rad" id="2" value="text2" />
@@ -85,7 +85,7 @@ export const UiKit = () => {
         >
           {errors.password && <span>{errors.password.message}</span>}
         </Input>
-        <Button size={"small"} typeView={"primary"} type="submit">
+        <Button size="small" typeView="primary" type="submit">
           Отправить
         </Button>
       </form>

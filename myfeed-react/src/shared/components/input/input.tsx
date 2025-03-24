@@ -39,8 +39,10 @@ export const Input = ({
 
   const inputType = () => {
     if (isNotVisible) return "password";
-    else if (type === "date") return "date";
-    else return "text";
+
+    if (type === "date") return "date";
+
+    return "text";
   };
 
   const handleChangeLogo = () => {

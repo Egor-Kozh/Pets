@@ -5,20 +5,15 @@ interface TabProps {
   type: "auth" | "registr";
 }
 export const Tab = ({ type }: TabProps) => {
+  const authButton = type === "auth" ? "primary" : "secondary";
+  const registrButton = type === "registr" ? "primary" : "secondary";
+
   return (
     <div className={styles.tab}>
-      <Button
-        typeView={type === "auth" ? "primary" : "secondary"}
-        size="small"
-        id={styles.auth}
-      >
+      <Button typeView={authButton} size="small" id={styles.auth}>
         Авторизация
       </Button>
-      <Button
-        typeView={type === "registr" ? "primary" : "secondary"}
-        size="small"
-        id={styles.registr}
-      >
+      <Button typeView={registrButton} size="small" id={styles.registr}>
         Регистрация
       </Button>
     </div>
