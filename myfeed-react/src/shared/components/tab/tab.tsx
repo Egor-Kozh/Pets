@@ -1,3 +1,4 @@
+import { Button } from "../buttons/button";
 import "./tab.scss";
 import classNames from "classnames";
 
@@ -9,12 +10,20 @@ export const Tab = ({ type }: TabProps) => {
 
   return (
     <div className={tabClass}>
-      <div className="tab__autharization">
-        <span>Авторизация</span>
-      </div>
-      <div className="tab__registration">
-        <span>Регистрация</span>
-      </div>
+      <Button
+        typeView={type === "auth" ? "primary" : "secondary"}
+        size={"small"}
+        id={"auth"}
+      >
+        Авторизация
+      </Button>
+      <Button
+        typeView={type === "registr" ? "primary" : "secondary"}
+        size={"small"}
+        id={"registr"}
+      >
+        Регистрация
+      </Button>
     </div>
   );
 };

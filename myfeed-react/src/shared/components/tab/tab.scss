@@ -30,64 +30,22 @@
   display: flex;
   flex-direction: row;
 
-  font-size: 16px;
-  font-family: "Gilroy_Regular";
-
-  &__autharization {
-    width: 50%;
-    height: 100%;
-
-    border-radius: 6px 0 0 6px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span:hover {
-      cursor: pointer;
-    }
-  }
-
-  &__registration {
-    width: 50%;
-    height: 100%;
-
-    border-radius: 0 6px 6px 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span:hover {
-      cursor: pointer;
-    }
-  }
-}
-
-.tab_auth {
-  .tab__autharization {
-    background-color: var(--tab-background-color-active);
-    color: var(--tab-text-color-active);
-  }
-
-  .tab__registration {
-    background-color: var(--tab-background-color);
-    color: var(--tab-text-color);
-    border: 1px solid var(--tab-background-color-active);
-    border-left: none;
-  }
-}
-
-.tab_registr {
-  .tab__autharization {
-    background-color: var(--tab-background-color);
-    color: var(--tab-text-color);
-    border: 1px solid var(--tab-background-color-active);
+  & #auth {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     border-right: none;
   }
+  & #registr {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+  }
 
-  .tab__registration {
-    background-color: var(--tab-background-color-active);
-    color: var(--tab-text-color-active);
+  & button {
+    width: 173px;
+    height: 30px;
+
+    font-size: 16px;
+    font-family: "Gilroy_Regular";
   }
 }

@@ -8,7 +8,8 @@ interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
-  type?: string;
+  type?: "button" | "submit" | "reset" | undefined;
+  id?: string;
 }
 export const Button = ({
   typeView,
@@ -17,6 +18,7 @@ export const Button = ({
   loading = false,
   children,
   type,
+  id,
 }: ButtonProps) => {
   const buttonClass = className(
     "button",
@@ -25,7 +27,7 @@ export const Button = ({
   );
 
   return (
-    <button disabled={disabled} className={buttonClass} type={type}>
+    <button disabled={disabled} className={buttonClass} type={type} id={id}>
       {loading ? <SvgLoadingComponent type={`svg_${typeView}`} /> : children}
     </button>
   );
