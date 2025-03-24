@@ -2,8 +2,7 @@
 @use "../../../app/styles/themes/ligth-theme.scss" as light;
 
 :root {
-  --toggle-background-color-checked: #{light.$color-light-primary-default};
-  --toggle-background-color-unchecked: #{light.$color-light-darkest-grey};
+  --toggle-background-color: #{light.$color-light-darkest-grey};
   --toggle-background-color-disabled: #{light.$color-light-very-light-grey};
 
   --toggle-circle-color: #{light.$color-light-white};
@@ -11,8 +10,7 @@
 }
 
 [color-theme="dark"] {
-  --toggle-background-color-checked: #{dark.$color-dark-primary-dark};
-  --toggle-background-color-unchecked: #{dark.$color-dark-white};
+  --toggle-background-color: #{dark.$color-dark-white};
   --toggle-background-color-disabled: #{dark.$color-dark-very-dark-grey};
 
   --toggle-circle-color: #{dark.$color-dark-darkest-grey};
@@ -44,7 +42,7 @@
     height: 100%;
     border-radius: 10px;
 
-    background-color: var(--toggle-background-color-unchecked);
+    background-color: var(--toggle-background-color);
   }
 
   & + label::after {
@@ -61,7 +59,7 @@
   }
 
   &:checked + label::before {
-    background-color: var(--toggle-background-color-checked);
+    background-color: var(--toggle-background-color);
   }
 
   &:checked + label::after {
