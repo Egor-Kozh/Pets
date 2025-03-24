@@ -5,14 +5,10 @@ import { Input } from "../shared/components/input/input";
 import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
+import { useColorTheme } from "../shared/hooks/useColorTheme";
 
 export const UiKit = () => {
-  function toggleTheme() {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute("color-theme");
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-    html.setAttribute("color-theme", newTheme);
-  }
+  const setTheme = useColorTheme();
 
   const {
     register,
@@ -28,7 +24,7 @@ export const UiKit = () => {
   return (
     <>
       <p>Hello world!</p>
-      <button onClick={toggleTheme}>Toggle Theme</button>
+      <Toggle id="changerTheme" onClick={setTheme} />
 
       <Button size={"small"} typeView={"primary"}>
         Текст
