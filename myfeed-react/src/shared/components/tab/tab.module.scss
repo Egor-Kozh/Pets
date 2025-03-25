@@ -1,0 +1,52 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --tab-background-color-active: #{light.$color-light-primary-default};
+  --tab-background-color: #{light.$color-light-white};
+
+  --tab-text-color-active: #{light.$color-light-white};
+  --tab-text-color: #{light.$color-light-primary-default};
+
+  --tab-border-color: #{light.$color-light-primary-default};
+}
+
+[color-theme="dark"] {
+  --tab-background-color-active: #{dark.$color-dark-primary-dark};
+  --tab-background-color: #{dark.$color-dark-very-dark-grey};
+
+  --tab-text-color-active: #{dark.$color-dark-white};
+  --tab-text-color: #{dark.$color-dark-primary-dark};
+
+  --tab-border-color: #{dark.$color-dark-primary-dark};
+}
+
+.tab {
+  margin-top: 5px;
+
+  width: 343px;
+  height: 32px;
+
+  display: flex;
+  flex-direction: row;
+
+  & #auth {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
+
+  & #registr {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+  }
+
+  & button {
+    width: 173px;
+    height: 30px;
+
+    font-size: 16px;
+    font-family: "Gilroy_Regular";
+  }
+}

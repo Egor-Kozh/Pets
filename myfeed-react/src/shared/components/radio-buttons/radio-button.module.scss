@@ -1,0 +1,84 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --radio-background-color-unchecked-initial: #{light.$color-light-very-light-grey};
+  --radio-background-color-unchecked-hover: #{light.$color-light-very-light-grey};
+  --radio-background-color-checked: #{light.$color-light-very-light-grey};
+  --radio-background-color-checked-disabled: #{light.$color-light-very-light-grey};
+  --radio-border-color-checked: #{light.$color-light-primary-default};
+  --radio-border-color-hover: #{light.$color-light-primary-light};
+  --radio-border-color-disabled: #{light.$color-light-lighter-gray0};
+  --radio-text-color-desabled: #{light.$color-light-lighter-gray0};
+}
+
+[color-theme="dark"] {
+  --radio-background-color-unchecked-initial: #{dark.$color-dark-grey-darker};
+  --radio-background-color-unchecked-hover: #{dark.$color-dark-very-dark-grey};
+  --radio-background-color-checked: #{dark.$color-dark-lightest-grey};
+  --radio-background-color-checked-disabled: #{dark.$color-dark-darkest-grey};
+  --radio-border-color-checked: #{dark.$color-dark-primary-dark};
+  --radio-border-color-hover: #{dark.$color-dark-primary-default};
+  --radio-border-color-disabled: #{dark.$color-dark-grey-darker};
+  --radio-text-color-desabled: #{dark.$color-dark-grey-darker};
+}
+
+.radio_button {
+  width: 77px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  font-size: 16px;
+
+  margin-top: 5px;
+}
+
+.input_radio {
+  display: none;
+}
+
+.input_radio {
+  & + label {
+    width: 24px;
+    height: 24px;
+  }
+
+  & + label::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    background-color: var(--radio-background-color-unchecked-initial);
+  }
+
+  &:hover + label::before {
+    background-color: var(--radio-background-color-unchecked-hover);
+    border: 1px solid var(--radio-border-color-hover);
+  }
+
+  &:checked + label::before {
+    background-color: var(--radio-background-color-checked);
+    border: 6px solid var(--radio-border-color-checked);
+  }
+
+  &:checked:hover + label::before {
+    border-color: var(--radio-border-color-hover);
+  }
+
+  &:disabled + label::before {
+    border-color: var(--radio-border-color-disabled);
+    background-color: var(--radio-background-color-checked-disabled);
+  }
+
+  &:disabled + label + span {
+    color: var(--radio-text-color-desabled);
+  }
+
+  &:disabled:hover + label::before {
+    border-color: var(--radio-border-color-disabled);
+    cursor: not-allowed;
+  }
+}

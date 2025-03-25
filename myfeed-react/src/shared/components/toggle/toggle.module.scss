@@ -1,0 +1,76 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --toggle-background-color: #{light.$color-light-darkest-grey};
+  --toggle-background-color-disabled: #{light.$color-light-very-light-grey};
+
+  --toggle-circle-color: #{light.$color-light-white};
+  --toggle-circle-color-disabled: #{light.$color-light-grey};
+}
+
+[color-theme="dark"] {
+  --toggle-background-color: #{dark.$color-dark-white};
+  --toggle-background-color-disabled: #{dark.$color-dark-very-dark-grey};
+
+  --toggle-circle-color: #{dark.$color-dark-darkest-grey};
+  --toggle-circle-color-disabled: #{dark.$color-dark-darkest-grey};
+}
+
+.toggle {
+  position: relative;
+  width: 31px;
+  height: 19px;
+
+  margin-top: 5px;
+}
+
+.input_checkbox {
+  display: none;
+}
+
+.input_checkbox {
+  & + label {
+    width: 100%;
+    height: 100%;
+  }
+
+  & + label::before {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+
+    background-color: var(--toggle-background-color);
+  }
+
+  & + label::after {
+    content: "";
+    position: absolute;
+    top: 1.23px;
+    left: 1.5px;
+    display: inline-block;
+    width: 16.5px;
+    height: 16.5px;
+    border-radius: 50%;
+
+    background-color: var(--toggle-circle-color);
+  }
+
+  &:checked + label::before {
+    background-color: var(--toggle-background-color);
+  }
+
+  &:checked + label::after {
+    left: unset;
+    right: 1.5px;
+  }
+
+  &:disabled + label::before {
+    background-color: var(--toggle-background-color-disabled);
+  }
+  &:disabled + label::after {
+    background-color: var(--toggle-circle-color-disabled);
+  }
+}
