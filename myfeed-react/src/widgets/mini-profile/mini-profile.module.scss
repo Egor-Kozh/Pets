@@ -23,7 +23,7 @@
   --profile-dropdown-icon-color-hover: #{dark.$color-dark-primary-default};
 }
 
-.profile-dropdown {
+.mini-profile {
   margin-top: 5px;
 
   position: relative;
@@ -49,7 +49,7 @@
 
     padding-inline: 8px;
 
-    .profile-dropdown__logo {
+    .mini-profile__logo {
       width: 38px;
       height: 38px;
 
@@ -58,7 +58,7 @@
       border-radius: 50%;
     }
 
-    .profile-dropdown__name {
+    .mini-profile__name {
       height: 24px;
       min-width: 149px;
 
@@ -70,7 +70,7 @@
       font-size: 16px;
     }
 
-    .profile-dropdown__drop-icon {
+    .mini-profile__drop-icon {
       height: 24px;
       width: 24px;
 
@@ -83,50 +83,4 @@
       fill: var(--profile-dropdown-icon-color-hover);
     }
   }
-}
-
-.profile-dropdown__drop-menu {
-  display: none;
-
-  z-index: 100;
-  position: absolute;
-  margin-top: 16px;
-  width: 100%;
-  height: 80px;
-
-  .drop-menu__item {
-    background-color: var(--profile-dropdown-background-color);
-
-    width: 100%;
-    height: 40px;
-
-    padding: 10px 10px;
-
-    & span {
-      font-size: 14px;
-      font-family: "Gilroy_Regular";
-    }
-
-    &:hover {
-      background-color: var(--profile-dropdown-background-color-hover);
-      color: var(--profile-dropdown-text-color-hover);
-
-      & span {
-        font-family: "Gilroy_Medium";
-      }
-    }
-  }
-}
-
-.active {
-  display: block;
-}
-
-.top {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-.bottom {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
 }

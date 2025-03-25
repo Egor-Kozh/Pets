@@ -1,0 +1,62 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --dropdown-background-color: #{light.$color-light-white};
+  --dropdown-background-color-hover: #{light.$color-light-primary-lighter};
+
+  --dropdown-text-color-hover: #{light.$color-light-darkest-grey};
+}
+
+[color-theme="dark"] {
+  --dropdown-background-color: #{dark.$color-dark-very-dark-grey};
+  --dropdown-background-color-hover: #{dark.$color-dark-primary-light};
+
+  --dropdown-text-color-hover: #{dark.$color-dark-black};
+}
+
+.dropdown {
+  display: none;
+
+  z-index: 100;
+  position: absolute;
+  margin-top: 16px;
+  width: 100%;
+  height: 80px;
+
+  & div {
+    background-color: var(--dropdown-background-color);
+
+    width: 100%;
+    height: 40px;
+
+    padding: 10px;
+
+    & span {
+      font-size: 14px;
+      font-family: "Gilroy_Regular";
+    }
+
+    &:hover {
+      background-color: var(--dropdown-background-color-hover);
+      color: var(--dropdown-text-color-hover);
+
+      & span {
+        font-family: "Gilroy_Medium";
+      }
+    }
+  }
+}
+
+.active {
+  display: block;
+}
+
+:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+:last-child {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
