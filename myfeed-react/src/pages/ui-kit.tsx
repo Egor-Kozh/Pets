@@ -6,6 +6,7 @@ import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
 import { useColorTheme } from "../shared/hooks/useColorTheme";
+import { ProfileDropDown } from "../widgets/profile-dropdown/profile-dropdown";
 
 export const UiKit = () => {
   const setTheme = useColorTheme();
@@ -94,6 +95,8 @@ export const UiKit = () => {
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />
       <Input id="112" title="large" large />
+
+      <ProfileDropDown userName="Мария Иванова" />
     </>
   );
 };

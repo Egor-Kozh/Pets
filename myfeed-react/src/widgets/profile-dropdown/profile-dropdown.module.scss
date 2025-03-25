@@ -1,0 +1,107 @@
+@use "../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+}
+
+[color-theme="dark"] {
+}
+
+.profile-dropdown {
+  margin-top: 5px;
+
+  position: relative;
+
+  min-width: 209px;
+  width: fit-content;
+  min-height: 44px;
+  height: fit-content;
+
+  &__inner {
+    width: 100%;
+    height: 44px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    background-color: white;
+
+    border-radius: 8px;
+
+    padding-inline: 8px;
+
+    .profile-dropdown__logo {
+      width: 38px;
+      height: 38px;
+
+      background-color: grey;
+
+      border-radius: 50%;
+    }
+
+    .profile-dropdown__name {
+      height: 24px;
+      min-width: 149px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: "Gilroy_Medium";
+      font-size: 16px;
+    }
+
+    .profile-dropdown__drop-icon {
+      height: 24px;
+      width: 24px;
+    }
+
+    &:hover path {
+      fill: orange;
+    }
+  }
+}
+
+.profile-dropdown__drop-menu {
+  display: none;
+
+  position: absolute;
+  margin-top: 16px;
+  width: 100%;
+  height: 80px;
+
+  .drop-menu__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+
+    width: 100%;
+    height: 40px;
+
+    & span {
+      font-size: 14px;
+      font-family: "Gilroy_Regular";
+    }
+
+    &:hover {
+      background-color: #{dark.$color-dark-primary-light};
+    }
+  }
+}
+
+.active {
+  display: block;
+}
+
+.top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.bottom {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
