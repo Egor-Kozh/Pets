@@ -2,9 +2,25 @@
 @use "../../app/styles/themes/ligth-theme.scss" as light;
 
 :root {
+  --profile-dropdown-background-color: #{light.$color-light-white};
+  --profile-dropdown-background-color-hover: #{light.$color-light-primary-lighter};
+
+  --profile-dropdown-text-color: #{light.$color-light-darkest-grey};
+  --profile-dropdown-text-color-hover: #{light.$color-light-darkest-grey};
+
+  --profile-dropdown-icon-color: #{light.$color-light-darkest-grey};
+  --profile-dropdown-icon-color-hover: #{light.$color-light-primary-light};
 }
 
 [color-theme="dark"] {
+  --profile-dropdown-background-color: #{dark.$color-dark-very-dark-grey};
+  --profile-dropdown-background-color-hover: #{dark.$color-dark-primary-light};
+
+  --profile-dropdown-text-color: #{dark.$color-dark-lightest-grey};
+  --profile-dropdown-text-color-hover: #{dark.$color-dark-black};
+
+  --profile-dropdown-icon-color: #{dark.$color-dark-lightest-grey};
+  --profile-dropdown-icon-color-hover: #{dark.$color-dark-primary-default};
 }
 
 .profile-dropdown {
@@ -27,7 +43,7 @@
     align-items: center;
     gap: 4px;
 
-    background-color: white;
+    background-color: var(--profile-dropdown-background-color);
 
     border-radius: 8px;
 
@@ -57,10 +73,14 @@
     .profile-dropdown__drop-icon {
       height: 24px;
       width: 24px;
+
+      & path {
+        fill: var(--profile-dropdown-icon-color);
+      }
     }
 
     &:hover path {
-      fill: orange;
+      fill: var(--profile-dropdown-icon-color-hover);
     }
   }
 }
@@ -68,19 +88,20 @@
 .profile-dropdown__drop-menu {
   display: none;
 
+  z-index: 100;
   position: absolute;
   margin-top: 16px;
   width: 100%;
   height: 80px;
 
   .drop-menu__item {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: var(--profile-dropdown-background-color);
 
     width: 100%;
     height: 40px;
+
+    padding: 12px 10px;
 
     & span {
       font-size: 14px;
@@ -88,7 +109,12 @@
     }
 
     &:hover {
-      background-color: #{dark.$color-dark-primary-light};
+      background-color: var(--profile-dropdown-background-color-hover);
+      color: var(--profile-dropdown-text-color-hover);
+
+      & span {
+        font-family: "Gilroy_Medium";
+      }
     }
   }
 }
