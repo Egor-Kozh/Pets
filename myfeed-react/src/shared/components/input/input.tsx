@@ -46,12 +46,11 @@ export const Input = ({
   };
 
   const handleChangeLogo = () => {
-    switch (type) {
-      case "password":
-        if (isNotVisible) return <SvgEyeSlashComponent />;
-        else return <SvgEyeComponent />;
-      case undefined:
-        if (wrong) return <SvgErrorComponent />;
+    if (type === "password") {
+      return isNotVisible ? <SvgEyeSlashComponent /> : <SvgEyeComponent />;
+    }
+    if (type === undefined && wrong) {
+      return <SvgErrorComponent />;
     }
   };
 
