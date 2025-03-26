@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SvgClosedChevronComponent from "./icons/components/closed-chevron";
+import SvgClosedChevronComponent from "../icons/components/closed-chevron";
 import styles from "./mini-profile.module.scss";
-import SvgOpenedChevronComponent from "./icons/components/opened-chevron";
-import { DropDown } from "../../shared/components/dropdown/dropdown";
+import SvgOpenedChevronComponent from "../icons/components/opened-chevron";
+import { DropDown } from "../../../shared/components/dropdown/dropdown";
 
 interface ProfileDropDownProps {
   userName: string;

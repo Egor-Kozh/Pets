@@ -6,7 +6,8 @@ import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
 import { useColorTheme } from "../shared/hooks/useColorTheme";
-import { MiniProfile } from "../widgets/mini-profile/mini-profile";
+import { MiniProfile } from "../widgets/dropdowns/mini-profile/mini-profile";
+import { SortPosts } from "../widgets/dropdowns/sort-posts/sort-posts";
 
 export const UiKit = () => {
   const setTheme = useColorTheme();
@@ -97,6 +98,9 @@ export const UiKit = () => {
       <Input id="112" title="large" large />
 
       <MiniProfile userName="Мария Иванова" />
+
+      <SortPosts />
+      <SortPosts sortBy="best" />
     </>
   );
 };
