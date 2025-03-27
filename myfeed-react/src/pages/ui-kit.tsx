@@ -5,13 +5,11 @@ import { Input } from "../shared/components/input/input";
 import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
-import { useColorTheme } from "../shared/hooks/useColorTheme";
 import { MiniProfile } from "../widgets/dropdowns/mini-profile/mini-profile";
 import { SortPosts } from "../widgets/dropdowns/sort-posts/sort-posts";
+import { Header } from "../widgets/header/header";
 
 export const UiKit = () => {
-  const setTheme = useColorTheme();
-
   const {
     register,
     handleSubmit,
@@ -25,8 +23,8 @@ export const UiKit = () => {
 
   return (
     <>
+      <Header />
       <p>Hello world!</p>
-      <Toggle id="changerTheme" onClick={setTheme} />
 
       <Button size="small" typeView="primary">
         Текст
