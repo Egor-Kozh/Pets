@@ -11,7 +11,6 @@ interface HeaderProps {
 export const Header = ({ page = "main" }: HeaderProps) => {
   const [isAvtive, setIsActive] = useState(page);
   const setTheme = useColorTheme();
-  console.log(isAvtive);
 
   const handleChangePage = (activePage: "main" | "posts" | "favourites") => {
     setIsActive(activePage);

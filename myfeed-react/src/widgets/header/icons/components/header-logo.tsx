@@ -3,7 +3,7 @@ const SvgHeaderLogoComponent = () => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     width="144px"
-    height="35px"
+    height="40px"
   >
     <path
       fill="#EE683E"
