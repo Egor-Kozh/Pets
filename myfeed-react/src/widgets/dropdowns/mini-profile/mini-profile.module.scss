@@ -10,6 +10,8 @@
 
   --mini-profile-icon-color: #{light.$color-light-darkest-grey};
   --mini-profile-icon-color-hover: #{light.$color-light-primary-light};
+
+  --mini-profile-text-date-color: #{light.$color-light-lighter-gray0};
 }
 
 [color-theme="dark"] {
@@ -21,14 +23,13 @@
 
   --mini-profile-icon-color: #{dark.$color-dark-lightest-grey};
   --mini-profile-icon-color-hover: #{dark.$color-dark-primary-default};
+
+  --mini-profile-text-date-color: #{dark.$color-dark-grey-darker};
 }
 
 .mini-profile {
-  margin-top: 5px;
-
   position: relative;
 
-  min-width: 209px;
   width: fit-content;
   min-height: 44px;
   height: fit-content;
@@ -41,13 +42,11 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 4px;
+    gap: 12px;
 
     background-color: var(--mini-profile-background-color);
 
     border-radius: 8px;
-
-    padding-inline: 8px;
 
     .mini-profile__logo {
       width: 38px;
@@ -60,11 +59,11 @@
 
     .mini-profile__name {
       height: 24px;
-      min-width: 149px;
+      width: fit-content;
 
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: start;
 
       color: var(--mini-profile-text-color);
 
@@ -85,6 +84,24 @@
 
     &:hover path {
       fill: var(--mini-profile-icon-color-hover);
+    }
+
+    .mini-profile__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .mini-profile__date-post {
+        width: 100%;
+
+        display: flex;
+        justify-content: start;
+
+        font-family: "Gilroy_Regular";
+        font-size: 14px;
+
+        color: var(--mini-profile-text-date-color);
+      }
     }
   }
 }

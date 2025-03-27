@@ -8,6 +8,8 @@ import { Toggle } from "../shared/components/toggle/toggle";
 import { MiniProfile } from "../widgets/dropdowns/mini-profile/mini-profile";
 import { SortPosts } from "../widgets/dropdowns/sort-posts/sort-posts";
 import { Header } from "../widgets/header/header";
+import { Post } from "../widgets/post/post";
+import { MiniProfilePost } from "../widgets/dropdowns/mini-profile/mini-profile-post";
 
 export const UiKit = () => {
   const {
@@ -96,9 +98,17 @@ export const UiKit = () => {
       <Input id="112" title="large" large />
 
       <MiniProfile userFirstName="Мария" userLastName="Иванова" />
+      <MiniProfilePost
+        userFirstName="Мария"
+        userLastName="Иванова"
+        date="20.09.2022"
+      />
 
       <SortPosts />
       <SortPosts sortBy="best" />
+
+      <Post />
+      <Post mine />
     </>
   );
 };
