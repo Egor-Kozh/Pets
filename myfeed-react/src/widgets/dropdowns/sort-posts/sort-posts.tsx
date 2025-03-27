@@ -20,7 +20,7 @@ export const SortPosts = ({ sortBy = "new" }: SortPostsProps) => {
         <span>{sortBy === "new" ? "Новое" : "Лучшее"}</span>
         {isOpen ? <SvgOpenedChevronComponent /> : <SvgClosedChevronComponent />}
       </div>
-      <DropDown active={isOpen} width="117px" gap="8px">
+      <DropDown active={isOpen} style={{ width: "117px", marginTop: "8px" }}>
         <div>
           <span>Новое</span>
         </div>

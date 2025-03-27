@@ -97,7 +97,7 @@ export const UiKit = () => {
       <Input id="11" type="date" title="calender" />
       <Input id="112" title="large" large />
 
-      <MiniProfile userName="Мария Иванова" />
+      <MiniProfile userFirstName="Мария" userLastName="Иванова" />
 
       <SortPosts />
       <SortPosts sortBy="best" />
