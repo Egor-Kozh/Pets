@@ -1,4 +1,9 @@
+import { IconButton } from "../../shared/components/icon-button/icon-button";
 import { MiniProfilePost } from "../dropdowns/mini-profile/mini-profile-post";
+import SvgChangeComponent from "./icons/components/change";
+import SvgDeleteComponent from "./icons/components/delete";
+import SvgLikeComponent from "./icons/components/like";
+import SvgShareComponent from "./icons/components/share";
 import styles from "./post.module.scss";
 
 interface PostProps {
@@ -18,9 +23,21 @@ export const Post = ({ mine }: PostProps) => {
           </div>
           {mine && (
             <ul className={styles["post__actions-mine"]}>
-              <li>😄</li>
-              <li>😄</li>
-              <li>😄</li>
+              <li>
+                <IconButton>
+                  <SvgShareComponent />
+                </IconButton>
+              </li>
+              <li>
+                <IconButton>
+                  <SvgDeleteComponent />
+                </IconButton>
+              </li>
+              <li>
+                <IconButton>
+                  <SvgChangeComponent />
+                </IconButton>
+              </li>
             </ul>
           )}
         </header>
@@ -41,8 +58,16 @@ export const Post = ({ mine }: PostProps) => {
         {!mine && (
           <footer className={styles["post__footer"]}>
             <ul className={styles["post__actions-another"]}>
-              <li>😄</li>
-              <li>😄</li>
+              <li>
+                <IconButton>
+                  <SvgLikeComponent />
+                </IconButton>
+              </li>
+              <li>
+                <IconButton>
+                  <SvgShareComponent />
+                </IconButton>
+              </li>
             </ul>
           </footer>
         )}

@@ -1,0 +1,29 @@
+@use "../../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --icon-button-color: #{light.$color-light-lighter-gray};
+  --icon-button-color-hover: #{light.$color-light-primary-light};
+}
+
+[color-theme="dark"] {
+  --icon-button-color: #{dark.$color-dark-grey};
+  --icon-button-color-hover: #{dark.$color-dark-primary-default};
+}
+
+.icon-button {
+  width: fit-content;
+  height: fit-content;
+
+  path {
+    stroke: var(--icon-button-color);
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    & path {
+      stroke: var(--icon-button-color-hover);
+    }
+  }
+}
