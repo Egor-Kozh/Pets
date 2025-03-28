@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { IconButton } from "../../shared/components/icon-button/icon-button";
 import { MiniProfilePost } from "../dropdowns/mini-profile/mini-profile-post";
 import SvgChangeComponent from "./icons/components/change";
@@ -5,11 +6,22 @@ import SvgDeleteComponent from "./icons/components/delete";
 import SvgLikeComponent from "./icons/components/like";
 import SvgShareComponent from "./icons/components/share";
 import styles from "./post.module.scss";
+import { Button } from "../../shared/components/buttons/button";
 
 interface PostProps {
   mine?: boolean;
 }
 export const Post = ({ mine }: PostProps) => {
+  const [isReadMore, setIsReadMore] = useState(false);
+
+  const containerRef = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    if (containerRef.current) {
+      const { scrollHeight, clientHeight } = containerRef.current;
+      setIsReadMore(scrollHeight > clientHeight);
+    }
+  }, []);
+
   return (
     <section className={styles["post"]}>
       <div className={styles["post__inner"]}>
@@ -47,12 +59,16 @@ export const Post = ({ mine }: PostProps) => {
           </header>
           <div className={styles["post__content-image"]}></div>
           <div className={styles["post__content-text"]}>
-            <span>
+            <span ref={containerRef}>
               Мы сделали долгожданный ремонт в спальне в стиле 60-х! Сейчас эта
               мода вновь буквально врывается в окружающее нас пространство. При
               помощи ярких акцентов и скругленных элементов интерьера нам
-              удалось придать...
+              удалось придать. Мы сделали долгожданный ремонт в спальне в стиле
+              60-х! Сейчас эта мода вновь буквально врывается в окружающее нас
+              пространство. При помощи ярких акцентов и скругленных элементов
+              интерьера нам удалось придать
             </span>
+            {isReadMore && <Button typeView="flat">Читать дальше</Button>}
           </div>
         </section>
         {!mine && (

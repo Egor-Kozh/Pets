@@ -28,6 +28,7 @@ export const UiKit = () => {
       <Header />
       <p>Hello world!</p>
 
+      <Button typeView="flat">читать дальше</Button>
       <Button size="small" typeView="primary">
         Текст
       </Button>

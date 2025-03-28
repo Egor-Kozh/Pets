@@ -3,8 +3,8 @@ import styles from "./button.module.scss";
 import SvgLoadingComponent from "./icons/components/loading";
 
 interface ButtonProps {
-  typeView: "primary" | "secondary";
-  size: "small" | "large";
+  typeView: "primary" | "secondary" | "flat";
+  size?: "small" | "large";
   disabled?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
@@ -23,7 +23,7 @@ export const Button = ({
   const buttonClass = className(
     styles.button,
     disabled ? styles[typeView + "-disabled"] : styles[typeView],
-    styles[size]
+    size && styles[size]
   );
 
   return (

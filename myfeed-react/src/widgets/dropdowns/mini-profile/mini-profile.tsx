@@ -15,7 +15,7 @@ export const MiniProfile = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpenDropDown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
