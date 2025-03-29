@@ -10,6 +10,7 @@ import { SortPosts } from "../widgets/dropdowns/sort-posts/sort-posts";
 import { Header } from "../widgets/header/header";
 import { Post } from "../widgets/post/post";
 import { MiniProfilePost } from "../widgets/dropdowns/mini-profile/mini-profile-post";
+import { InputImage } from "../shared/components/input/input-image";
 
 export const UiKit = () => {
   const {
@@ -97,6 +98,7 @@ export const UiKit = () => {
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />
       <Input id="112" title="large" large />
+      <InputImage />
 
       <MiniProfile userFirstName="Мария" userLastName="Иванова" />
       <MiniProfilePost
