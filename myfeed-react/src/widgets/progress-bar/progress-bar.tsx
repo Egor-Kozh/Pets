@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 
 interface ProgressBarProps {
   setLoadImage: () => void;
+  fileSize: number;
 }
-export const ProgressBar = ({ setLoadImage }: ProgressBarProps) => {
+export const ProgressBar = ({ setLoadImage, fileSize }: ProgressBarProps) => {
   const [procentProgress, setProcentProgress] = useState(0);
 
   const handleProgress = () => {
@@ -17,7 +18,7 @@ export const ProgressBar = ({ setLoadImage }: ProgressBarProps) => {
         }
         return count + 1;
       });
-    }, 300);
+    }, fileSize / 10000);
   };
 
   useEffect(() => {

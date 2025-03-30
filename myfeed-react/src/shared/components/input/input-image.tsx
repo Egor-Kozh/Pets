@@ -62,7 +62,12 @@ export const InputImage = () => {
           </div>
         )}
       </div>
-      {loadImage && <ProgressBar setLoadImage={handleLoad} />}
+      {loadImage && (
+        <ProgressBar
+          setLoadImage={handleLoad}
+          fileSize={fileImage ? fileImage.size : 0}
+        />
+      )}
     </div>
   );
 };
