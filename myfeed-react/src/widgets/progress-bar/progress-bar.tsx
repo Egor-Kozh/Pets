@@ -17,7 +17,7 @@ export const ProgressBar = ({ setLoadImage }: ProgressBarProps) => {
         }
         return count + 1;
       });
-    }, 20);
+    }, 300);
   };
 
   useEffect(() => {

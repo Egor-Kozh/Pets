@@ -34,10 +34,19 @@ export const InputImage = () => {
 
   return (
     <div className={styles.image}>
-      <input type="file" accept="image/*" onChange={handleChange} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleChange}
+        disabled={loadImage}
+      />
       <div className={styles["image__content"]}>
         {image ? (
-          <div className={styles["image__wrapper"]}>
+          <div
+            className={`${styles["image__wrapper"]} ${
+              loadImage ? styles.block : ""
+            }`}
+          >
             <img src={image} alt="preview"></img>
           </div>
         ) : (
