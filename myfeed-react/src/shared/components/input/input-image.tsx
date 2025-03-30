@@ -1,10 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import styles from "./input.module.scss";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import styles from "./input-image.module.scss";
 import SvgLoadFileComponent from "./icons/components/load-file";
 import { Button } from "../buttons/button";
 import { ProgressBar } from "../../../widgets/progress-bar/progress-bar";
 
 export const InputImage = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
   const [fileImage, setFileImage] = useState<File>();
   const [loadImage, setLoadImage] = useState(false);
@@ -32,6 +33,10 @@ export const InputImage = () => {
     setLoadImage(true);
   };
 
+  const handleClick = () => {
+    inputRef.current?.click();
+  };
+
   return (
     <div className={styles.image}>
       <input
@@ -39,6 +44,7 @@ export const InputImage = () => {
         accept="image/*"
         onChange={handleChange}
         disabled={loadImage}
+        ref={inputRef}
       />
       <div className={styles["image__content"]}>
         {image ? (
@@ -55,7 +61,7 @@ export const InputImage = () => {
             <span>Перетащите фото сюда</span>
             <p>
               или
-              <Button typeView="flat">
+              <Button typeView="flat" onClick={handleClick}>
                 выберите фото с вашего компьютера{" "}
               </Button>
             </p>

@@ -10,6 +10,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
   id?: string;
+  onClick?: () => void;
 }
 export const Button = ({
   typeView,
@@ -19,6 +20,7 @@ export const Button = ({
   children,
   type,
   id,
+  onClick,
 }: ButtonProps) => {
   const buttonClass = className(
     styles.button,
@@ -27,7 +29,13 @@ export const Button = ({
   );
 
   return (
-    <button disabled={disabled} className={buttonClass} type={type} id={id}>
+    <button
+      disabled={disabled}
+      className={buttonClass}
+      type={type}
+      id={id}
+      onClick={onClick}
+    >
       {loading ? <SvgLoadingComponent type={`svg_${typeView}`} /> : children}
     </button>
   );
