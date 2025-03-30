@@ -1,0 +1,45 @@
+@use "../../app/styles/themes/dark-theme.scss" as dark;
+@use "../../app/styles/themes/ligth-theme.scss" as light;
+
+:root {
+}
+
+[color-theme="dark"] {
+}
+
+.progress-bar {
+  width: 663px;
+  height: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-bar__title {
+  width: 100px;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-bar__bar {
+  width: 100%;
+  height: 100%;
+
+  background-color: white;
+
+  border-radius: 19px;
+}
+
+.progress-bar__progress {
+  height: 100%;
+  width: 0%;
+
+  background-color: orange;
+
+  border-radius: 19px;
+}

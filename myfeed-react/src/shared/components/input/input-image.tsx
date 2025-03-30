@@ -1,17 +1,35 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./input.module.scss";
 import SvgLoadFileComponent from "./icons/components/load-file";
 import { Button } from "../buttons/button";
+import { ProgressBar } from "../../../widgets/progress-bar/progress-bar";
 
 export const InputImage = () => {
   const [image, setImage] = useState<string | null>(null);
+  const [fileImage, setFileImage] = useState<File>();
+  const [loadImage, setLoadImage] = useState(false);
+
+  useEffect(() => {
+    setLoadImage((active) => !active);
+  }, [image]);
+
+  const handleLoad = () => {
+    const promise = new Promise(function (resolve) {
+      resolve(null);
+    });
+    promise.then(() => {
+      if (!fileImage) return;
+      const imgURL = URL.createObjectURL(fileImage);
+      setImage(imgURL);
+    });
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const fileImg = event.target.files ? event.target.files[0] : null;
     if (!fileImg) return;
 
-    const imgURL = URL.createObjectURL(fileImg);
-    setImage(imgURL);
+    setFileImage(fileImg);
+    setLoadImage(true);
   };
 
   return (
@@ -35,6 +53,7 @@ export const InputImage = () => {
           </div>
         )}
       </div>
+      {loadImage && <ProgressBar setLoadImage={handleLoad} />}
     </div>
   );
 };
