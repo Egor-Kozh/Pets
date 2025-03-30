@@ -2,9 +2,19 @@
 @use "../../app/styles/themes/ligth-theme.scss" as light;
 
 :root {
+  --progress-bar-progress-color: #{light.$color-light-primary-lighter};
+
+  --progress-bar-title-color: #{light.$color-light-primary-default};
+
+  --progress-bar-bar-color: #{light.$color-light-very-light-grey};
 }
 
 [color-theme="dark"] {
+  --progress-bar-progress-color: #{dark.$color-dark-primary-light};
+
+  --progress-bar-title-color: #{dark.$color-dark-primary-dark};
+
+  --progress-bar-bar-color: #{dark.$color-dark-grey};
 }
 
 .progress-bar {
@@ -24,13 +34,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  color: var(--progress-bar-title-color);
 }
 
 .progress-bar__bar {
   width: 100%;
   height: 100%;
 
-  background-color: white;
+  background-color: var(--progress-bar-bar-color);
 
   border-radius: 19px;
 }
@@ -39,7 +51,7 @@
   height: 100%;
   width: 0%;
 
-  background-color: orange;
+  background-color: var(--progress-bar-progress-color);
 
   border-radius: 19px;
 }
