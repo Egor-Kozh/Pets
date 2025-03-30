@@ -15,14 +15,9 @@ export const InputImage = () => {
   }, [image]);
 
   const handleLoad = () => {
-    const promise = new Promise(function (resolve) {
-      resolve(null);
-    });
-    promise.then(() => {
-      if (!fileImage) return;
-      const imgURL = URL.createObjectURL(fileImage);
-      setImage(imgURL);
-    });
+    if (!fileImage) return;
+    const imgURL = URL.createObjectURL(fileImage);
+    setImage(imgURL);
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

@@ -9,16 +9,18 @@ export const ProgressBar = ({ setLoadImage, fileSize }: ProgressBarProps) => {
   const [procentProgress, setProcentProgress] = useState(0);
 
   const handleProgress = () => {
-    const interval = setInterval(() => {
-      setProcentProgress((count) => {
-        if (count >= 100) {
-          clearInterval(interval);
-          setLoadImage();
-          return 100;
-        }
-        return count + 1;
-      });
-    }, fileSize / 10000);
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        setProcentProgress((count) => {
+          if (count >= 100) {
+            clearInterval(interval);
+            resolve(null);
+            return 100;
+          }
+          return count + 1;
+        });
+      }, fileSize / 10000);
+    }).then(setLoadImage);
   };
 
   useEffect(() => {
