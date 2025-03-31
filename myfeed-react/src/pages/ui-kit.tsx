@@ -5,12 +5,14 @@ import { Input } from "../shared/components/input/input";
 import { RadioButton } from "../shared/components/radio-buttons/radio-button";
 import { Tab } from "../shared/components/tab/tab";
 import { Toggle } from "../shared/components/toggle/toggle";
-import { useColorTheme } from "../shared/hooks/useColorTheme";
-import { ProfileDropDown } from "../widgets/profile-dropdown/profile-dropdown";
+import { MiniProfile } from "../widgets/dropdowns/mini-profile/mini-profile";
+import { SortPosts } from "../widgets/dropdowns/sort-posts/sort-posts";
+import { Header } from "../widgets/header/header";
+import { Post } from "../widgets/post/post";
+import { MiniProfilePost } from "../widgets/dropdowns/mini-profile/mini-profile-post";
+import { InputImage } from "../shared/components/input/input-image";
 
 export const UiKit = () => {
-  const setTheme = useColorTheme();
-
   const {
     register,
     handleSubmit,
@@ -24,9 +26,10 @@ export const UiKit = () => {
 
   return (
     <>
+      <Header />
       <p>Hello world!</p>
-      <Toggle id="changerTheme" onClick={setTheme} />
 
+      <Button typeView="flat">читать дальше</Button>
       <Button size="small" typeView="primary">
         Текст
       </Button>
@@ -95,8 +98,20 @@ export const UiKit = () => {
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />
       <Input id="112" title="large" large />
+      <InputImage />
 
-      <ProfileDropDown userName="Мария Иванова" />
+      <MiniProfile userFirstName="Мария" userLastName="Иванова" />
+      <MiniProfilePost
+        userFirstName="Мария"
+        userLastName="Иванова"
+        date="20.09.2022"
+      />
+
+      <SortPosts />
+      <SortPosts sortBy="best" />
+
+      <Post />
+      <Post mine />
     </>
   );
 };

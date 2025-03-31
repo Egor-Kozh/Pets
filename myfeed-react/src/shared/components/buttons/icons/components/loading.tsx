@@ -2,7 +2,7 @@ import className from "classnames";
 import styles from "../../button.module.scss";
 
 interface SvgLoadingComponent {
-  type: "svg_primary" | "svg_secondary";
+  type: "svg_primary" | "svg_secondary" | "svg_flat";
 }
 const SvgLoadingComponent = ({ type }: SvgLoadingComponent) => {
   const svgClass = className(styles[type]);

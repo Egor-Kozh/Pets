@@ -44,8 +44,6 @@
   font-size: 14px;
 
   font-family: "Gilroy_Medium";
-
-  margin-top: 5px;
 }
 
 .primary {
@@ -75,6 +73,20 @@
 .secondary:hover {
   border: 1px solid var(--button-border-color-secondary-hover);
   color: var(--button-text-color-secondary-hover);
+}
+
+.flat {
+  width: fit-content;
+  height: fit-content;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0);
+
+  color: var(--button-text-color-secondary-ititial);
+
+  &:hover {
+    border-color: var(--button-text-color-secondary-ititial);
+    border-radius: 0;
+  }
 }
 
 .small {

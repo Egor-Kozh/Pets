@@ -3,13 +3,14 @@ import styles from "./button.module.scss";
 import SvgLoadingComponent from "./icons/components/loading";
 
 interface ButtonProps {
-  typeView: "primary" | "secondary";
-  size: "small" | "large";
+  typeView: "primary" | "secondary" | "flat";
+  size?: "small" | "large";
   disabled?: boolean;
   loading?: boolean;
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
   id?: string;
+  onClick?: () => void;
 }
 export const Button = ({
   typeView,
@@ -19,15 +20,22 @@ export const Button = ({
   children,
   type,
   id,
+  onClick,
 }: ButtonProps) => {
   const buttonClass = className(
     styles.button,
     disabled ? styles[typeView + "-disabled"] : styles[typeView],
-    styles[size]
+    size && styles[size]
   );
 
   return (
-    <button disabled={disabled} className={buttonClass} type={type} id={id}>
+    <button
+      disabled={disabled}
+      className={buttonClass}
+      type={type}
+      id={id}
+      onClick={onClick}
+    >
       {loading ? <SvgLoadingComponent type={`svg_${typeView}`} /> : children}
     </button>
   );
