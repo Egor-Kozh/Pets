@@ -50,13 +50,19 @@
   background-color: var(--button-background-color-primary-initial);
   color: var(--button-text-color-primary);
 
-  &-disabled {
+  &:hover {
+    background-color: var(--button-background-color-primary-hover);
+  }
+
+  &:disabled {
     background-color: var(--button-background-color-primary-disabled);
     color: var(--button-text-color-primary);
+    pointer-events: auto;
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
-}
-.primary:hover {
-  background-color: var(--button-background-color-primary-hover);
 }
 
 .secondary {
@@ -64,15 +70,21 @@
   color: var(--button-text-color-secondary-ititial);
   border: 1px solid var(--button-border-color-secondary-initial);
 
-  &-disabled {
+  &:hover {
+    border: 1px solid var(--button-border-color-secondary-hover);
+    color: var(--button-text-color-secondary-hover);
+  }
+
+  &:disabled {
     background-color: var(--button-background-color-secondary);
     color: var(--button-text-color-secondary-disabled);
     border: 1px solid var(--button-border-color-secondary-disabled);
+    pointer-events: auto;
+
+    &:hover {
+      cursor: not-allowed;
+    }
   }
-}
-.secondary:hover {
-  border: 1px solid var(--button-border-color-secondary-hover);
-  color: var(--button-text-color-secondary-hover);
 }
 
 .flat {

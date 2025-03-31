@@ -19,6 +19,10 @@
   width: fit-content;
   height: fit-content;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &__inner {
     width: fit-content;
     min-width: 82px;

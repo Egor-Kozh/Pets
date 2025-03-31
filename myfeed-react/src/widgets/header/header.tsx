@@ -16,6 +16,17 @@ export const Header = ({ page = "main" }: HeaderProps) => {
     setIsActive(activePage);
   };
 
+  interface navItem {
+    page: "main" | "posts" | "favourites";
+    href: string;
+    label: string;
+  }
+  const navItems: navItem[] = [
+    { page: "main", href: "#", label: "Главная" },
+    { page: "posts", href: "#", label: "Мои Посты" },
+    { page: "favourites", href: "#", label: "Избранное" },
+  ];
+
   return (
     <header className={styles.header}>
       <div className={styles["header__left"]}>
@@ -26,30 +37,17 @@ export const Header = ({ page = "main" }: HeaderProps) => {
       <div className={styles["header__center"]}>
         <nav className={styles["header__nav"]}>
           <ul className={styles["header__nav-list"]}>
-            <li
-              className={`${styles["header__nav-item"]} ${
-                isAvtive === "main" && styles.active
-              }`}
-              onClick={() => handleChangePage("main")}
-            >
-              <a href="#">Главная</a>
-            </li>
-            <li
-              className={`${styles["header__nav-item"]} ${
-                isAvtive === "posts" && styles.active
-              }`}
-              onClick={() => handleChangePage("posts")}
-            >
-              <a href="#">Мои Посты</a>
-            </li>
-            <li
-              className={`${styles["header__nav-item"]} ${
-                isAvtive === "favourites" && styles.active
-              }`}
-              onClick={() => handleChangePage("favourites")}
-            >
-              <a href="#">Избранное</a>
-            </li>
+            {navItems.map((navItem) => (
+              <li
+                key={navItem.page}
+                className={`${styles["header__nav-item"]} ${
+                  isAvtive === navItem.page && styles.active
+                }`}
+                onClick={() => handleChangePage(navItem.page)}
+              >
+                <a href={navItem.href}>{navItem.label}</a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
