@@ -21,6 +21,8 @@ export const SortPosts = ({ sortBy = "new" }: SortPostsProps) => {
     setIsActive(sort);
   };
 
+  const title = isActive === "new" ? "Новое" : "Лучшее";
+
   return (
     <div
       className={styles["sort-posts"]}
@@ -28,7 +30,7 @@ export const SortPosts = ({ sortBy = "new" }: SortPostsProps) => {
       onClick={handleOpenDropDown}
     >
       <div className={styles["sort-posts__inner"]}>
-        <span>{isActive === "new" ? "Новое" : "Лучшее"}</span>
+        <span>{title}</span>
         {isOpen ? <SvgOpenedChevronComponent /> : <SvgClosedChevronComponent />}
       </div>
       <DropDown

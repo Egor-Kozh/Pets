@@ -4,6 +4,7 @@ import { MiniProfile } from "../dropdowns/mini-profile/mini-profile";
 import styles from "./header.module.scss";
 import SvgHeaderLogoComponent from "./icons/components/header-logo";
 import { useColorTheme } from "../../shared/hooks/useColorTheme";
+import { navItems } from "./nav-types";
 
 interface HeaderProps {
   page?: "main" | "posts" | "favourites";
@@ -15,17 +16,6 @@ export const Header = ({ page = "main" }: HeaderProps) => {
   const handleChangePage = (activePage: "main" | "posts" | "favourites") => {
     setIsActive(activePage);
   };
-
-  interface navItem {
-    page: "main" | "posts" | "favourites";
-    href: string;
-    label: string;
-  }
-  const navItems: navItem[] = [
-    { page: "main", href: "#", label: "Главная" },
-    { page: "posts", href: "#", label: "Мои Посты" },
-    { page: "favourites", href: "#", label: "Избранное" },
-  ];
 
   return (
     <header className={styles.header}>
