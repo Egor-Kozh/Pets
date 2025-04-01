@@ -49,13 +49,6 @@
         min-width: 175px;
         height: 41px;
       }
-
-      .post__actions-mine {
-        width: 120px;
-
-        display: flex;
-        justify-content: space-between;
-      }
     }
 
     .post__content {
@@ -126,5 +119,12 @@
         justify-content: space-between;
       }
     }
+  }
+
+  .post__actions-mine {
+    width: 120px;
+
+    display: flex;
+    justify-content: space-between;
   }
 }

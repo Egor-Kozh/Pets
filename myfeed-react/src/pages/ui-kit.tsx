@@ -26,6 +26,7 @@ export const UiKit = () => {
 
   return (
     <>
+      <div id="modal"></div>
       <Header />
       <p>Hello world!</p>
 
