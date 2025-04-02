@@ -4,6 +4,7 @@ import { MiniProfile } from "../dropdowns/mini-profile/mini-profile";
 import styles from "./header.module.scss";
 import SvgHeaderLogoComponent from "./icons/components/header-logo";
 import { useColorTheme } from "../../shared/hooks/useColorTheme";
+import { navItems } from "./nav-types";
 
 interface HeaderProps {
   page?: "main" | "posts" | "favourites";
@@ -26,30 +27,17 @@ export const Header = ({ page = "main" }: HeaderProps) => {
       <div className={styles["header__center"]}>
         <nav className={styles["header__nav"]}>
           <ul className={styles["header__nav-list"]}>
-            <li
-              className={`${styles["header__nav-item"]} ${
-                isAvtive === "main" && styles.active
-              }`}
-              onClick={() => handleChangePage("main")}
-            >
-              <a href="#">Главная</a>
-            </li>
-            <li
-              className={`${styles["header__nav-item"]} ${
-                isAvtive === "posts" && styles.active
-              }`}
-              onClick={() => handleChangePage("posts")}
-            >
-              <a href="#">Мои Посты</a>
-            </li>
-            <li
-              className={`${styles["header__nav-item"]} ${
-                isAvtive === "favourites" && styles.active
-              }`}
-              onClick={() => handleChangePage("favourites")}
-            >
-              <a href="#">Избранное</a>
-            </li>
+            {navItems.map((navItem) => (
+              <li
+                key={navItem.page}
+                className={`${styles["header__nav-item"]} ${
+                  isAvtive === navItem.page && styles.active
+                }`}
+                onClick={() => handleChangePage(navItem.page)}
+              >
+                <a href={navItem.href}>{navItem.label}</a>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>

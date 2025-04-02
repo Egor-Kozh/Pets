@@ -24,7 +24,7 @@ export const Button = ({
 }: ButtonProps) => {
   const buttonClass = className(
     styles.button,
-    disabled ? styles[typeView + "-disabled"] : styles[typeView],
+    styles[typeView],
     size && styles[size]
   );
 

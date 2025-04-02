@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { IconButton } from "../../shared/components/icon-button/icon-button";
 import { MiniProfilePost } from "../dropdowns/mini-profile/mini-profile-post";
 import SvgChangeComponent from "./icons/components/change";
@@ -6,32 +5,13 @@ import SvgDeleteComponent from "./icons/components/delete";
 import SvgLikeComponent from "./icons/components/like";
 import SvgShareComponent from "./icons/components/share";
 import styles from "./post.module.scss";
-import { Button } from "../../shared/components/buttons/button";
-import { Modal } from "../modal/modal";
-import { useLockScroll } from "../../shared/hooks/useLockScroll";
-import { PostModal } from "./post-modal";
+import SvgCloseModalComponent from "./icons/components/close-modal";
 
-interface PostProps {
+interface PostModalProps {
   mine?: boolean;
+  handleModal: () => void;
 }
-export const Post = ({ mine }: PostProps) => {
-  const [activeModal, setActiveModal] = useState(false);
-  const [isReadMore, setIsReadMore] = useState(false);
-  const setScroll = useLockScroll();
-
-  const containerRef = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    if (containerRef.current) {
-      const { scrollHeight, clientHeight } = containerRef.current;
-      setIsReadMore(scrollHeight > clientHeight);
-    }
-  }, []);
-
-  const handleModal = () => {
-    setScroll();
-    setActiveModal((active) => !active);
-  };
-
+export const PostModal = ({ mine, handleModal }: PostModalProps) => {
   return (
     <section className={styles["post"]}>
       <div className={styles["post__inner"]}>
@@ -43,7 +23,32 @@ export const Post = ({ mine }: PostProps) => {
               date="20.09.2022"
             />
           </div>
-          {mine && (
+          <IconButton onClick={handleModal}>
+            <SvgCloseModalComponent />
+          </IconButton>
+        </header>
+        <section className={styles["post__content"]}>
+          <header className={styles["post__content-header"]}>
+            <span>Как интерьер влияет на самочувствие</span>
+          </header>
+          <div className={styles["post__content-image"]}></div>
+          <div
+            className={styles["post__content-text"]}
+            style={{ maxHeight: "none" }}
+          >
+            <span style={{ display: "block" }}>
+              Мы сделали долгожданный ремонт в спальне в стиле 60-х! Сейчас эта
+              мода вновь буквально врывается в окружающее нас пространство. При
+              помощи ярких акцентов и скругленных элементов интерьера нам
+              удалось придать. Мы сделали долгожданный ремонт в спальне в стиле
+              60-х! Сейчас эта мода вновь буквально врывается в окружающее нас
+              пространство. При помощи ярких акцентов и скругленных элементов
+              интерьера нам удалось придать
+            </span>
+          </div>
+        </section>
+        <footer className={styles["post__footer"]}>
+          {mine ? (
             <ul className={styles["post__actions-mine"]}>
               <li>
                 <IconButton>
@@ -61,32 +66,7 @@ export const Post = ({ mine }: PostProps) => {
                 </IconButton>
               </li>
             </ul>
-          )}
-        </header>
-        <section className={styles["post__content"]}>
-          <header className={styles["post__content-header"]}>
-            <span>Как интерьер влияет на самочувствие</span>
-          </header>
-          <div className={styles["post__content-image"]}></div>
-          <div className={styles["post__content-text"]}>
-            <span ref={containerRef}>
-              Мы сделали долгожданный ремонт в спальне в стиле 60-х! Сейчас эта
-              мода вновь буквально врывается в окружающее нас пространство. При
-              помощи ярких акцентов и скругленных элементов интерьера нам
-              удалось придать. Мы сделали долгожданный ремонт в спальне в стиле
-              60-х! Сейчас эта мода вновь буквально врывается в окружающее нас
-              пространство. При помощи ярких акцентов и скругленных элементов
-              интерьера нам удалось придать
-            </span>
-            {isReadMore && (
-              <Button typeView="flat" onClick={handleModal}>
-                Читать дальше
-              </Button>
-            )}
-          </div>
-        </section>
-        {!mine && (
-          <footer className={styles["post__footer"]}>
+          ) : (
             <ul className={styles["post__actions-another"]}>
               <li>
                 <IconButton>
@@ -99,35 +79,9 @@ export const Post = ({ mine }: PostProps) => {
                 </IconButton>
               </li>
             </ul>
-          </footer>
-        )}
-        {mine && (
-          <footer className={styles["post__footer"]}>
-            <ul className={styles["post__actions-mine"]}>
-              <li>
-                <IconButton>
-                  <SvgShareComponent />
-                </IconButton>
-              </li>
-              <li>
-                <IconButton>
-                  <SvgDeleteComponent />
-                </IconButton>
-              </li>
-              <li>
-                <IconButton>
-                  <SvgChangeComponent />
-                </IconButton>
-              </li>
-            </ul>
-          </footer>
-        )}
+          )}
+        </footer>
       </div>
-      {activeModal && (
-        <Modal active={true} setActiveModal={handleModal}>
-          <PostModal mine={mine} handleModal={handleModal} />
-        </Modal>
-      )}
     </section>
   );
 };
