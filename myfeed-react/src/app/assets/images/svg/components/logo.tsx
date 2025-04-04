@@ -1,4 +1,4 @@
-const SvgHeaderLogoComponent = () => (
+const SvgLogoComponent = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -17,4 +17,4 @@ const SvgHeaderLogoComponent = () => (
     />
   </svg>
 );
-export default SvgHeaderLogoComponent;
+export default SvgLogoComponent;
