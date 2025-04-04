@@ -19,7 +19,7 @@ export const AuthorizationForm = () => {
       </div>
       <form onSubmit={handleSubmit(handleOnClick)}>
         <Input
-          id="authorization-email"
+          id="authorization_email"
           title="Email"
           register={register("email", {
             required: "required",
@@ -29,7 +29,7 @@ export const AuthorizationForm = () => {
           {errors.email?.message}
         </Input>
         <Input
-          id="authorization-password"
+          id="authorization_password"
           title="Пароль"
           type="password"
           register={register("password", {
@@ -39,7 +39,7 @@ export const AuthorizationForm = () => {
         >
           {errors.email?.message}
         </Input>
-        <Button typeView="primary" size="large">
+        <Button typeView="primary" size="large" type="submit">
           Войти
         </Button>
       </form>

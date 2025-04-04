@@ -3,7 +3,7 @@ import "../../app/styles/global.scss";
 import { Button } from "../../shared/components/buttons/button";
 import { Input } from "../../shared/components/input/input";
 import { RadioButton } from "../../shared/components/radio-buttons/radio-button";
-import { Tab } from "../../shared/components/tab/tab";
+// import { Tab } from "../../shared/components/tab/tab";
 import { Toggle } from "../../shared/components/toggle/toggle";
 import { MiniProfile } from "../../widgets/dropdowns/mini-profile/mini-profile";
 import { SortPosts } from "../../widgets/dropdowns/sort-posts/sort-posts";
@@ -62,8 +62,8 @@ export const UiKit = () => {
       <Toggle id="6" />
       <Toggle id="7" disabled />
 
-      <Tab type="auth" />
-      <Tab type="registr" />
+      {/* <Tab type="auth" />
+      <Tab type="registr" /> */}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input

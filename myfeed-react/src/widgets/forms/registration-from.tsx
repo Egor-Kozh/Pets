@@ -1,21 +1,10 @@
-import { useForm } from "react-hook-form";
-import { Input } from "../../shared/components/input/input";
 import styles from "./registration-form.module.scss";
-import { Button } from "../../shared/components/buttons/button";
 import { useState } from "react";
+import { RegistrationFirtStep } from "./registration-first-step";
+import { RegistrationSecondStep } from "./registration-second-step";
 
 export const RegistrationForm = () => {
   const [nextStep, setNextStep] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<{ email: string; password: string; accept_password: string }>();
-
-  const handleNextStep = () => {
-    setNextStep((active) => !active);
-  };
 
   return (
     <div className={styles["registration-form"]}>
@@ -27,43 +16,11 @@ export const RegistrationForm = () => {
           Чтобы создать аккаунт введите Ваш Email и придумайте пароль.
         </span>
       </div>
-      <form onSubmit={handleSubmit(handleNextStep)}>
-        <Input
-          id="registration-email"
-          title="Email"
-          register={register("email", {
-            required: "required",
-          })}
-          wrong={errors.email ? true : false}
-        >
-          {errors.email?.message}
-        </Input>
-        <Input
-          id="registration-password"
-          title="Пароль"
-          type="password"
-          register={register("password", {
-            required: "required",
-          })}
-          wrong={errors.password ? true : false}
-        >
-          {errors.email?.message}
-        </Input>
-        <Input
-          id="registration-accept-password"
-          title="Введите пароль еще раз"
-          type="password"
-          register={register("accept_password", {
-            required: "required",
-          })}
-          wrong={errors.password ? true : false}
-        >
-          {errors.email?.message}
-        </Input>
-        <Button typeView="primary" size="large" type="submit">
-          Далее
-        </Button>
-      </form>
+      {nextStep ? (
+        <RegistrationSecondStep />
+      ) : (
+        <RegistrationFirtStep setNextStep={setNextStep} />
+      )}
     </div>
   );
 };
