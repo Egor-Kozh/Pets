@@ -12,7 +12,7 @@ import { Post } from "../../widgets/post/post";
 import { MiniProfilePost } from "../../widgets/dropdowns/mini-profile/mini-profile-post";
 import { InputImage } from "../../shared/components/input/input-image";
 
-export const UiKit = () => {
+export const UiKitPage = () => {
   const {
     register,
     handleSubmit,

@@ -5,7 +5,7 @@ import { AuthorizationForm } from "../../widgets/forms/authorization-form";
 import styles from "./authorization.module.scss";
 import { RegistrationForm } from "../../widgets/forms/registration-from";
 
-export const Authorization = () => {
+export const AuthorizationPage = () => {
   const [page, setPage] = useState<"auth" | "registr">("auth");
 
   return (
