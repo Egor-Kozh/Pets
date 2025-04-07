@@ -4,6 +4,7 @@ import { Input } from "../../shared/components/input/input";
 import { useMutation } from "@apollo/client";
 import { tokenVar } from "../../app/api/clients";
 import { CREATE_USER } from "../../app/api/user/gql/mutations/create-user";
+import { useEffect, useState } from "react";
 
 interface RegistrationFirtStepProps {
   setNextStep: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,8 +12,16 @@ interface RegistrationFirtStepProps {
 export const RegistrationFirtStep = ({
   setNextStep,
 }: RegistrationFirtStepProps) => {
-  const [login, { loading, error }] = useMutation(CREATE_USER, {
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordConfirmError, setPasswordConfirmError] = useState<
+    string | null
+  >(null);
+
+  const [login, { loading }] = useMutation(CREATE_USER, {
     onCompleted: (data) => {
+      if (data.newUser.problem)
+        return setEmailError(data.newUser.problem.message);
+
       tokenVar(data.newUser.token);
 
       localStorage.setItem("authToken", data.newUser.token);
@@ -40,9 +49,19 @@ export const RegistrationFirtStep = ({
   const userPassword = watch("password");
   const userPasswordConfirm = watch("accept_password");
 
+  useEffect(() => {
+    if (!emailError) return;
+    setEmailError(null);
+  }, [userEmail]);
+
+  useEffect(() => {
+    if (!passwordConfirmError) return;
+    setPasswordConfirmError(null);
+  }, [userPasswordConfirm]);
+
   const handleLogin = () => {
     if (userPassword !== userPasswordConfirm)
-      return console.log("пароли не совпадают");
+      return setPasswordConfirmError("Пароли не совпадают!");
     login({
       variables: {
         email: userEmail,
@@ -58,33 +77,39 @@ export const RegistrationFirtStep = ({
         id="registration_email"
         title="Email"
         register={register("email", {
-          required: "required",
+          required: "Это поле обязательно!",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+[.]+[A-Z]{2,4}$/i,
+            message: "Неверный формат почты",
+          },
         })}
-        wrong={errors.email || error ? true : false}
+        wrong={errors.email || emailError ? true : false}
       >
-        {errors.email?.message}
+        <span>{errors.email?.message}</span>
+        <span>{emailError}</span>
       </Input>
       <Input
         id="registration_password"
         title="Пароль"
         type="password"
         register={register("password", {
-          required: "required",
+          required: "Это поле обязательно!",
         })}
         wrong={errors.password ? true : false}
       >
-        {errors.email?.message}
+        <span>{errors.password?.message}</span>
       </Input>
       <Input
         id="registration_accept-password"
         title="Введите пароль еще раз"
         type="password"
         register={register("accept_password", {
-          required: "required",
+          required: "Это поле обязательно!",
         })}
-        wrong={errors.password ? true : false}
+        wrong={errors.accept_password || passwordConfirmError ? true : false}
       >
-        {errors.email?.message}
+        <span>{errors.accept_password?.message}</span>
+        <span>{passwordConfirmError}</span>
       </Input>
       <Button typeView="primary" size="large" type="submit" loading={loading}>
         Далее

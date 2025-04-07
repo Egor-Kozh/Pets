@@ -14,6 +14,9 @@ export const CREATE_USER = gql`
       }
     ) {
       token
+      problem {
+        message
+      }
     }
   }
 `;
