@@ -3,7 +3,7 @@ import SvgLogoComponent from "../../app/assets/images/svg/components/logo";
 import { Tab } from "../../shared/components/tab/tab";
 import { AuthorizationForm } from "../../widgets/forms/authorization-form";
 import styles from "./authorization.module.scss";
-import { RegistrationForm } from "../../widgets/forms/registration-from";
+import { RegistrationForm } from "../../widgets/forms/registration-form";
 
 export const AuthorizationPage = () => {
   const [page, setPage] = useState<"auth" | "registr">("auth");
