@@ -19,7 +19,7 @@ export const RegistrationSecondStep = () => {
         register={register("first_name", {
           required: "required",
         })}
-        wrong={errors.first_name ? true : false}
+        wrong={!!errors.first_name}
       >
         {errors.first_name?.message}
       </Input>
@@ -29,7 +29,7 @@ export const RegistrationSecondStep = () => {
         register={register("last_name", {
           required: "required",
         })}
-        wrong={errors.last_name ? true : false}
+        wrong={!!errors.last_name}
       >
         {errors.last_name?.message}
       </Input>
@@ -39,7 +39,7 @@ export const RegistrationSecondStep = () => {
         register={register("patronymic", {
           required: "required",
         })}
-        wrong={errors.patronymic ? true : false}
+        wrong={!!errors.patronymic}
       >
         {errors.patronymic?.message}
       </Input>

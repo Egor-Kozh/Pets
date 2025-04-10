@@ -83,7 +83,7 @@ export const RegistrationFirtStep = ({
             message: "Неверный формат почты",
           },
         })}
-        wrong={errors.email || emailError ? true : false}
+        wrong={!!(errors.email || emailError)}
       >
         <span>{errors.email?.message}</span>
         <span>{emailError}</span>
@@ -95,7 +95,7 @@ export const RegistrationFirtStep = ({
         register={register("password", {
           required: "Это поле обязательно!",
         })}
-        wrong={errors.password ? true : false}
+        wrong={!!errors.password}
       >
         <span>{errors.password?.message}</span>
       </Input>
@@ -106,7 +106,7 @@ export const RegistrationFirtStep = ({
         register={register("accept_password", {
           required: "Это поле обязательно!",
         })}
-        wrong={errors.accept_password || passwordConfirmError ? true : false}
+        wrong={!!(errors.accept_password || passwordConfirmError)}
       >
         <span>{errors.accept_password?.message}</span>
         <span>{passwordConfirmError}</span>

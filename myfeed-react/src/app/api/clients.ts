@@ -5,12 +5,11 @@ import {
   makeVar,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { API_URL } from "./consts.ts";
 
 export const tokenVar = makeVar<string | null>(null);
 
 const httpLink = createHttpLink({
-  uri: API_URL,
+  uri: import.meta.env.VITE_API_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
