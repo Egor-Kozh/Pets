@@ -2,6 +2,7 @@ import { RouteObject } from "react-router-dom";
 import { HomePage } from "../../pages/home/home";
 import { UiKitPage } from "../../pages/ui-kit/ui-kit";
 import { AuthorizationPage } from "../../pages/authorization/authorization";
+import { Routes } from "../../shared/routes";
 
 export const routes: RouteObject[] = [
   {
@@ -9,11 +10,11 @@ export const routes: RouteObject[] = [
     element: <HomePage />,
   },
   {
-    path: "/ui-kit",
+    path: Routes.uiKit,
     element: <UiKitPage />,
   },
   {
-    path: "/authorization",
+    path: Routes.auth,
     element: <AuthorizationPage />,
   },
 ];

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { tokenVar } from "../../app/api/clients";
 import { useNavigate } from "react-router-dom";
+import { Routes } from "../../shared/routes";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export const HomePage = () => {
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) {
-      navigate("/authorization", { replace: true });
+      navigate(Routes.auth, { replace: true });
     }
     tokenVar(token);
   }, []);
