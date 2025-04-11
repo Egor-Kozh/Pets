@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Toggle } from "../../shared/components/toggle/toggle";
 import { MiniProfile } from "../dropdowns/mini-profile/mini-profile";
 import styles from "./header.module.scss";
-import SvgHeaderLogoComponent from "./icons/components/header-logo";
+import SvgLogoComponent from "../../app/assets/images/svg/components/logo";
 import { useColorTheme } from "../../shared/hooks/useColorTheme";
 import { navItems } from "./nav-types";
 
@@ -21,7 +21,7 @@ export const Header = ({ page = "main" }: HeaderProps) => {
     <header className={styles.header}>
       <div className={styles["header__left"]}>
         <div className={styles["header__logo"]}>
-          <SvgHeaderLogoComponent />
+          <SvgLogoComponent />
         </div>
       </div>
       <div className={styles["header__center"]}>

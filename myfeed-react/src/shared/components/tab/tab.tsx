@@ -1,13 +1,11 @@
-import { useState } from "react";
 import { Button } from "../buttons/button";
 import styles from "./tab.module.scss";
 
 interface TabProps {
-  type: "auth" | "registr";
+  page: "auth" | "registr";
+  setPage: React.Dispatch<React.SetStateAction<"auth" | "registr">>;
 }
-export const Tab = ({ type }: TabProps) => {
-  const [page, setPage] = useState(type);
-
+export const Tab = ({ page, setPage }: TabProps) => {
   const authButton = page === "auth" ? "primary" : "secondary";
   const registrButton = page === "registr" ? "primary" : "secondary";
 
