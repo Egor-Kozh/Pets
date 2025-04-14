@@ -1,0 +1,57 @@
+@use "../../../../../styles/themes/dark-theme.scss" as dark;
+@use "../../../../../styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --progress-bar-progress-color: #{light.$color-light-primary-lighter};
+
+  --progress-bar-title-color: #{light.$color-light-primary-default};
+
+  --progress-bar-bar-color: #{light.$color-light-very-light-grey};
+}
+
+[color-theme="dark"] {
+  --progress-bar-progress-color: #{dark.$color-dark-primary-light};
+
+  --progress-bar-title-color: #{dark.$color-dark-primary-dark};
+
+  --progress-bar-bar-color: #{dark.$color-dark-grey};
+}
+
+.progress-bar {
+  width: 663px;
+  height: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-bar__title {
+  width: 100px;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--progress-bar-title-color);
+}
+
+.progress-bar__bar {
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--progress-bar-bar-color);
+
+  border-radius: 19px;
+}
+
+.progress-bar__progress {
+  height: 100%;
+  width: 0%;
+
+  background-color: var(--progress-bar-progress-color);
+
+  border-radius: 19px;
+}

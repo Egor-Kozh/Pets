@@ -1,12 +1,13 @@
 import { useState } from "react";
-import SvgLogoComponent from "../../app/assets/images/svg/components/logo";
+import SvgLogoComponent from "../../shared/assets/images/svg/components/logo";
 import { Tab } from "../../shared/components/tab/tab";
-import { AuthorizationForm } from "../../widgets/forms/authorization-form";
+import { AuthorizationForm } from "./ui/forms/authorization-form";
 import styles from "./authorization.module.scss";
-import { RegistrationForm } from "../../widgets/forms/registration-form";
+import { RegistrationForm } from "./ui/forms/registration-form";
+import { authType } from "./model/auth-type";
 
 export const AuthorizationPage = () => {
-  const [page, setPage] = useState<"auth" | "registr">("auth");
+  const [page, setPage] = useState<authType>(authType.authorization);
 
   return (
     <div className={styles["authorization"]}>
@@ -17,7 +18,11 @@ export const AuthorizationPage = () => {
         <div className={styles["authorization__tab"]}>
           <Tab page={page} setPage={setPage} />
         </div>
-        {page === "auth" ? <AuthorizationForm /> : <RegistrationForm />}
+        {page === authType.authorization ? (
+          <AuthorizationForm />
+        ) : (
+          <RegistrationForm />
+        )}
       </div>
     </div>
   );

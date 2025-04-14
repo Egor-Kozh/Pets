@@ -1,0 +1,130 @@
+@use "../../../shared/styles/themes/dark-theme.scss" as dark;
+@use "../../../shared/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --post-background-color: #{light.$color-light-white};
+
+  --post-text-heading-color: #{light.$color-light-darkest-grey};
+  --post-text-color: #{light.$color-light-grey};
+  --post-text-readmore-color: #{light.$color-light-primary-default};
+}
+
+[color-theme="dark"] {
+  --post-background-color: #{dark.$color-dark-very-dark-grey};
+
+  --post-text-heading-color: #{dark.$color-dark-lightest-grey};
+  --post-text-color: #{dark.$color-dark-lighter-gray};
+  --post-text-readmore-color: #{dark.$color-dark-primary-dark};
+}
+
+.post {
+  width: 743px;
+  height: fit-content;
+  min-height: 586px;
+
+  padding: 24px 40px 32px 40px;
+
+  border-radius: 20px;
+
+  background-color: var(--post-background-color);
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 24px;
+
+    .post__header {
+      width: 100%;
+      height: 41px;
+
+      display: flex;
+      justify-content: space-between;
+
+      .post__user-profile {
+        width: fit-content;
+        min-width: 175px;
+        height: 41px;
+      }
+    }
+
+    .post__content {
+      width: 100%;
+      height: fit-content;
+      max-height: 465px;
+
+      display: flex;
+      flex-direction: column;
+      row-gap: 16px;
+
+      .post__content-header {
+        width: 100%;
+        height: 21px;
+
+        font-family: "Gilroy_Semibold";
+        font-size: 18px;
+
+        color: var(--post-text-heading-color);
+      }
+
+      .post__content-image {
+        width: 100%;
+        height: 346px;
+
+        border-radius: 18px;
+
+        background-color: gray;
+      }
+
+      .post__content-text {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        max-height: 66px;
+
+        font-family: "Gilroy_Regular";
+        font-size: 16px;
+
+        color: var(--post-text-color);
+
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+
+        button {
+          position: absolute;
+          right: 10px;
+          bottom: -26px;
+        }
+      }
+    }
+
+    .post__footer {
+      width: 100%;
+      height: fit-content;
+
+      .post__actions-another {
+        width: 72px;
+        height: 24px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .post__actions-mine {
+    width: 120px;
+
+    display: flex;
+    justify-content: space-between;
+  }
+}

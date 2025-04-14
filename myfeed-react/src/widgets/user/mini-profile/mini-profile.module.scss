@@ -1,0 +1,111 @@
+@use "../../../shared/styles/themes/dark-theme.scss" as dark;
+@use "../../../shared/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --mini-profile-background-color: #{light.$color-light-white};
+  --mini-profile-background-color-hover: #{light.$color-light-primary-lighter};
+
+  --mini-profile-text-color: #{light.$color-light-darkest-grey};
+  --mini-profile-text-color-hover: #{light.$color-light-darkest-grey};
+
+  --mini-profile-icon-color: #{light.$color-light-darkest-grey};
+  --mini-profile-icon-color-hover: #{light.$color-light-primary-light};
+
+  --mini-profile-text-date-color: #{light.$color-light-lighter-gray0};
+}
+
+[color-theme="dark"] {
+  --mini-profile-background-color: #{dark.$color-dark-very-dark-grey};
+  --mini-profile-background-color-hover: #{dark.$color-dark-primary-light};
+
+  --mini-profile-text-color: #{dark.$color-dark-lightest-grey};
+  --mini-profile-text-color-hover: #{dark.$color-dark-black};
+
+  --mini-profile-icon-color: #{dark.$color-dark-lightest-grey};
+  --mini-profile-icon-color-hover: #{dark.$color-dark-primary-default};
+
+  --mini-profile-text-date-color: #{dark.$color-dark-grey-darker};
+}
+
+.mini-profile {
+  position: relative;
+
+  width: fit-content;
+  min-height: 44px;
+  height: fit-content;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__inner {
+    width: 100%;
+    height: 44px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    background-color: var(--mini-profile-background-color);
+
+    border-radius: 8px;
+
+    .mini-profile__logo {
+      width: 38px;
+      height: 38px;
+
+      background-color: grey;
+
+      border-radius: 50%;
+    }
+
+    .mini-profile__name {
+      height: 24px;
+      width: fit-content;
+
+      display: flex;
+      align-items: center;
+      justify-content: start;
+
+      color: var(--mini-profile-text-color);
+
+      column-gap: 5px;
+
+      font-family: "Gilroy_Medium";
+      font-size: 16px;
+    }
+
+    .mini-profile__drop-icon {
+      height: 24px;
+      width: 24px;
+
+      & path {
+        fill: var(--mini-profile-icon-color);
+      }
+    }
+
+    &:hover path {
+      fill: var(--mini-profile-icon-color-hover);
+    }
+
+    .mini-profile__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .mini-profile__date-post {
+        width: 100%;
+
+        display: flex;
+        justify-content: start;
+
+        font-family: "Gilroy_Regular";
+        font-size: 14px;
+
+        color: var(--mini-profile-text-date-color);
+      }
+    }
+  }
+}

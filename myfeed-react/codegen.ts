@@ -4,13 +4,13 @@ const config: CodegenConfig = {
   schema: "https://internship-social-media.purrweb.com/graphql",
   documents: ["src/**/*.tsx"],
   generates: {
-    "./src/app/api/__generated__/": {
+    "./src/shared/__generated__/": {
       preset: "client",
       presetConfig: {
         gqlTagName: "gql",
       },
     },
-    "./src/app/api/__generated__/types.ts": {
+    "./src/shared/__generated__/types.ts": {
       plugins: ["typescript", "typescript-operations"],
     },
   },

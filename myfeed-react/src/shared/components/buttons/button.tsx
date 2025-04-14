@@ -1,6 +1,6 @@
 import className from "classnames";
 import styles from "./button.module.scss";
-import SvgLoadingComponent from "./icons/components/loading";
+import SvgLoadingComponent from "../../assets/images/svg/components/loading";
 
 interface ButtonProps {
   typeView: "primary" | "secondary" | "flat";
