@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { Button } from "../../../../shared/components/buttons/button";
-import { Input } from "../../../../shared/components/inputs/input/input";
+import { Button } from "../../../../../shared/components/buttons/button";
+import { Input } from "../../../../../shared/components/inputs/input/input";
 
 export const RegistrationSecondStep = () => {
   const {

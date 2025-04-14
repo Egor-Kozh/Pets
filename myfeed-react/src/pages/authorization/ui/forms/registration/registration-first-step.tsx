@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Button } from "../../../../shared/components/buttons/button";
-import { Input } from "../../../../shared/components/inputs/input/input";
+import { Button } from "../../../../../shared/components/buttons/button";
+import { Input } from "../../../../../shared/components/inputs/input/input";
 import { useMutation } from "@apollo/client";
-import { tokenVar } from "../../../../app/api/clients";
-import { CREATE_USER } from "../../../../features/user/create-user";
+import { tokenVar } from "../../../../../app/api/clients";
+import { CREATE_USER } from "../../../../../features/user/create-user";
 import { useEffect, useState } from "react";
 
 interface RegistrationFirtStepProps {

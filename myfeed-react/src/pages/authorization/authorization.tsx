@@ -1,9 +1,9 @@
 import { useState } from "react";
 import SvgLogoComponent from "../../shared/assets/images/svg/components/logo";
 import { Tab } from "../../shared/components/tab/tab";
-import { AuthorizationForm } from "./ui/forms/authorization-form";
+import { AuthorizationForm } from "./ui/forms/authorization/authorization-form";
 import styles from "./authorization.module.scss";
-import { RegistrationForm } from "./ui/forms/registration-form";
+import { RegistrationForm } from "./ui/forms/registration/registration-form";
 import { authType } from "./model/auth-type";
 
 export const AuthorizationPage = () => {

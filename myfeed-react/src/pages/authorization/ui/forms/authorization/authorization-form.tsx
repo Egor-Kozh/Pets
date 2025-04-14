@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { Input } from "../../../../shared/components/inputs/input/input";
+import { Input } from "../../../../../shared/components/inputs/input/input";
 import styles from "./authorization-form.module.scss";
-import { Button } from "../../../../shared/components/buttons/button";
+import { Button } from "../../../../../shared/components/buttons/button";
 
 export const AuthorizationForm = () => {
   const {
