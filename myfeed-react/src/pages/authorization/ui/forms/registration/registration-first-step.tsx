@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
 import { Button } from "../../../../../shared/components/buttons/button";
 import { Input } from "../../../../../shared/components/inputs/input/input";
-import { useMutation } from "@apollo/client";
 import { tokenVar } from "../../../../../app/api/clients";
-import { CREATE_USER } from "../../../../../features/user/create-user";
 import { useEffect, useState } from "react";
+import { useCreateUserMutation } from "../../../../../shared/__generated__/hooks";
 
 interface RegistrationFirtStepProps {
   setNextStep: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,21 +16,22 @@ export const RegistrationFirtStep = ({
     string | null
   >(null);
 
-  const [login, { loading }] = useMutation(CREATE_USER, {
+  const [login, { loading }] = useCreateUserMutation({
     onCompleted: (data) => {
       if (data.newUser.problem)
         return setEmailError(data.newUser.problem.message);
 
-      tokenVar(data.newUser.token);
-
-      localStorage.setItem("authToken", data.newUser.token);
+      if (data.newUser.token) {
+        tokenVar(data.newUser.token);
+        localStorage.setItem("registrToken", data.newUser.token);
+      }
       setNextStep((active) => !active);
     },
-    update(cache, { data: { login } }) {
+    update(cache, { data }) {
       cache.modify({
         fields: {
           token() {
-            return login.token;
+            return data?.newUser.token;
           },
         },
       });

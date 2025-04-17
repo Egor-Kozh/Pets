@@ -17,7 +17,7 @@ export const RegistrationForm = () => {
         </span>
       </div>
       {nextStep ? (
-        <RegistrationSecondStep />
+        <RegistrationSecondStep setNextStep={setNextStep} />
       ) : (
         <RegistrationFirtStep setNextStep={setNextStep} />
       )}

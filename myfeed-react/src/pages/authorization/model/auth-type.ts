@@ -1,4 +1,4 @@
-export enum authType {
+export enum AuthType {
   authorization = "auth",
   registration = "registr",
 }

@@ -1,15 +1,15 @@
-import { authType } from "../../../pages/authorization/model/auth-type";
+import { AuthType } from "../../../pages/authorization/model/auth-type";
 import { Button } from "../buttons/button";
 import styles from "./tab.module.scss";
 
 interface TabProps {
-  page: authType;
-  setPage: React.Dispatch<React.SetStateAction<authType>>;
+  page: AuthType;
+  setPage: React.Dispatch<React.SetStateAction<AuthType>>;
 }
 export const Tab = ({ page, setPage }: TabProps) => {
-  const authButton = page === authType.authorization ? "primary" : "secondary";
+  const authButton = page === AuthType.authorization ? "primary" : "secondary";
   const registrButton =
-    page === authType.registration ? "primary" : "secondary";
+    page === AuthType.registration ? "primary" : "secondary";
 
   return (
     <div className={styles.tab}>
@@ -17,7 +17,7 @@ export const Tab = ({ page, setPage }: TabProps) => {
         typeView={authButton}
         size="small"
         id={styles.auth}
-        onClick={() => setPage(authType.authorization)}
+        onClick={() => setPage(AuthType.authorization)}
       >
         Авторизация
       </Button>
@@ -25,7 +25,7 @@ export const Tab = ({ page, setPage }: TabProps) => {
         typeView={registrButton}
         size="small"
         id={styles.registr}
-        onClick={() => setPage(authType.registration)}
+        onClick={() => setPage(AuthType.registration)}
       >
         Регистрация
       </Button>

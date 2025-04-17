@@ -2,15 +2,63 @@ import { useForm } from "react-hook-form";
 import { Input } from "../../../../../shared/components/inputs/input/input";
 import styles from "./authorization-form.module.scss";
 import { Button } from "../../../../../shared/components/buttons/button";
+import { useLoginUserMutation } from "../../../../../shared/__generated__/hooks";
+import { tokenVar } from "../../../../../app/api/clients";
+import { useNavigate } from "react-router-dom";
+import { Routes } from "../../../../../shared/routes";
+import { useEffect, useState } from "react";
 
 export const AuthorizationForm = () => {
+  const navigate = useNavigate();
+
+  const [authError, setAuthError] = useState<string>();
+
+  const [login, { loading }] = useLoginUserMutation({
+    onCompleted: (data) => {
+      if (data.loginUser.problem)
+        return setAuthError(data.loginUser.problem.message);
+
+      if (data.loginUser.token) {
+        tokenVar(data.loginUser.token);
+        localStorage.setItem("authToken", data.loginUser.token);
+      }
+
+      navigate(Routes.home, { replace: true });
+    },
+    update(cache, { data }) {
+      cache.modify({
+        fields: {
+          token() {
+            return data?.loginUser.token;
+          },
+        },
+      });
+    },
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<{ email: string; password: string }>();
 
-  const handleOnClick = () => {};
+  const userEmail = watch("email");
+  const userPassword = watch("password");
+
+  useEffect(() => {
+    if (!authError) return;
+    setAuthError("");
+  }, [userEmail, userPassword]);
+
+  const handleOnClick = () => {
+    login({
+      variables: {
+        email: userEmail,
+        password: userPassword,
+      },
+    });
+  };
 
   return (
     <div className={styles["authorization-form"]}>
@@ -24,9 +72,10 @@ export const AuthorizationForm = () => {
           register={register("email", {
             required: "required",
           })}
-          wrong={errors.email ? true : false}
+          wrong={!!(errors.email || authError)}
         >
-          {errors.email?.message}
+          <span>{errors.email?.message}</span>
+          <span>{authError}</span>
         </Input>
         <Input
           id="authorization_password"
@@ -35,11 +84,12 @@ export const AuthorizationForm = () => {
           register={register("password", {
             required: "required",
           })}
-          wrong={errors.password ? true : false}
+          wrong={!!(errors.password || authError)}
         >
-          {errors.email?.message}
+          <span>{errors.email?.message}</span>
+          <span>{authError}</span>
         </Input>
-        <Button typeView="primary" size="large" type="submit">
+        <Button typeView="primary" size="large" type="submit" loading={loading}>
           Войти
         </Button>
       </form>

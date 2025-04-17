@@ -4,10 +4,10 @@ import { Tab } from "../../shared/components/tab/tab";
 import { AuthorizationForm } from "./ui/forms/authorization/authorization-form";
 import styles from "./authorization.module.scss";
 import { RegistrationForm } from "./ui/forms/registration/registration-form";
-import { authType } from "./model/auth-type";
+import { AuthType } from "./model/auth-type";
 
 export const AuthorizationPage = () => {
-  const [page, setPage] = useState<authType>(authType.authorization);
+  const [page, setPage] = useState<AuthType>(AuthType.authorization);
 
   return (
     <div className={styles["authorization"]}>
@@ -18,7 +18,7 @@ export const AuthorizationPage = () => {
         <div className={styles["authorization__tab"]}>
           <Tab page={page} setPage={setPage} />
         </div>
-        {page === authType.authorization ? (
+        {page === AuthType.authorization ? (
           <AuthorizationForm />
         ) : (
           <RegistrationForm />
