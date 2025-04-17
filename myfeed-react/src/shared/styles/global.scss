@@ -23,7 +23,17 @@ a {
 }
 
 body {
+  max-width: 100%;
+  overflow-x: hidden;
+
+  height: fit-content;
+
   font-family: "Gilroy_Bold";
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+#root {
+  width: fit-content;
+  height: fit-content;
 }

@@ -1,10 +1,11 @@
+import { Routes } from "../../../../shared/routes";
+
 interface NavItem {
-  page: "main" | "posts" | "favourites";
   href: string;
   label: string;
 }
 export const navItems: NavItem[] = [
-  { page: "main", href: "#", label: "Главная" },
-  { page: "posts", href: "#", label: "Мои Посты" },
-  { page: "favourites", href: "#", label: "Избранное" },
+  { href: Routes.home, label: "Главная" },
+  { href: Routes.my_posts, label: "Мои Посты" },
+  { href: Routes.favourite_posts, label: "Избранное" },
 ];

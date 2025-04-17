@@ -248,6 +248,11 @@ export type AllPostsQueryVariables = Exact<{
 
 export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
 
+export type MyPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyPostsQuery = { myPosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
+
 export type UserEmailQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -340,6 +345,58 @@ export type AllPostsQueryHookResult = ReturnType<typeof useAllPostsQuery>;
 export type AllPostsLazyQueryHookResult = ReturnType<typeof useAllPostsLazyQuery>;
 export type AllPostsSuspenseQueryHookResult = ReturnType<typeof useAllPostsSuspenseQuery>;
 export type AllPostsQueryResult = Apollo.QueryResult<AllPostsQuery, AllPostsQueryVariables>;
+export const MyPostsDocument = gql`
+    query myPosts {
+  myPosts(input: {}) {
+    data {
+      author {
+        firstName
+        lastName
+        avatarUrl
+      }
+      createdAt
+      description
+      likesCount
+      isLiked
+      title
+      mediaUrl
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useMyPostsQuery__
+ *
+ * To run a query within a React component, call `useMyPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMyPostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMyPostsQuery(baseOptions?: Apollo.QueryHookOptions<MyPostsQuery, MyPostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MyPostsQuery, MyPostsQueryVariables>(MyPostsDocument, options);
+      }
+export function useMyPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyPostsQuery, MyPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MyPostsQuery, MyPostsQueryVariables>(MyPostsDocument, options);
+        }
+export function useMyPostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<MyPostsQuery, MyPostsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MyPostsQuery, MyPostsQueryVariables>(MyPostsDocument, options);
+        }
+export type MyPostsQueryHookResult = ReturnType<typeof useMyPostsQuery>;
+export type MyPostsLazyQueryHookResult = ReturnType<typeof useMyPostsLazyQuery>;
+export type MyPostsSuspenseQueryHookResult = ReturnType<typeof useMyPostsSuspenseQuery>;
+export type MyPostsQueryResult = Apollo.QueryResult<MyPostsQuery, MyPostsQueryVariables>;
 export const UserEmailDocument = gql`
     query userEmail {
   userEmail: userMe {

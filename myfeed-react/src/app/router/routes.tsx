@@ -4,6 +4,7 @@ import { UiKitPage } from "../../pages/ui-kit/ui-kit";
 import { AuthorizationPage } from "../../pages/authorization/authorization";
 import { Routes } from "../../shared/routes";
 import { MainLayout } from "../../widgets/layout/main-layout";
+import { MyPostsPage } from "../../pages/my-posts/my-posts";
 
 export const routes: RouteObject[] = [
   {
@@ -13,6 +14,10 @@ export const routes: RouteObject[] = [
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: Routes.my_posts,
+        element: <MyPostsPage />,
       },
     ],
   },

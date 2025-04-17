@@ -3,7 +3,7 @@ import { Header } from "./header/header";
 import { useEffect } from "react";
 import { Routes } from "../../shared/routes";
 import { tokenVar } from "../../app/api/clients";
-import "./main-layout.module.scss";
+import styles from "./main-layout.module.scss";
 
 export const MainLayout = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const MainLayout = () => {
   }, []);
 
   return (
-    <div className="layout">
+    <div className={styles.layout}>
       <div id="modal"></div>
       <Header />
       <main>
