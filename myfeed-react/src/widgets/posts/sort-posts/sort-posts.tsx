@@ -3,11 +3,16 @@ import SvgClosedChevronComponent from "../../../shared/assets/images/svg/compone
 import SvgOpenedChevronComponent from "../../../shared/assets/images/svg/components/opened-chevron";
 import styles from "./sort-posts.module.scss";
 import { DropDown } from "../../../shared/components/dropdown/dropdown";
+import { PostFilterType } from "../../../shared/__generated__/graphql";
 
 interface SortPostsProps {
-  sortBy?: "new" | "best";
+  sortBy?: PostFilterType;
+  setPostsSort: React.Dispatch<React.SetStateAction<PostFilterType>>;
 }
-export const SortPosts = ({ sortBy = "new" }: SortPostsProps) => {
+export const SortPosts = ({
+  sortBy = PostFilterType.New,
+  setPostsSort,
+}: SortPostsProps) => {
   const [isActive, setIsActive] = useState(sortBy);
   const [isOpen, setIsOpen] = useState(false);
   const sortPostRef = useRef(null);
@@ -16,12 +21,13 @@ export const SortPosts = ({ sortBy = "new" }: SortPostsProps) => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleChangeSort = (sort: "new" | "best") => {
+  const handleChangeSort = (sort: PostFilterType) => {
     if (isActive === sort) return;
     setIsActive(sort);
+    setPostsSort(sort);
   };
 
-  const title = isActive === "new" ? "Новое" : "Лучшее";
+  const title = isActive === PostFilterType.New ? "Новое" : "Лучшее";
 
   return (
     <div
@@ -39,10 +45,10 @@ export const SortPosts = ({ sortBy = "new" }: SortPostsProps) => {
         parentRef={sortPostRef}
         style={{ width: "117px", marginTop: "8px" }}
       >
-        <div onClick={() => handleChangeSort("new")}>
+        <div onClick={() => handleChangeSort(PostFilterType.New)}>
           <span>Новое</span>
         </div>
-        <div onClick={() => handleChangeSort("best")}>
+        <div onClick={() => handleChangeSort(PostFilterType.Top)}>
           <span>Лучшее</span>
         </div>
       </DropDown>

@@ -240,10 +240,23 @@ export type UserModel = {
   updatedAt: Scalars['String']['output'];
 };
 
+export type AllPostsQueryVariables = Exact<{
+  type: PostFilterType;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
+
 export type UserEmailQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserEmailQuery = { userEmail: { email: string } };
+
+export type UserMiniProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserMiniProfileQuery = { userMe: { avatarUrl?: string | null, firstName?: string | null, lastName?: string | null } };
 
 export type LoginUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -273,6 +286,60 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { newUser: { token?: string | null, problem?: { message: string } | null } };
 
 
+export const AllPostsDocument = gql`
+    query allPosts($type: PostFilterType!, $limit: Int = 10) {
+  posts(input: {type: $type, limit: $limit}) {
+    data {
+      author {
+        firstName
+        lastName
+        avatarUrl
+      }
+      createdAt
+      description
+      likesCount
+      isLiked
+      title
+      mediaUrl
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useAllPostsQuery__
+ *
+ * To run a query within a React component, call `useAllPostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAllPostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAllPostsQuery({
+ *   variables: {
+ *      type: // value for 'type'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useAllPostsQuery(baseOptions: Apollo.QueryHookOptions<AllPostsQuery, AllPostsQueryVariables> & ({ variables: AllPostsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, options);
+      }
+export function useAllPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AllPostsQuery, AllPostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, options);
+        }
+export function useAllPostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AllPostsQuery, AllPostsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AllPostsQuery, AllPostsQueryVariables>(AllPostsDocument, options);
+        }
+export type AllPostsQueryHookResult = ReturnType<typeof useAllPostsQuery>;
+export type AllPostsLazyQueryHookResult = ReturnType<typeof useAllPostsLazyQuery>;
+export type AllPostsSuspenseQueryHookResult = ReturnType<typeof useAllPostsSuspenseQuery>;
+export type AllPostsQueryResult = Apollo.QueryResult<AllPostsQuery, AllPostsQueryVariables>;
 export const UserEmailDocument = gql`
     query userEmail {
   userEmail: userMe {
@@ -312,6 +379,47 @@ export type UserEmailQueryHookResult = ReturnType<typeof useUserEmailQuery>;
 export type UserEmailLazyQueryHookResult = ReturnType<typeof useUserEmailLazyQuery>;
 export type UserEmailSuspenseQueryHookResult = ReturnType<typeof useUserEmailSuspenseQuery>;
 export type UserEmailQueryResult = Apollo.QueryResult<UserEmailQuery, UserEmailQueryVariables>;
+export const UserMiniProfileDocument = gql`
+    query userMiniProfile {
+  userMe {
+    avatarUrl
+    firstName
+    lastName
+  }
+}
+    `;
+
+/**
+ * __useUserMiniProfileQuery__
+ *
+ * To run a query within a React component, call `useUserMiniProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserMiniProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserMiniProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserMiniProfileQuery(baseOptions?: Apollo.QueryHookOptions<UserMiniProfileQuery, UserMiniProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserMiniProfileQuery, UserMiniProfileQueryVariables>(UserMiniProfileDocument, options);
+      }
+export function useUserMiniProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserMiniProfileQuery, UserMiniProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserMiniProfileQuery, UserMiniProfileQueryVariables>(UserMiniProfileDocument, options);
+        }
+export function useUserMiniProfileSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UserMiniProfileQuery, UserMiniProfileQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UserMiniProfileQuery, UserMiniProfileQueryVariables>(UserMiniProfileDocument, options);
+        }
+export type UserMiniProfileQueryHookResult = ReturnType<typeof useUserMiniProfileQuery>;
+export type UserMiniProfileLazyQueryHookResult = ReturnType<typeof useUserMiniProfileLazyQuery>;
+export type UserMiniProfileSuspenseQueryHookResult = ReturnType<typeof useUserMiniProfileSuspenseQuery>;
+export type UserMiniProfileQueryResult = Apollo.QueryResult<UserMiniProfileQuery, UserMiniProfileQueryVariables>;
 export const LoginUserDocument = gql`
     mutation loginUser($email: String!, $password: String!) {
   loginUser: userSignIn(input: {email: $email, password: $password}) {

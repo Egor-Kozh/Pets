@@ -5,11 +5,9 @@ import { Input } from "../../shared/components/inputs/input/input";
 import { RadioButton } from "../../shared/components/radio-buttons/radio-button";
 // import { Tab } from "../../shared/components/tab/tab";
 import { Toggle } from "../../shared/components/toggle/toggle";
-import { MiniProfile } from "../../widgets/user/mini-profile/mini-profile";
-import { SortPosts } from "../../widgets/posts/sort-posts/sort-posts";
+// import { MiniProfile } from "../../widgets/user/mini-profile/mini-profile";
+// import { SortPosts } from "../../widgets/posts/sort-posts/sort-posts";
 import { Header } from "../../widgets/layout/header/header";
-import { Post } from "../../widgets/posts/post/post";
-import { MiniProfilePost } from "../../widgets/user/mini-profile/mini-profile-post";
 import { InputImage } from "../../shared/components/inputs/uploader/input-image";
 
 export const UiKitPage = () => {
@@ -26,7 +24,6 @@ export const UiKitPage = () => {
 
   return (
     <>
-      <div id="modal"></div>
       <Header />
       <p>Hello world!</p>
 
@@ -101,18 +98,10 @@ export const UiKitPage = () => {
       <Input id="112" title="large" large />
       <InputImage />
 
-      <MiniProfile userFirstName="Мария" userLastName="Иванова" />
-      <MiniProfilePost
-        userFirstName="Мария"
-        userLastName="Иванова"
-        date="20.09.2022"
-      />
+      {/* <MiniProfile userFirstName="Мария" userLastName="Иванова" /> */}
 
-      <SortPosts />
-      <SortPosts sortBy="best" />
-
-      <Post />
-      <Post mine />
+      {/* <SortPosts />
+      <SortPosts sortBy="best" /> */}
     </>
   );
 };

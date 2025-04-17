@@ -3,11 +3,18 @@ import { HomePage } from "../../pages/home/home";
 import { UiKitPage } from "../../pages/ui-kit/ui-kit";
 import { AuthorizationPage } from "../../pages/authorization/authorization";
 import { Routes } from "../../shared/routes";
+import { MainLayout } from "../../widgets/layout/main-layout";
 
 export const routes: RouteObject[] = [
   {
-    path: "/",
-    element: <HomePage />,
+    path: Routes.home,
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+    ],
   },
   {
     path: Routes.uiKit,

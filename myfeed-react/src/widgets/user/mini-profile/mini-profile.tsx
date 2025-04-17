@@ -5,13 +5,15 @@ import SvgOpenedChevronComponent from "../../../shared/assets/images/svg/compone
 import { DropDown } from "../../../shared/components/dropdown/dropdown";
 
 interface ProfileDropDownProps {
-  userFirstName: string;
-  userLastName: string;
+  user:
+    | {
+        avatarUrl?: string | null;
+        firstName?: string | null;
+        lastName?: string | null;
+      }
+    | undefined;
 }
-export const MiniProfile = ({
-  userFirstName,
-  userLastName,
-}: ProfileDropDownProps) => {
+export const MiniProfile = ({ user }: ProfileDropDownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -26,10 +28,12 @@ export const MiniProfile = ({
       ref={profileRef}
     >
       <div className={styles["mini-profile__inner"]}>
-        <div className={styles["mini-profile__logo"]}></div>
+        <div className={styles["mini-profile__logo"]}>
+          {user?.avatarUrl && <img src={user.avatarUrl} alt="" />}
+        </div>
         <div className={styles["mini-profile__name"]}>
-          <span>{userFirstName}</span>
-          <span>{userLastName}</span>
+          <span>{user?.firstName}</span>
+          <span>{user?.lastName}</span>
         </div>
         <div className={styles["mini-profile__drop-icon"]}>
           {isOpen ? (

@@ -10,18 +10,26 @@ import SvgCloseModalComponent from "../../../shared/assets/images/svg/components
 interface PostModalProps {
   mine?: boolean;
   handleModal: () => void;
+  post: {
+    createdAt: string;
+    description: string;
+    likesCount: number;
+    isLiked: boolean;
+    title: string;
+    mediaUrl: string;
+    author: {
+      firstName?: string | null;
+      lastName?: string | null;
+    };
+  };
 }
-export const PostModal = ({ mine, handleModal }: PostModalProps) => {
+export const PostModal = ({ mine, handleModal, post }: PostModalProps) => {
   return (
     <section className={styles["post"]}>
       <div className={styles["post__inner"]}>
         <header className={styles["post__header"]}>
           <div className={styles["post__user-profile"]}>
-            <MiniProfilePost
-              userFirstName="Мария"
-              userLastName="Иванова"
-              date="20.09.2022"
-            />
+            <MiniProfilePost author={post.author} date={post.createdAt} />
           </div>
           <IconButton onClick={handleModal}>
             <SvgCloseModalComponent />
@@ -29,22 +37,16 @@ export const PostModal = ({ mine, handleModal }: PostModalProps) => {
         </header>
         <section className={styles["post__content"]}>
           <header className={styles["post__content-header"]}>
-            <span>Как интерьер влияет на самочувствие</span>
+            <span>{post.title}</span>
           </header>
-          <div className={styles["post__content-image"]}></div>
+          <div className={styles["post__content-image"]}>
+            <img src={post.mediaUrl} alt="" />
+          </div>
           <div
             className={styles["post__content-text"]}
             style={{ maxHeight: "none" }}
           >
-            <span style={{ display: "block" }}>
-              Мы сделали долгожданный ремонт в спальне в стиле 60-х! Сейчас эта
-              мода вновь буквально врывается в окружающее нас пространство. При
-              помощи ярких акцентов и скругленных элементов интерьера нам
-              удалось придать. Мы сделали долгожданный ремонт в спальне в стиле
-              60-х! Сейчас эта мода вновь буквально врывается в окружающее нас
-              пространство. При помощи ярких акцентов и скругленных элементов
-              интерьера нам удалось придать
-            </span>
+            <span style={{ display: "block" }}>{post.description}</span>
           </div>
         </section>
         <footer className={styles["post__footer"]}>

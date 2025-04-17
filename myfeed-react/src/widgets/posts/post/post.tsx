@@ -13,8 +13,21 @@ import { PostModal } from "./post-modal";
 
 interface PostProps {
   mine?: boolean;
+  post: {
+    createdAt: string;
+    description: string;
+    likesCount: number;
+    isLiked: boolean;
+    title: string;
+    mediaUrl: string;
+    author: {
+      firstName?: string | null;
+      lastName?: string | null;
+      avatarUrl?: string | null;
+    };
+  };
 }
-export const Post = ({ mine }: PostProps) => {
+export const Post = ({ mine, post }: PostProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [isReadMore, setIsReadMore] = useState(false);
   const setScroll = useLockScroll();
@@ -37,11 +50,7 @@ export const Post = ({ mine }: PostProps) => {
       <div className={styles["post__inner"]}>
         <header className={styles["post__header"]}>
           <div className={styles["post__user-profile"]}>
-            <MiniProfilePost
-              userFirstName="Мария"
-              userLastName="Иванова"
-              date="20.09.2022"
-            />
+            <MiniProfilePost author={post.author} date={post.createdAt} />
           </div>
           {mine && (
             <ul className={styles["post__actions-mine"]}>
@@ -65,19 +74,13 @@ export const Post = ({ mine }: PostProps) => {
         </header>
         <section className={styles["post__content"]}>
           <header className={styles["post__content-header"]}>
-            <span>Как интерьер влияет на самочувствие</span>
+            <span>{post.title}</span>
           </header>
-          <div className={styles["post__content-image"]}></div>
+          <div className={styles["post__content-image"]}>
+            <img src={post.mediaUrl} alt="post_img" />
+          </div>
           <div className={styles["post__content-text"]}>
-            <span ref={containerRef}>
-              Мы сделали долгожданный ремонт в спальне в стиле 60-х! Сейчас эта
-              мода вновь буквально врывается в окружающее нас пространство. При
-              помощи ярких акцентов и скругленных элементов интерьера нам
-              удалось придать. Мы сделали долгожданный ремонт в спальне в стиле
-              60-х! Сейчас эта мода вновь буквально врывается в окружающее нас
-              пространство. При помощи ярких акцентов и скругленных элементов
-              интерьера нам удалось придать
-            </span>
+            <span ref={containerRef}>{post.description}</span>
             {isReadMore && (
               <Button typeView="flat" onClick={handleModal}>
                 Читать дальше
@@ -125,7 +128,7 @@ export const Post = ({ mine }: PostProps) => {
       </div>
       {activeModal && (
         <Modal active={true} setActiveModal={handleModal}>
-          <PostModal mine={mine} handleModal={handleModal} />
+          <PostModal mine={mine} handleModal={handleModal} post={post} />
         </Modal>
       )}
     </section>
