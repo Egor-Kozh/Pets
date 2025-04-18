@@ -15,6 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  query allPosts($type: PostFilterType!, $limit: Int = 10) {\n    posts(input: { type: $type, limit: $limit }) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": typeof types.AllPostsDocument,
+    "\n  query favouritePosts {\n    favouritePosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": typeof types.FavouritePostsDocument,
     "\n  query myPosts {\n    myPosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": typeof types.MyPostsDocument,
     "\n  query userEmail {\n    userEmail: userMe {\n      email\n    }\n  }\n": typeof types.UserEmailDocument,
     "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n": typeof types.UserMiniProfileDocument,
@@ -24,6 +25,7 @@ type Documents = {
 };
 const documents: Documents = {
     "\n  query allPosts($type: PostFilterType!, $limit: Int = 10) {\n    posts(input: { type: $type, limit: $limit }) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": types.AllPostsDocument,
+    "\n  query favouritePosts {\n    favouritePosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": types.FavouritePostsDocument,
     "\n  query myPosts {\n    myPosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": types.MyPostsDocument,
     "\n  query userEmail {\n    userEmail: userMe {\n      email\n    }\n  }\n": types.UserEmailDocument,
     "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n": types.UserMiniProfileDocument,
@@ -50,6 +52,10 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query allPosts($type: PostFilterType!, $limit: Int = 10) {\n    posts(input: { type: $type, limit: $limit }) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query allPosts($type: PostFilterType!, $limit: Int = 10) {\n    posts(input: { type: $type, limit: $limit }) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query favouritePosts {\n    favouritePosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n"): (typeof documents)["\n  query favouritePosts {\n    favouritePosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

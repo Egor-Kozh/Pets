@@ -248,6 +248,11 @@ export type AllPostsQueryVariables = Exact<{
 
 export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
 
+export type FavouritePostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FavouritePostsQuery = { favouritePosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
+
 export type MyPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -345,6 +350,58 @@ export type AllPostsQueryHookResult = ReturnType<typeof useAllPostsQuery>;
 export type AllPostsLazyQueryHookResult = ReturnType<typeof useAllPostsLazyQuery>;
 export type AllPostsSuspenseQueryHookResult = ReturnType<typeof useAllPostsSuspenseQuery>;
 export type AllPostsQueryResult = Apollo.QueryResult<AllPostsQuery, AllPostsQueryVariables>;
+export const FavouritePostsDocument = gql`
+    query favouritePosts {
+  favouritePosts(input: {}) {
+    data {
+      author {
+        firstName
+        lastName
+        avatarUrl
+      }
+      createdAt
+      description
+      likesCount
+      isLiked
+      title
+      mediaUrl
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useFavouritePostsQuery__
+ *
+ * To run a query within a React component, call `useFavouritePostsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFavouritePostsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFavouritePostsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFavouritePostsQuery(baseOptions?: Apollo.QueryHookOptions<FavouritePostsQuery, FavouritePostsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FavouritePostsQuery, FavouritePostsQueryVariables>(FavouritePostsDocument, options);
+      }
+export function useFavouritePostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FavouritePostsQuery, FavouritePostsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FavouritePostsQuery, FavouritePostsQueryVariables>(FavouritePostsDocument, options);
+        }
+export function useFavouritePostsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<FavouritePostsQuery, FavouritePostsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FavouritePostsQuery, FavouritePostsQueryVariables>(FavouritePostsDocument, options);
+        }
+export type FavouritePostsQueryHookResult = ReturnType<typeof useFavouritePostsQuery>;
+export type FavouritePostsLazyQueryHookResult = ReturnType<typeof useFavouritePostsLazyQuery>;
+export type FavouritePostsSuspenseQueryHookResult = ReturnType<typeof useFavouritePostsSuspenseQuery>;
+export type FavouritePostsQueryResult = Apollo.QueryResult<FavouritePostsQuery, FavouritePostsQueryVariables>;
 export const MyPostsDocument = gql`
     query myPosts {
   myPosts(input: {}) {
