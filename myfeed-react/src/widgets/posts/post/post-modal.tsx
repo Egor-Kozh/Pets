@@ -17,13 +17,22 @@ interface PostModalProps {
     isLiked: boolean;
     title: string;
     mediaUrl: string;
+    id: string;
     author: {
       firstName?: string | null;
       lastName?: string | null;
     };
   };
+  isLike: boolean;
+  handleLikePost: () => void;
 }
-export const PostModal = ({ mine, handleModal, post }: PostModalProps) => {
+export const PostModal = ({
+  mine,
+  handleModal,
+  post,
+  isLike,
+  handleLikePost,
+}: PostModalProps) => {
   return (
     <section className={styles["post"]}>
       <div className={styles["post__inner"]}>
@@ -71,8 +80,8 @@ export const PostModal = ({ mine, handleModal, post }: PostModalProps) => {
           ) : (
             <ul className={styles["post__actions-another"]}>
               <li>
-                <IconButton>
-                  <SvgLikeComponent />
+                <IconButton onClick={handleLikePost}>
+                  <SvgLikeComponent isLiked={isLike} />
                 </IconButton>
               </li>
               <li>

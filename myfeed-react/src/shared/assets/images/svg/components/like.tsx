@@ -1,9 +1,12 @@
-const SvgLikeComponent = () => (
+interface SvgLikeComponentProps {
+  isLiked: boolean;
+}
+const SvgLikeComponent = ({ isLiked }: SvgLikeComponentProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24px"
     height="24px"
-    fill="none"
+    fill={isLiked ? "rgba(240, 62, 62, 1)" : "none"}
   >
     <path
       stroke="#BDBDBD"

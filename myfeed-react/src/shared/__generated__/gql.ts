@@ -19,6 +19,8 @@ type Documents = {
     "\n  query myPosts {\n    myPosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": typeof types.MyPostsDocument,
     "\n  query userEmail {\n    userEmail: userMe {\n      email\n    }\n  }\n": typeof types.UserEmailDocument,
     "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n": typeof types.UserMiniProfileDocument,
+    "\n  mutation postLike($id: String!) {\n    postLike(input: { id: $id }) {\n      id\n    }\n  }\n": typeof types.PostLikeDocument,
+    "\n  mutation postUnlike($id: String!) {\n    postUnlike(input: { id: $id }) {\n      id\n    }\n  }\n": typeof types.PostUnlikeDocument,
     "\n  mutation loginUser($email: String!, $password: String!) {\n    loginUser: userSignIn(input: { email: $email, password: $password }) {\n      token\n      problem {\n        message\n      }\n    }\n  }\n": typeof types.LoginUserDocument,
     "\n  mutation CreateUserInfo(\n    $email: String!\n    $firstName: String\n    $lastName: String\n    $middleName: String\n  ) {\n    newUserInfo: userEditProfile(\n      input: {\n        email: $email\n        firstName: $firstName\n        lastName: $lastName\n        middleName: $middleName\n      }\n    ) {\n      problem {\n        ... on EmailAlreadyUsedProblem {\n          message\n        }\n        ... on PhoneAlreadyUsedProblem {\n          message\n        }\n      }\n    }\n  }\n": typeof types.CreateUserInfoDocument,
     "\n  mutation CreateUser(\n    $email: String!\n    $password: String!\n    $passwordConfirm: String!\n  ) {\n    newUser: userSignUp(\n      input: {\n        email: $email\n        password: $password\n        passwordConfirm: $passwordConfirm\n      }\n    ) {\n      token\n      problem {\n        message\n      }\n    }\n  }\n": typeof types.CreateUserDocument,
@@ -29,6 +31,8 @@ const documents: Documents = {
     "\n  query myPosts {\n    myPosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": types.MyPostsDocument,
     "\n  query userEmail {\n    userEmail: userMe {\n      email\n    }\n  }\n": types.UserEmailDocument,
     "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n": types.UserMiniProfileDocument,
+    "\n  mutation postLike($id: String!) {\n    postLike(input: { id: $id }) {\n      id\n    }\n  }\n": types.PostLikeDocument,
+    "\n  mutation postUnlike($id: String!) {\n    postUnlike(input: { id: $id }) {\n      id\n    }\n  }\n": types.PostUnlikeDocument,
     "\n  mutation loginUser($email: String!, $password: String!) {\n    loginUser: userSignIn(input: { email: $email, password: $password }) {\n      token\n      problem {\n        message\n      }\n    }\n  }\n": types.LoginUserDocument,
     "\n  mutation CreateUserInfo(\n    $email: String!\n    $firstName: String\n    $lastName: String\n    $middleName: String\n  ) {\n    newUserInfo: userEditProfile(\n      input: {\n        email: $email\n        firstName: $firstName\n        lastName: $lastName\n        middleName: $middleName\n      }\n    ) {\n      problem {\n        ... on EmailAlreadyUsedProblem {\n          message\n        }\n        ... on PhoneAlreadyUsedProblem {\n          message\n        }\n      }\n    }\n  }\n": types.CreateUserInfoDocument,
     "\n  mutation CreateUser(\n    $email: String!\n    $password: String!\n    $passwordConfirm: String!\n  ) {\n    newUser: userSignUp(\n      input: {\n        email: $email\n        password: $password\n        passwordConfirm: $passwordConfirm\n      }\n    ) {\n      token\n      problem {\n        message\n      }\n    }\n  }\n": types.CreateUserDocument,
@@ -68,6 +72,14 @@ export function graphql(source: "\n  query userEmail {\n    userEmail: userMe {\
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n"): (typeof documents)["\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation postLike($id: String!) {\n    postLike(input: { id: $id }) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation postLike($id: String!) {\n    postLike(input: { id: $id }) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation postUnlike($id: String!) {\n    postUnlike(input: { id: $id }) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation postUnlike($id: String!) {\n    postUnlike(input: { id: $id }) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

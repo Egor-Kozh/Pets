@@ -10,6 +10,10 @@ import { Button } from "../../../shared/components/buttons/button";
 import { Modal } from "../../../shared/components/modal/modal";
 import { useLockScroll } from "../../../shared/hooks/useLockScroll";
 import { PostModal } from "./post-modal";
+import {
+  usePostLikeMutation,
+  usePostUnlikeMutation,
+} from "../../../shared/__generated__/hooks";
 
 interface PostProps {
   mine?: boolean;
@@ -20,6 +24,7 @@ interface PostProps {
     isLiked: boolean;
     title: string;
     mediaUrl: string;
+    id: string;
     author: {
       firstName?: string | null;
       lastName?: string | null;
@@ -30,7 +35,19 @@ interface PostProps {
 export const Post = ({ mine, post }: PostProps) => {
   const [activeModal, setActiveModal] = useState(false);
   const [isReadMore, setIsReadMore] = useState(false);
+  const [isLike, setIsLike] = useState(post.isLiked);
   const setScroll = useLockScroll();
+
+  const [like] = usePostLikeMutation({
+    onCompleted: () => {
+      setIsLike(true);
+    },
+  });
+  const [unLike] = usePostUnlikeMutation({
+    onCompleted: () => {
+      setIsLike(false);
+    },
+  });
 
   const containerRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -43,6 +60,22 @@ export const Post = ({ mine, post }: PostProps) => {
   const handleModal = () => {
     setScroll();
     setActiveModal((active) => !active);
+  };
+
+  const handleLikePost = () => {
+    if (isLike) {
+      unLike({
+        variables: {
+          id: post.id,
+        },
+      });
+    } else {
+      like({
+        variables: {
+          id: post.id,
+        },
+      });
+    }
   };
 
   return (
@@ -92,8 +125,8 @@ export const Post = ({ mine, post }: PostProps) => {
           <footer className={styles["post__footer"]}>
             <ul className={styles["post__actions-another"]}>
               <li>
-                <IconButton>
-                  <SvgLikeComponent />
+                <IconButton onClick={handleLikePost}>
+                  <SvgLikeComponent isLiked={isLike} />
                 </IconButton>
               </li>
               <li>
@@ -128,7 +161,13 @@ export const Post = ({ mine, post }: PostProps) => {
       </div>
       {activeModal && (
         <Modal active={true} setActiveModal={handleModal}>
-          <PostModal mine={mine} handleModal={handleModal} post={post} />
+          <PostModal
+            mine={mine}
+            handleModal={handleModal}
+            post={post}
+            isLike={isLike}
+            handleLikePost={handleLikePost}
+          />
         </Modal>
       )}
     </section>

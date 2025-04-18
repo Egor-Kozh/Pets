@@ -1,0 +1,13 @@
+.favourite-posts {
+  margin-top: 24px;
+
+  width: 743px;
+  height: fit-content;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 24px;
+  }
+}
