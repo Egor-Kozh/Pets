@@ -8,6 +8,7 @@ export const FAVOURITE_POSTS = gql`
           firstName
           lastName
           avatarUrl
+          id
         }
         createdAt
         description

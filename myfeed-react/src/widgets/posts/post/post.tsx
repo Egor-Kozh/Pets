@@ -137,27 +137,6 @@ export const Post = ({ mine, post }: PostProps) => {
             </ul>
           </footer>
         )}
-        {mine && (
-          <footer className={styles["post__footer"]}>
-            <ul className={styles["post__actions-mine"]}>
-              <li>
-                <IconButton>
-                  <SvgShareComponent />
-                </IconButton>
-              </li>
-              <li>
-                <IconButton>
-                  <SvgDeleteComponent />
-                </IconButton>
-              </li>
-              <li>
-                <IconButton>
-                  <SvgChangeComponent />
-                </IconButton>
-              </li>
-            </ul>
-          </footer>
-        )}
       </div>
       {activeModal && (
         <Modal active={true} setActiveModal={handleModal}>

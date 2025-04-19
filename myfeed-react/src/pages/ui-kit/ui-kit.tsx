@@ -8,7 +8,7 @@ import { Toggle } from "../../shared/components/toggle/toggle";
 // import { MiniProfile } from "../../widgets/user/mini-profile/mini-profile";
 // import { SortPosts } from "../../widgets/posts/sort-posts/sort-posts";
 import { Header } from "../../widgets/layout/header/header";
-import { InputImage } from "../../shared/components/inputs/uploader/input-image";
+// import { InputImage } from "../../shared/components/inputs/uploader/input-image";
 
 export const UiKitPage = () => {
   const {
@@ -95,8 +95,14 @@ export const UiKitPage = () => {
       <Input id="9" type="password" title="input eye" />
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />
-      <Input id="112" title="large" large />
-      <InputImage />
+      <Input
+        id="create_post_description"
+        placeholder="Придумайте описание для своего поста"
+        title="Описание"
+        large
+      ></Input>
+      {/* <Input id="112" title="large" large /> */}
+      {/* <InputImage /> */}
 
       {/* <MiniProfile userFirstName="Мария" userLastName="Иванова" /> */}
 

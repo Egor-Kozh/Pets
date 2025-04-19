@@ -19,6 +19,7 @@ export const EmptyPostsItems: EmptyPostsItem[] = [
     type: EmptyPostsType.favourite,
   },
   {
+    href: Routes.create_post,
     label: "Создать пост",
     message: "У вас пока нет ни одного поста",
     type: EmptyPostsType.myPosts,

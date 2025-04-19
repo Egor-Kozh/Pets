@@ -6,6 +6,7 @@ import { Routes } from "../../shared/routes";
 import { MainLayout } from "../../widgets/layout/main-layout";
 import { MyPostsPage } from "../../pages/my-posts/my-posts";
 import { FavouritePage } from "../../pages/favourite/favourite";
+import { CreatePostPage } from "../../pages/create-post/create-post";
 
 export const routes: RouteObject[] = [
   {
@@ -23,6 +24,10 @@ export const routes: RouteObject[] = [
       {
         path: Routes.favourite_posts,
         element: <FavouritePage />,
+      },
+      {
+        path: Routes.create_post,
+        element: <CreatePostPage />,
       },
     ],
   },

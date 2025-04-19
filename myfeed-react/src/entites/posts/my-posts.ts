@@ -8,6 +8,7 @@ export const MY_POSTS = gql`
           firstName
           lastName
           avatarUrl
+          id
         }
         createdAt
         description

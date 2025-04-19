@@ -246,27 +246,41 @@ export type AllPostsQueryVariables = Exact<{
 }>;
 
 
-export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
+export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } }> | null } };
 
 export type FavouritePostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FavouritePostsQuery = { favouritePosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
+export type FavouritePostsQuery = { favouritePosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } }> | null } };
 
 export type MyPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyPostsQuery = { myPosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null } }> | null } };
+export type MyPostsQuery = { myPosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } }> | null } };
 
 export type UserEmailQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserEmailQuery = { userEmail: { email: string } };
 
+export type UserIdQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserIdQuery = { userId: { id: string } };
+
 export type UserMiniProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UserMiniProfileQuery = { userMe: { avatarUrl?: string | null, firstName?: string | null, lastName?: string | null } };
+
+export type CreatePostMutationVariables = Exact<{
+  description: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  mediaUrl: Scalars['String']['input'];
+}>;
+
+
+export type CreatePostMutation = { postCreate: { id: string } };
 
 export type PostLikeMutationVariables = Exact<{
   id: Scalars['String']['input'];
@@ -318,6 +332,7 @@ export const AllPostsDocument = gql`
         firstName
         lastName
         avatarUrl
+        id
       }
       createdAt
       description
@@ -372,6 +387,7 @@ export const FavouritePostsDocument = gql`
         firstName
         lastName
         avatarUrl
+        id
       }
       createdAt
       description
@@ -424,6 +440,7 @@ export const MyPostsDocument = gql`
         firstName
         lastName
         avatarUrl
+        id
       }
       createdAt
       description
@@ -507,6 +524,45 @@ export type UserEmailQueryHookResult = ReturnType<typeof useUserEmailQuery>;
 export type UserEmailLazyQueryHookResult = ReturnType<typeof useUserEmailLazyQuery>;
 export type UserEmailSuspenseQueryHookResult = ReturnType<typeof useUserEmailSuspenseQuery>;
 export type UserEmailQueryResult = Apollo.QueryResult<UserEmailQuery, UserEmailQueryVariables>;
+export const UserIdDocument = gql`
+    query userId {
+  userId: userMe {
+    id
+  }
+}
+    `;
+
+/**
+ * __useUserIdQuery__
+ *
+ * To run a query within a React component, call `useUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserIdQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserIdQuery(baseOptions?: Apollo.QueryHookOptions<UserIdQuery, UserIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserIdQuery, UserIdQueryVariables>(UserIdDocument, options);
+      }
+export function useUserIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserIdQuery, UserIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserIdQuery, UserIdQueryVariables>(UserIdDocument, options);
+        }
+export function useUserIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UserIdQuery, UserIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UserIdQuery, UserIdQueryVariables>(UserIdDocument, options);
+        }
+export type UserIdQueryHookResult = ReturnType<typeof useUserIdQuery>;
+export type UserIdLazyQueryHookResult = ReturnType<typeof useUserIdLazyQuery>;
+export type UserIdSuspenseQueryHookResult = ReturnType<typeof useUserIdSuspenseQuery>;
+export type UserIdQueryResult = Apollo.QueryResult<UserIdQuery, UserIdQueryVariables>;
 export const UserMiniProfileDocument = gql`
     query userMiniProfile {
   userMe {
@@ -548,6 +604,43 @@ export type UserMiniProfileQueryHookResult = ReturnType<typeof useUserMiniProfil
 export type UserMiniProfileLazyQueryHookResult = ReturnType<typeof useUserMiniProfileLazyQuery>;
 export type UserMiniProfileSuspenseQueryHookResult = ReturnType<typeof useUserMiniProfileSuspenseQuery>;
 export type UserMiniProfileQueryResult = Apollo.QueryResult<UserMiniProfileQuery, UserMiniProfileQueryVariables>;
+export const CreatePostDocument = gql`
+    mutation createPost($description: String!, $title: String!, $mediaUrl: String!) {
+  postCreate(
+    input: {description: $description, mediaUrl: $mediaUrl, title: $title}
+  ) {
+    id
+  }
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      description: // value for 'description'
+ *      title: // value for 'title'
+ *      mediaUrl: // value for 'mediaUrl'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const PostLikeDocument = gql`
     mutation postLike($id: String!) {
   postLike(input: {id: $id}) {

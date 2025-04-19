@@ -4,7 +4,10 @@ import SvgLoadFileComponent from "../../../assets/images/svg/components/load-fil
 import { Button } from "../../buttons/button";
 import { ProgressBar } from "./ui/progress-bar/progress-bar";
 
-export const InputImage = () => {
+interface InputImageProps {
+  setImageFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+}
+export const InputImage = ({ setImageFile }: InputImageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
   const [fileImage, setFileImage] = useState<File>();
@@ -17,6 +20,7 @@ export const InputImage = () => {
   const handleLoad = () => {
     if (!fileImage) return;
     const imgURL = URL.createObjectURL(fileImage);
+    setImageFile(fileImage);
     setImage(imgURL);
   };
 
