@@ -1,7 +1,7 @@
-import { useMyPostsQuery } from "../../shared/__generated__/hooks";
-import { PostsEmpty } from "../../widgets/posts-empty.tsx/posts-empty";
-import { MyPosts } from "../../widgets/my-posts/my-posts";
-import { EmptyPostsType } from "../../widgets/posts-empty.tsx/model/types";
+import { useMyPostsQuery } from "@shared/__generated__/hooks";
+import { PostsEmpty } from "@widgets/posts-empty.tsx/posts-empty";
+import { MyPosts } from "@widgets/my-posts/my-posts";
+import { EmptyPostsType } from "@widgets/posts-empty.tsx/model/types";
 
 export const MyPostsPage = () => {
   const { data } = useMyPostsQuery();

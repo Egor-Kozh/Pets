@@ -1,5 +1,5 @@
-import { FavouritePostsQuery } from "../../shared/__generated__/graphql";
-import { Post } from "../posts/post/post";
+import { FavouritePostsQuery } from "@shared/__generated__/graphql";
+import { Post } from "@entities/posts/ui/post/post";
 import styles from "./favourite-posts.module.scss";
 
 interface FavouritePostsProps {

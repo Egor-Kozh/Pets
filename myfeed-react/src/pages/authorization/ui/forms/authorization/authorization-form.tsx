@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Input } from "../../../../../shared/components/inputs/input/input";
+import { Input } from "@shared/components/input/input";
 import styles from "./authorization-form.module.scss";
-import { Button } from "../../../../../shared/components/buttons/button";
-import { useLoginUserMutation } from "../../../../../shared/__generated__/hooks";
-import { tokenVar } from "../../../../../app/api/clients";
+import { Button } from "@shared/components/buttons/button";
+import { useLoginUserMutation } from "@shared/__generated__/hooks";
+import { tokenVar } from "@app/api/clients";
 import { useNavigate } from "react-router-dom";
-import { Routes } from "../../../../../shared/routes";
+import { Routes } from "@shared/routes";
 import { useEffect, useState } from "react";
 
 export const AuthorizationForm = () => {

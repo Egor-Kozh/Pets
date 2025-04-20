@@ -5,4 +5,5 @@ export const Routes = {
   favourite_posts: "/favourite",
   uiKit: "/ui-kit",
   create_post: "/my-posts/create",
+  profile: "/profile",
 };

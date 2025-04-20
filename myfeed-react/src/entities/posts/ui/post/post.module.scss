@@ -1,5 +1,5 @@
-@use "../../../shared/styles/themes/dark-theme.scss" as dark;
-@use "../../../shared/styles/themes/ligth-theme.scss" as light;
+@use "@shared/styles/themes/dark-theme.scss" as dark;
+@use "@shared/styles/themes/ligth-theme.scss" as light;
 
 :root {
   --post-background-color: #{light.$color-light-white};

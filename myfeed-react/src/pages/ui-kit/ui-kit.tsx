@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import "../../shared/styles/global.scss";
 import { Button } from "../../shared/components/buttons/button";
-import { Input } from "../../shared/components/inputs/input/input";
-import { RadioButton } from "../../shared/components/radio-buttons/radio-button";
+import { Input } from "../../shared/components/input/input";
+// import { RadioButton } from "../../shared/components/radio-buttons/radio-button";
 // import { Tab } from "../../shared/components/tab/tab";
 import { Toggle } from "../../shared/components/toggle/toggle";
 // import { MiniProfile } from "../../widgets/user/mini-profile/mini-profile";
@@ -50,10 +50,10 @@ export const UiKitPage = () => {
       </Button>
       <Button size="small" typeView="secondary" loading></Button>
 
-      <RadioButton name="rad" id="1" value="text1" />
+      {/* <RadioButton name="rad" id="1" value="text1" />
       <RadioButton name="rad" id="2" value="text2" />
       <RadioButton name="rad dis" id="4" value="text4" />
-      <RadioButton name="rad dis" id="3" value="text3" disabled checked />
+      <RadioButton name="rad dis" id="3" value="text3" disabled checked /> */}
 
       <Toggle id="5" />
       <Toggle id="6" />

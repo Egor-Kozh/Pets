@@ -1,4 +1,4 @@
-import { Button } from "../../shared/components/buttons/button";
+import { Button } from "@shared/components/buttons/button";
 import styles from "./posts-empty.module.scss";
 import { EmptyPostsItems, EmptyPostsType } from "./model/types";
 import { useNavigate } from "react-router-dom";

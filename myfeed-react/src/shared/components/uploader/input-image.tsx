@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styles from "./input-image.module.scss";
-import SvgLoadFileComponent from "../../../assets/images/svg/components/load-file";
-import { Button } from "../../buttons/button";
+import SvgLoadFileComponent from "@shared/assets/images/svg/components/load-file";
+import { Button } from "@shared/components/buttons/button";
 import { ProgressBar } from "./ui/progress-bar/progress-bar";
 
 interface InputImageProps {

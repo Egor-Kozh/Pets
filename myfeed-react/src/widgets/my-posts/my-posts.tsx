@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { MyPostsQuery } from "../../shared/__generated__/graphql";
-import { useUserMiniProfileQuery } from "../../shared/__generated__/hooks";
-import { Button } from "../../shared/components/buttons/button";
-import { Post } from "../posts/post/post";
+import { MyPostsQuery } from "@shared/__generated__/graphql";
+import { useUserMiniProfileQuery } from "@shared/__generated__/hooks";
+import { Button } from "@shared/components/buttons/button";
+import { Post } from "@entities/posts/ui/post/post";
 import styles from "./my-posts.module.scss";
-import { Routes } from "../../shared/routes";
+import { Routes } from "@shared/routes";
 
 interface MyPostsProps {
   data: MyPostsQuery | undefined;

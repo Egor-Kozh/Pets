@@ -273,6 +273,11 @@ export type UserMiniProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UserMiniProfileQuery = { userMe: { avatarUrl?: string | null, firstName?: string | null, lastName?: string | null } };
 
+export type UserProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserProfileQuery = { userMe: { avatarUrl?: string | null, firstName?: string | null, lastName?: string | null, middleName?: string | null, email: string, gender?: string | null, id: string, birthDate?: string | null, country?: string | null, phone?: string | null } };
+
 export type CreatePostMutationVariables = Exact<{
   description: Scalars['String']['input'];
   title: Scalars['String']['input'];
@@ -322,6 +327,21 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { newUser: { token?: string | null, problem?: { message: string } | null } };
+
+export type EditUserMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  middleName?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<GenderType>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  avatarUrl?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type EditUserMutation = { editUser: { problem?: { message: string } | { message: string } | null } };
 
 
 export const AllPostsDocument = gql`
@@ -604,6 +624,54 @@ export type UserMiniProfileQueryHookResult = ReturnType<typeof useUserMiniProfil
 export type UserMiniProfileLazyQueryHookResult = ReturnType<typeof useUserMiniProfileLazyQuery>;
 export type UserMiniProfileSuspenseQueryHookResult = ReturnType<typeof useUserMiniProfileSuspenseQuery>;
 export type UserMiniProfileQueryResult = Apollo.QueryResult<UserMiniProfileQuery, UserMiniProfileQueryVariables>;
+export const UserProfileDocument = gql`
+    query userProfile {
+  userMe {
+    avatarUrl
+    firstName
+    lastName
+    middleName
+    email
+    gender
+    id
+    birthDate
+    country
+    phone
+  }
+}
+    `;
+
+/**
+ * __useUserProfileQuery__
+ *
+ * To run a query within a React component, call `useUserProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserProfileQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserProfileQuery(baseOptions?: Apollo.QueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, options);
+      }
+export function useUserProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, options);
+        }
+export function useUserProfileSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<UserProfileQuery, UserProfileQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<UserProfileQuery, UserProfileQueryVariables>(UserProfileDocument, options);
+        }
+export type UserProfileQueryHookResult = ReturnType<typeof useUserProfileQuery>;
+export type UserProfileLazyQueryHookResult = ReturnType<typeof useUserProfileLazyQuery>;
+export type UserProfileSuspenseQueryHookResult = ReturnType<typeof useUserProfileSuspenseQuery>;
+export type UserProfileQueryResult = Apollo.QueryResult<UserProfileQuery, UserProfileQueryVariables>;
 export const CreatePostDocument = gql`
     mutation createPost($description: String!, $title: String!, $mediaUrl: String!) {
   postCreate(
@@ -829,3 +897,53 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
+export const EditUserDocument = gql`
+    mutation EditUser($email: String!, $firstName: String, $lastName: String, $middleName: String, $birthDate: String, $gender: GenderType, $country: String, $avatarUrl: String, $phone: String) {
+  editUser: userEditProfile(
+    input: {email: $email, firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate, gender: $gender, country: $country, avatarUrl: $avatarUrl, phone: $phone}
+  ) {
+    problem {
+      ... on EmailAlreadyUsedProblem {
+        message
+      }
+      ... on PhoneAlreadyUsedProblem {
+        message
+      }
+    }
+  }
+}
+    `;
+export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
+
+/**
+ * __useEditUserMutation__
+ *
+ * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
+ *      middleName: // value for 'middleName'
+ *      birthDate: // value for 'birthDate'
+ *      gender: // value for 'gender'
+ *      country: // value for 'country'
+ *      avatarUrl: // value for 'avatarUrl'
+ *      phone: // value for 'phone'
+ *   },
+ * });
+ */
+export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
+      }
+export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
+export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
+export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;

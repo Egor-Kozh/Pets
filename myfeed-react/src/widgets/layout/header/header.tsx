@@ -1,10 +1,10 @@
-import { Toggle } from "../../../shared/components/toggle/toggle";
-import { MiniProfile } from "../../user/mini-profile/mini-profile";
+import { Toggle } from "@shared/components/toggle/toggle";
+import { MiniProfile } from "@entities/user/ui/mini-profile/mini-profile";
 import styles from "./header.module.scss";
-import SvgLogoComponent from "../../../shared/assets/images/svg/components/logo";
-import { useColorTheme } from "../../../shared/hooks/useColorTheme";
+import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
+import { useColorTheme } from "@shared/hooks/useColorTheme";
 import { navItems } from "./model/nav-types";
-import { useUserMiniProfileQuery } from "../../../shared/__generated__/hooks";
+import { useUserMiniProfileQuery } from "@shared/__generated__/hooks";
 import { useLocation } from "react-router-dom";
 
 export const Header = () => {

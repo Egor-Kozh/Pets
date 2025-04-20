@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import SvgEyeComponent from "../../../assets/images/svg/components/eye";
-import SvgEyeSlashComponent from "../../../assets/images/svg/components/eye-slash";
+import SvgEyeComponent from "@shared/assets/images/svg/components/eye";
+import SvgEyeSlashComponent from "@shared/assets/images/svg/components/eye-slash";
 import styles from "./input.module.scss";
 import classNames from "classnames";
 import { UseFormRegisterReturn } from "react-hook-form";
-import SvgErrorComponent from "../../../assets/images/svg/components/error";
+import SvgErrorComponent from "@shared/assets/images/svg/components/error";
 
 interface InputProps {
   id: string;
@@ -13,6 +13,7 @@ interface InputProps {
   type?: "password" | "date";
   children?: React.ReactNode;
   wrong?: boolean;
+  size?: string;
   register?: UseFormRegisterReturn<string>;
   large?: boolean;
 }
@@ -25,6 +26,7 @@ export const Input = ({
   wrong,
   register,
   large,
+  size,
 }: InputProps) => {
   const [isNotVisible, setIsNotVisible] = useState(type === "password");
 
@@ -67,7 +69,7 @@ export const Input = ({
   );
 
   return (
-    <div className={inputClass}>
+    <div className={inputClass} style={{ width: size }}>
       <label htmlFor={id}>{title}</label>
       <div className={styles.input__inner}>
         {large ? (

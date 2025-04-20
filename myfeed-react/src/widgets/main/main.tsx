@@ -3,9 +3,9 @@ import {
   PostFilterType,
   useAllPostsQuery,
   useUserIdQuery,
-} from "../../shared/__generated__/hooks";
-import { Post } from "../posts/post/post";
-import { SortPosts } from "../posts/sort-posts/sort-posts";
+} from "@shared/__generated__/hooks";
+import { Post } from "@entities/posts/ui/post/post";
+import { SortPosts } from "@entities/posts/ui/sort-posts/sort-posts";
 import styles from "./main.module.scss";
 
 export const Main = () => {

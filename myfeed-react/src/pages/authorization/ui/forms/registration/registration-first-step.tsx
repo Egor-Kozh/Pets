@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Button } from "../../../../../shared/components/buttons/button";
-import { Input } from "../../../../../shared/components/inputs/input/input";
-import { tokenVar } from "../../../../../app/api/clients";
+import { Button } from "@shared/components/buttons/button";
+import { Input } from "@shared/components/input/input";
+import { tokenVar } from "@app/api/clients";
 import { useEffect, useState } from "react";
-import { useCreateUserMutation } from "../../../../../shared/__generated__/hooks";
+import { useCreateUserMutation } from "@shared/__generated__/hooks";
 
 interface RegistrationFirtStepProps {
   setNextStep: React.Dispatch<React.SetStateAction<boolean>>;

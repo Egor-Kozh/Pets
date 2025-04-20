@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { Header } from "./header/header";
 import { useEffect } from "react";
-import { Routes } from "../../shared/routes";
-import { tokenVar } from "../../app/api/clients";
+import { Routes } from "@shared/routes";
+import { tokenVar } from "@app/api/clients";
 import styles from "./main-layout.module.scss";
 
 export const MainLayout = () => {

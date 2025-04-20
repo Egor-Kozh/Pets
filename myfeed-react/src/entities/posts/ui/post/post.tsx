@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { IconButton } from "../../../shared/components/icon-button/icon-button";
-import { MiniProfilePost } from "../../user/mini-profile/mini-profile-post";
-import SvgChangeComponent from "../../../shared/assets/images/svg/components/change";
-import SvgDeleteComponent from "../../../shared/assets/images/svg/components/delete";
-import SvgLikeComponent from "../../../shared/assets/images/svg/components/like";
-import SvgShareComponent from "../../../shared/assets/images/svg/components/share";
+import { IconButton } from "@shared/components/icon-button/icon-button";
+import { MiniProfilePost } from "../../../user/ui/mini-profile/mini-profile-post";
+import SvgChangeComponent from "@shared/assets/images/svg/components/change";
+import SvgDeleteComponent from "@shared/assets/images/svg/components/delete";
+import SvgLikeComponent from "@shared/assets/images/svg/components/like";
+import SvgShareComponent from "@shared/assets/images/svg/components/share";
 import styles from "./post.module.scss";
-import { Button } from "../../../shared/components/buttons/button";
-import { Modal } from "../../../shared/components/modal/modal";
-import { useLockScroll } from "../../../shared/hooks/useLockScroll";
+import { Button } from "@shared/components/buttons/button";
+import { Modal } from "@shared/components/modal/modal";
+import { useLockScroll } from "@shared/hooks/useLockScroll";
 import { PostModal } from "./post-modal";
 import {
   usePostLikeMutation,
   usePostUnlikeMutation,
-} from "../../../shared/__generated__/hooks";
+} from "@shared/__generated__/hooks";
 
 interface PostProps {
   mine?: boolean;

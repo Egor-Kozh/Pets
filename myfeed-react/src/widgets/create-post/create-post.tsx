@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import styles from "./create-post.module.scss";
-import { Input } from "../../shared/components/inputs/input/input";
-import { InputImage } from "../../shared/components/inputs/uploader/input-image";
-import { Button } from "../../shared/components/buttons/button";
-import { useCreatePostMutation } from "../../shared/__generated__/hooks";
+import { Input } from "@shared/components/input/input";
+import { InputImage } from "@shared/components/uploader/input-image";
+import { Button } from "@shared/components/buttons/button";
+import { useCreatePostMutation } from "@shared/__generated__/hooks";
 import { useState } from "react";
-import { uploadToS3 } from "../../shared/hooks/imageToS3";
+import { uploadToS3 } from "@shared/hooks/imageToS3";
 import { useNavigate } from "react-router-dom";
-import { Routes } from "../../shared/routes";
+import { Routes } from "@shared/routes";
 
 export const CreatePost = () => {
   const [imageFile, setImageFile] = useState<File | undefined>();

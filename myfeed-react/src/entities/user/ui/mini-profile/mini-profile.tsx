@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
-import SvgClosedChevronComponent from "../../../shared/assets/images/svg/components/closed-chevron";
+import SvgClosedChevronComponent from "@shared/assets/images/svg/components/closed-chevron";
 import styles from "./mini-profile.module.scss";
-import SvgOpenedChevronComponent from "../../../shared/assets/images/svg/components/opened-chevron";
-import { DropDown } from "../../../shared/components/dropdown/dropdown";
+import SvgOpenedChevronComponent from "@shared/assets/images/svg/components/opened-chevron";
+import { DropDown } from "@shared/components/dropdown/dropdown";
+import { useNavigate } from "react-router-dom";
+import { Routes } from "@shared/routes";
 
 interface ProfileDropDownProps {
   user:
@@ -14,11 +16,21 @@ interface ProfileDropDownProps {
     | undefined;
 }
 export const MiniProfile = ({ user }: ProfileDropDownProps) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
   const handleOpenDropDown = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleProfile = () => {
+    navigate(Routes.profile, { replace: true });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    window.location.reload();
   };
 
   return (
@@ -44,10 +56,10 @@ export const MiniProfile = ({ user }: ProfileDropDownProps) => {
         </div>
       </div>
       <DropDown active={isOpen} setIsOpen={setIsOpen} parentRef={profileRef}>
-        <div>
+        <div onClick={handleProfile}>
           <span>Мой профиль</span>
         </div>
-        <div>
+        <div onClick={handleLogout}>
           <span>Выйти</span>
         </div>
       </DropDown>

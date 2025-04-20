@@ -1,5 +1,5 @@
-@use "../../../../../styles/themes/dark-theme.scss" as dark;
-@use "../../../../../styles/themes/ligth-theme.scss" as light;
+@use "@shared/styles/themes/dark-theme.scss" as dark;
+@use "@shared/styles/themes/ligth-theme.scss" as light;
 
 :root {
   --progress-bar-progress-color: #{light.$color-light-primary-lighter};

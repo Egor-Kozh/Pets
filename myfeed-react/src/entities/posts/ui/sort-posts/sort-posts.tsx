@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import SvgClosedChevronComponent from "../../../shared/assets/images/svg/components/closed-chevron";
-import SvgOpenedChevronComponent from "../../../shared/assets/images/svg/components/opened-chevron";
+import SvgClosedChevronComponent from "@shared/assets/images/svg/components/closed-chevron";
+import SvgOpenedChevronComponent from "@shared/assets/images/svg/components/opened-chevron";
 import styles from "./sort-posts.module.scss";
-import { DropDown } from "../../../shared/components/dropdown/dropdown";
-import { PostFilterType } from "../../../shared/__generated__/graphql";
+import { DropDown } from "@shared/components/dropdown/dropdown";
+import { PostFilterType } from "@shared/__generated__/graphql";
 
 interface SortPostsProps {
   sortBy?: PostFilterType;

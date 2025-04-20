@@ -1,7 +1,7 @@
-import { useFavouritePostsQuery } from "../../shared/__generated__/hooks";
-import { FavouritePosts } from "../../widgets/favourite-posts/favourite-posts";
-import { EmptyPostsType } from "../../widgets/posts-empty.tsx/model/types";
-import { PostsEmpty } from "../../widgets/posts-empty.tsx/posts-empty";
+import { useFavouritePostsQuery } from "@shared/__generated__/hooks";
+import { FavouritePosts } from "@widgets/favourite-posts/favourite-posts";
+import { EmptyPostsType } from "@widgets/posts-empty.tsx/model/types";
+import { PostsEmpty } from "@widgets/posts-empty.tsx/posts-empty";
 
 export const FavouritePage = () => {
   const { data } = useFavouritePostsQuery();
