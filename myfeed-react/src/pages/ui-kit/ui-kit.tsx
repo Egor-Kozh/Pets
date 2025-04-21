@@ -7,7 +7,7 @@ import { Input } from "../../shared/components/input/input";
 import { Toggle } from "../../shared/components/toggle/toggle";
 // import { MiniProfile } from "../../widgets/user/mini-profile/mini-profile";
 // import { SortPosts } from "../../widgets/posts/sort-posts/sort-posts";
-import { Header } from "../../widgets/layout/header/header";
+// import { Header } from "../../widgets/layout/header/header";
 // import { InputImage } from "../../shared/components/inputs/uploader/input-image";
 
 export const UiKitPage = () => {
@@ -24,7 +24,7 @@ export const UiKitPage = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <p>Hello world!</p>
 
       <Button typeView="flat">читать дальше</Button>

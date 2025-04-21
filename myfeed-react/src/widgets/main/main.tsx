@@ -18,6 +18,7 @@ export const Main = () => {
   const { data: postsData } = useAllPostsQuery({
     variables: {
       type: postsSort,
+      limit: 20,
     },
   });
 

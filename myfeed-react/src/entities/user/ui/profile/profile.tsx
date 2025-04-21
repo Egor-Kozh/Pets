@@ -70,11 +70,11 @@ export const Profile = () => {
         firstName: fisrtName,
         lastName: lastName,
         middleName: middleName,
-        birthDate: birthDate ?? "",
+        birthDate: birthDate || null,
         gender: gender,
         email: email,
-        phone: phone ?? "",
-        country: country ?? "",
+        phone: phone || null,
+        country: country || null,
       },
     }).catch((error) => {
       console.error("Ошибка при создании поста:", error.message);

@@ -4,14 +4,15 @@ import styles from "./header.module.scss";
 import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
 import { useColorTheme } from "@shared/hooks/useColorTheme";
 import { navItems } from "./model/nav-types";
-import { useUserMiniProfileQuery } from "@shared/__generated__/hooks";
 import { useLocation } from "react-router-dom";
+import { UserMiniProfileQuery } from "@shared/__generated__/hooks";
 
-export const Header = () => {
+interface HeaderProps {
+  data: UserMiniProfileQuery | undefined;
+}
+export const Header = ({ data }: HeaderProps) => {
   const isAсtive = useLocation();
   const setTheme = useColorTheme();
-
-  const { data } = useUserMiniProfileQuery();
 
   return (
     <header className={styles.header}>

@@ -8,12 +8,14 @@ import SvgShareComponent from "@shared/assets/images/svg/components/share";
 import styles from "./post.module.scss";
 import { Button } from "@shared/components/buttons/button";
 import { Modal } from "@shared/components/modal/modal";
-import { useLockScroll } from "@shared/hooks/useLockScroll";
 import { PostModal } from "./post-modal";
 import {
+  useDeletePostMutation,
   usePostLikeMutation,
   usePostUnlikeMutation,
 } from "@shared/__generated__/hooks";
+import { PopUp } from "@widgets/pop-up/pop-up";
+import { useLockScroll } from "@shared/hooks/useLockScroll";
 
 interface PostProps {
   mine?: boolean;
@@ -33,9 +35,11 @@ interface PostProps {
   };
 }
 export const Post = ({ mine, post }: PostProps) => {
-  const [activeModal, setActiveModal] = useState(false);
+  const [activePostModal, setActivePostModal] = useState(false);
+  const [activePopUpModal, setActivePopUpModal] = useState(false);
   const [isReadMore, setIsReadMore] = useState(false);
   const [isLike, setIsLike] = useState(post.isLiked);
+
   const setScroll = useLockScroll();
 
   const [like] = usePostLikeMutation({
@@ -48,6 +52,7 @@ export const Post = ({ mine, post }: PostProps) => {
       setIsLike(false);
     },
   });
+  const [deletePost] = useDeletePostMutation({});
 
   const containerRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -57,9 +62,14 @@ export const Post = ({ mine, post }: PostProps) => {
     }
   }, []);
 
-  const handleModal = () => {
+  const handlePostModal = () => {
     setScroll();
-    setActiveModal((active) => !active);
+    setActivePostModal((active) => !active);
+  };
+
+  const handlePopUpModal = () => {
+    setScroll();
+    setActivePopUpModal((active) => !active);
   };
 
   const handleLikePost = () => {
@@ -78,6 +88,14 @@ export const Post = ({ mine, post }: PostProps) => {
     }
   };
 
+  const hadleDeletePost = () => {
+    deletePost({
+      variables: {
+        postId: post.id,
+      },
+    });
+  };
+
   return (
     <section className={styles["post"]}>
       <div className={styles["post__inner"]}>
@@ -93,7 +111,7 @@ export const Post = ({ mine, post }: PostProps) => {
                 </IconButton>
               </li>
               <li>
-                <IconButton>
+                <IconButton onClick={handlePopUpModal}>
                   <SvgDeleteComponent />
                 </IconButton>
               </li>
@@ -115,7 +133,7 @@ export const Post = ({ mine, post }: PostProps) => {
           <div className={styles["post__content-text"]}>
             <span ref={containerRef}>{post.description}</span>
             {isReadMore && (
-              <Button typeView="flat" onClick={handleModal}>
+              <Button typeView="flat" onClick={handlePostModal}>
                 Читать дальше
               </Button>
             )}
@@ -138,14 +156,24 @@ export const Post = ({ mine, post }: PostProps) => {
           </footer>
         )}
       </div>
-      {activeModal && (
-        <Modal active={true} setActiveModal={handleModal}>
+      {activePostModal && (
+        <Modal active={true} setActiveModal={handlePostModal}>
           <PostModal
             mine={mine}
-            handleModal={handleModal}
+            handleModal={handlePostModal}
             post={post}
             isLike={isLike}
             handleLikePost={handleLikePost}
+          />
+        </Modal>
+      )}
+      {activePopUpModal && (
+        <Modal active={true} setActiveModal={handlePopUpModal}>
+          <PopUp
+            header="Удалить эту запись?"
+            description="После удаления, запись нельзя будет восстановить"
+            action={{ trigger: hadleDeletePost, name: "Удалить" }}
+            handleModal={handlePopUpModal}
           />
         </Modal>
       )}

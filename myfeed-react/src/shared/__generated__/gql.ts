@@ -19,9 +19,10 @@ type Documents = {
     "\n  query myPosts {\n    myPosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n          id\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": typeof types.MyPostsDocument,
     "\n  query userEmail {\n    userEmail: userMe {\n      email\n    }\n  }\n": typeof types.UserEmailDocument,
     "\n  query userId {\n    userId: userMe {\n      id\n    }\n  }\n": typeof types.UserIdDocument,
-    "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n": typeof types.UserMiniProfileDocument,
+    "\n  query userMiniProfile {\n    userMe {\n      id\n      avatarUrl\n      firstName\n      lastName\n      __typename\n    }\n  }\n": typeof types.UserMiniProfileDocument,
     "\n  query userProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n      middleName\n      email\n      gender\n      id\n      birthDate\n      country\n      phone\n    }\n  }\n": typeof types.UserProfileDocument,
     "\n  mutation createPost(\n    $description: String!\n    $title: String!\n    $mediaUrl: String!\n  ) {\n    postCreate(\n      input: { description: $description, mediaUrl: $mediaUrl, title: $title }\n    ) {\n      id\n    }\n  }\n": typeof types.CreatePostDocument,
+    "\n  mutation deletePost($postId: String!) {\n    postDelete(input: { id: $postId }) {\n      id\n    }\n  }\n": typeof types.DeletePostDocument,
     "\n  mutation postLike($id: String!) {\n    postLike(input: { id: $id }) {\n      id\n    }\n  }\n": typeof types.PostLikeDocument,
     "\n  mutation postUnlike($id: String!) {\n    postUnlike(input: { id: $id }) {\n      id\n    }\n  }\n": typeof types.PostUnlikeDocument,
     "\n  mutation loginUser($email: String!, $password: String!) {\n    loginUser: userSignIn(input: { email: $email, password: $password }) {\n      token\n      problem {\n        message\n      }\n    }\n  }\n": typeof types.LoginUserDocument,
@@ -35,9 +36,10 @@ const documents: Documents = {
     "\n  query myPosts {\n    myPosts(input: {}) {\n      data {\n        author {\n          firstName\n          lastName\n          avatarUrl\n          id\n        }\n        createdAt\n        description\n        likesCount\n        isLiked\n        title\n        mediaUrl\n        id\n      }\n    }\n  }\n": types.MyPostsDocument,
     "\n  query userEmail {\n    userEmail: userMe {\n      email\n    }\n  }\n": types.UserEmailDocument,
     "\n  query userId {\n    userId: userMe {\n      id\n    }\n  }\n": types.UserIdDocument,
-    "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n": types.UserMiniProfileDocument,
+    "\n  query userMiniProfile {\n    userMe {\n      id\n      avatarUrl\n      firstName\n      lastName\n      __typename\n    }\n  }\n": types.UserMiniProfileDocument,
     "\n  query userProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n      middleName\n      email\n      gender\n      id\n      birthDate\n      country\n      phone\n    }\n  }\n": types.UserProfileDocument,
     "\n  mutation createPost(\n    $description: String!\n    $title: String!\n    $mediaUrl: String!\n  ) {\n    postCreate(\n      input: { description: $description, mediaUrl: $mediaUrl, title: $title }\n    ) {\n      id\n    }\n  }\n": types.CreatePostDocument,
+    "\n  mutation deletePost($postId: String!) {\n    postDelete(input: { id: $postId }) {\n      id\n    }\n  }\n": types.DeletePostDocument,
     "\n  mutation postLike($id: String!) {\n    postLike(input: { id: $id }) {\n      id\n    }\n  }\n": types.PostLikeDocument,
     "\n  mutation postUnlike($id: String!) {\n    postUnlike(input: { id: $id }) {\n      id\n    }\n  }\n": types.PostUnlikeDocument,
     "\n  mutation loginUser($email: String!, $password: String!) {\n    loginUser: userSignIn(input: { email: $email, password: $password }) {\n      token\n      problem {\n        message\n      }\n    }\n  }\n": types.LoginUserDocument,
@@ -83,7 +85,7 @@ export function graphql(source: "\n  query userId {\n    userId: userMe {\n     
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n"): (typeof documents)["\n  query userMiniProfile {\n    userMe {\n      avatarUrl\n      firstName\n      lastName\n    }\n  }\n"];
+export function graphql(source: "\n  query userMiniProfile {\n    userMe {\n      id\n      avatarUrl\n      firstName\n      lastName\n      __typename\n    }\n  }\n"): (typeof documents)["\n  query userMiniProfile {\n    userMe {\n      id\n      avatarUrl\n      firstName\n      lastName\n      __typename\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -92,6 +94,10 @@ export function graphql(source: "\n  query userProfile {\n    userMe {\n      av
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation createPost(\n    $description: String!\n    $title: String!\n    $mediaUrl: String!\n  ) {\n    postCreate(\n      input: { description: $description, mediaUrl: $mediaUrl, title: $title }\n    ) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation createPost(\n    $description: String!\n    $title: String!\n    $mediaUrl: String!\n  ) {\n    postCreate(\n      input: { description: $description, mediaUrl: $mediaUrl, title: $title }\n    ) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation deletePost($postId: String!) {\n    postDelete(input: { id: $postId }) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation deletePost($postId: String!) {\n    postDelete(input: { id: $postId }) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
