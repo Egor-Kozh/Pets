@@ -1,3 +1,5 @@
+import { formatDate } from "@shared/hooks/formatDate";
+import { Avatar } from "../avatar/avatar";
 import styles from "./mini-profile.module.scss";
 
 interface MiniProfilePostProps {
@@ -13,7 +15,7 @@ export const MiniProfilePost = ({ author, date }: MiniProfilePostProps) => {
     <div className={styles["mini-profile"]}>
       <div className={styles["mini-profile__inner"]}>
         <div className={styles["mini-profile__logo"]}>
-          {author.avatarUrl && <img src={author.avatarUrl} alt="user_logo" />}
+          <Avatar size="38px" src={author ? author.avatarUrl : null} />
         </div>
         <div className={styles["mini-profile__content"]}>
           <div className={styles["mini-profile__name"]}>
@@ -21,7 +23,7 @@ export const MiniProfilePost = ({ author, date }: MiniProfilePostProps) => {
             <span>{author.lastName}</span>
           </div>
           <div className={styles["mini-profile__date-post"]}>
-            <span>{date}</span>
+            <span>{formatDate(date)}</span>
           </div>
         </div>
       </div>

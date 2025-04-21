@@ -1,5 +1,5 @@
-@use "../../../shared/styles/themes/dark-theme.scss" as dark;
-@use "../../../shared/styles/themes/ligth-theme.scss" as light;
+@use "@shared/styles/themes/dark-theme.scss" as dark;
+@use "@shared/styles/themes/ligth-theme.scss" as light;
 
 :root {
   --dropdown-background-color: #{light.$color-light-white};
@@ -20,15 +20,20 @@
 
   z-index: 100;
   position: absolute;
+
   margin-top: 16px;
   width: 100%;
+  min-width: 130px;
   height: 80px;
+
+  flex-direction: column;
 
   &:hover {
     cursor: pointer;
   }
 
-  & div {
+  & > div {
+    position: relative;
     background-color: var(--dropdown-background-color);
 
     width: 100%;
@@ -36,32 +41,41 @@
 
     padding: 10px;
 
-    & span {
+    line-height: normal;
+
+    display: flex;
+    align-items: center;
+
+    & > span {
+      position: absolute;
+      top: 12px;
+      left: 10px;
       font-size: 14px;
       font-family: "Gilroy_Regular";
+      white-space: nowrap;
     }
 
     &:hover {
       background-color: var(--dropdown-background-color-hover);
       color: var(--dropdown-text-color-hover);
 
-      & span {
+      & > span {
         font-family: "Gilroy_Medium";
       }
     }
   }
 
-  & :first-child {
+  & > div:first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
 
-  & :last-child {
+  & > div:last-child {
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
   }
 }
 
 .active {
-  display: block;
+  display: flex;
 }

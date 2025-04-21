@@ -5,6 +5,7 @@ import SvgOpenedChevronComponent from "@shared/assets/images/svg/components/open
 import { DropDown } from "@shared/components/dropdown/dropdown";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "@shared/routes";
+import { Avatar } from "../avatar/avatar";
 
 interface ProfileDropDownProps {
   user:
@@ -41,7 +42,7 @@ export const MiniProfile = ({ user }: ProfileDropDownProps) => {
     >
       <div className={styles["mini-profile__inner"]}>
         <div className={styles["mini-profile__logo"]}>
-          {user?.avatarUrl && <img src={user.avatarUrl} alt="" />}
+          <Avatar size="38px" src={user ? user.avatarUrl : null} />
         </div>
         <div className={styles["mini-profile__name"]}>
           <span>{user?.firstName}</span>

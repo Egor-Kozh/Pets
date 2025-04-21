@@ -5,13 +5,13 @@ import {
   useCreateUserInfoMutation,
   useUserEmailQuery,
 } from "@shared/__generated__/hooks";
+import { useContext } from "react";
+import { registrationContext } from "@pages/authorization/authorization";
+import { AuthType } from "@pages/authorization/model/auth-type";
 
-interface RegistrationSecondStepProps {
-  setNextStep: React.Dispatch<React.SetStateAction<boolean>>;
-}
-export const RegistrationSecondStep = ({
-  setNextStep,
-}: RegistrationSecondStepProps) => {
+export const RegistrationSecondStep = () => {
+  const context = useContext(registrationContext);
+
   const {
     register,
     handleSubmit,
@@ -27,8 +27,7 @@ export const RegistrationSecondStep = ({
   const [login, { loading }] = useCreateUserInfoMutation({
     onCompleted: () => {
       localStorage.removeItem("registrToken");
-
-      setNextStep((active) => !active);
+      context?.setPage(AuthType.authorization);
     },
     update(cache) {
       cache.modify({

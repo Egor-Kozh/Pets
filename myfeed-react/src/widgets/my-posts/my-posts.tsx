@@ -5,6 +5,7 @@ import { Button } from "@shared/components/buttons/button";
 import { Post } from "@entities/posts/ui/post/post";
 import styles from "./my-posts.module.scss";
 import { Routes } from "@shared/routes";
+import { Avatar } from "@entities/user/ui/avatar/avatar";
 
 interface MyPostsProps {
   data: MyPostsQuery | undefined;
@@ -21,7 +22,8 @@ export const MyPosts = ({ data }: MyPostsProps) => {
   return (
     <div className={styles["my-posts"]}>
       <div className={styles["my-posts__create"]}>
-        <div>
+        <div className={styles["my-posts__info"]}>
+          <Avatar size="38px" src={userData?.userMe.avatarUrl} />
           <span>Что у вас нового, {userData?.userMe.firstName}</span>
         </div>
         <Button typeView="primary" size="small" onClick={handleCreatePost}>
