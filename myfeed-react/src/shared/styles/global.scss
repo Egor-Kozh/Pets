@@ -11,7 +11,7 @@ $color-theme: "ligth";
 }
 
 [color-theme="dark"] {
-  --background-color: #{dark.$color-dark-black};
+  --background-color: #{dark.$color-dark-darkest-grey};
   --text-color: #{dark.$color-dark-white};
 }
 

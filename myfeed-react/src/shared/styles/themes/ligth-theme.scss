@@ -17,3 +17,9 @@ $color-light-additional-green: #20c997;
 
 $shadow-light: blur(40%) translateY(12px);
 $color-light-gradient: #dbdbdb;
+
+$gradient-light: linear-gradient(
+  90deg,
+  rgba(219, 219, 219, 0.05) 0%,
+  rgba(219, 219, 219, 1) 50%
+);

@@ -7,6 +7,9 @@ import {
 import { Post } from "@entities/posts/ui/post/post";
 import { SortPosts } from "@entities/posts/ui/sort-posts/sort-posts";
 import styles from "./main.module.scss";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 
 export const Main = () => {
   const [postsSort, setPostsSort] = useState<PostFilterType>(
@@ -15,7 +18,7 @@ export const Main = () => {
 
   const { data: userData } = useUserIdQuery();
 
-  const { data: postsData } = useAllPostsQuery({
+  const { data: postsData, loading } = useAllPostsQuery({
     variables: {
       type: postsSort,
       limit: 20,
@@ -28,13 +31,17 @@ export const Main = () => {
         <SortPosts setPostsSort={setPostsSort} />
       </div>
       <div className={styles["posts-list__list"]}>
-        {postsData?.posts.data?.map((post) => (
-          <Post
-            post={post}
-            key={post.id}
-            mine={userData?.userId.id === post.author.id}
-          />
-        ))}
+        {loading ? (
+          <Skeleton wrapper={PostSkeleton} count={2} />
+        ) : (
+          postsData?.posts.data?.map((post) => (
+            <Post
+              post={post}
+              key={post.id}
+              mine={userData?.userId.id === post.author.id}
+            />
+          ))
+        )}
       </div>
     </div>
   );
