@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SvgEyeComponent from "@shared/assets/images/svg/components/eye";
 import SvgEyeSlashComponent from "@shared/assets/images/svg/components/eye-slash";
 import styles from "./input.module.scss";
@@ -29,15 +29,21 @@ export const Input = ({
   size,
 }: InputProps) => {
   const [isNotVisible, setIsNotVisible] = useState(type === "password");
-
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const handleInput = () => {
+
+  useEffect(() => {
     const textarea = textareaRef.current;
-    if (textarea) {
+    if (!textarea) return;
+
+    const updateHeight = () => {
       textarea.style.height = "22px";
       textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  };
+    };
+
+    textarea.addEventListener("input", updateHeight);
+
+    return () => textarea.removeEventListener("input", updateHeight);
+  }, []);
 
   const inputType = () => {
     if (isNotVisible) return "password";
@@ -76,9 +82,11 @@ export const Input = ({
           <textarea
             placeholder={placeholder}
             id={id}
-            ref={textareaRef}
-            onInput={handleInput}
             {...register}
+            ref={(e) => {
+              register?.ref(e);
+              textareaRef.current = e;
+            }}
           />
         ) : (
           <input

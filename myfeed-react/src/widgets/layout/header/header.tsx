@@ -4,7 +4,7 @@ import styles from "./header.module.scss";
 import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
 import { useColorTheme } from "@shared/hooks/useColorTheme";
 import { navItems } from "./model/nav-types";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UserMiniProfileQuery } from "@shared/__generated__/hooks";
 
 interface HeaderProps {
@@ -32,7 +32,7 @@ export const Header = ({ data }: HeaderProps) => {
                     isAсtive.pathname === navItem.href && styles.active
                   }`}
                 >
-                  <a href={navItem.href}>{navItem.label}</a>
+                  <Link to={navItem.href}>{navItem.label}</Link>
                 </li>
               ))}
             </ul>

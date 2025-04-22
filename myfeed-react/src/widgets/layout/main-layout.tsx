@@ -12,26 +12,29 @@ import {
 export const MainLayout = () => {
   const navigate = useNavigate();
 
-  const { data: userData } = useUserIdQuery();
+  const { data: userIdData } = useUserIdQuery();
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       navigate(Routes.auth, { replace: true });
     }
-    if (userData?.userId) {
+    if (userIdData?.userId) {
       localStorage.removeItem("authToken");
       navigate(Routes.auth, { replace: true });
     }
     tokenVar(token);
   }, []);
 
-  const { data } = useUserMiniProfileQuery();
+  const { data: userData } = useUserMiniProfileQuery({
+    fetchPolicy: "cache-first",
+    nextFetchPolicy: "cache-first",
+  });
 
   return (
     <div className={styles.layout}>
       <div id="modal"></div>
-      <Header data={data} />
+      <Header data={userData} />
       <main>
         <Outlet />
       </main>
