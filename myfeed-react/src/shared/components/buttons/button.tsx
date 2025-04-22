@@ -10,6 +10,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
   id?: string;
+  adaptive?: "mobile" | "desctop";
   onClick?: () => void;
 }
 export const Button = ({
@@ -20,12 +21,14 @@ export const Button = ({
   children,
   type,
   id,
+  adaptive,
   onClick,
 }: ButtonProps) => {
   const buttonClass = className(
     styles.button,
     styles[typeView],
-    size && styles[size]
+    size && styles[size],
+    adaptive && styles[adaptive]
   );
 
   return (

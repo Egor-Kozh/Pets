@@ -25,8 +25,8 @@ export function PostSkeleton() {
             </div>
           </div>
           <Skeleton width={333} />
-          <Skeleton height={346} width={663} />
-          <Skeleton count={3} width={663} />
+          <Skeleton height={346} width="100%" />
+          <Skeleton count={3} width="100%" />
           <div
             className="post-footer"
             style={{ display: "flex", flexDirection: "row", columnGap: "24px" }}

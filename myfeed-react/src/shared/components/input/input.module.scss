@@ -105,7 +105,8 @@
 }
 
 .large {
-  width: 663px;
+  max-width: 663px;
+  width: 100%;
 
   .input__inner {
     height: fit-content;

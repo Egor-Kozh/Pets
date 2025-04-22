@@ -121,6 +121,10 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        li {
+          height: fit-content;
+        }
       }
     }
   }
@@ -130,5 +134,24 @@
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    li {
+      height: fit-content;
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .post {
+    width: 100%;
+
+    padding: 24px 16px;
+    &__inner {
+      .post__content {
+        .post__content-image {
+          height: 212px;
+        }
+      }
+    }
   }
 }

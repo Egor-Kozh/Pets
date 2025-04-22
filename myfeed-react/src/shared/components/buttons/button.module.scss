@@ -131,3 +131,19 @@
   fill: var(--button-svg-color-secondary);
   animation: rotate 2s linear infinite;
 }
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 376px) {
+  .mobile {
+    display: block;
+
+    width: 44px;
+    height: 44px;
+  }
+  .desctop {
+    display: none;
+  }
+}

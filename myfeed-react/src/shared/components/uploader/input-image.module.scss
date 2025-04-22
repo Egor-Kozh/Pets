@@ -2,7 +2,8 @@
 @use "@shared/styles/themes/ligth-theme.scss" as light;
 
 .image {
-  width: 663px;
+  max-width: 663px;
+  width: 100%;
   min-height: 346px;
 
   position: relative;
@@ -104,6 +105,26 @@
           z-index: 100;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .image {
+    min-height: 212px;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    &:hover .image__wrapper::before {
+      height: 212px;
+    }
+
+    input {
+      height: 212px;
+    }
+
+    &__content {
+      height: 212px;
     }
   }
 }

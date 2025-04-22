@@ -90,3 +90,9 @@
   font-family: "Gilroy_Semibold";
   color: var(--header-text-color-active);
 }
+
+@media (max-width: 376px) {
+  .header {
+    display: none;
+  }
+}

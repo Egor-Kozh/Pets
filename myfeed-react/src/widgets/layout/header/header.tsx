@@ -2,17 +2,18 @@ import { Toggle } from "@shared/components/toggle/toggle";
 import { MiniProfile } from "@entities/user/ui/mini-profile/mini-profile";
 import styles from "./header.module.scss";
 import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
-import { useColorTheme } from "@shared/hooks/useColorTheme";
 import { navItems } from "./model/nav-types";
 import { Link, useLocation } from "react-router-dom";
 import { UserMiniProfileQuery } from "@shared/__generated__/hooks";
+import { useTheme } from "@app/providers/theme-provider";
 
 interface HeaderProps {
   data: UserMiniProfileQuery | undefined;
 }
 export const Header = ({ data }: HeaderProps) => {
   const isAсtive = useLocation();
-  const setTheme = useColorTheme();
+
+  const { toggleTheme } = useTheme();
 
   return (
     <header className={styles.header}>
@@ -39,8 +40,8 @@ export const Header = ({ data }: HeaderProps) => {
           </nav>
         </div>
         <div className={styles["header__right"]}>
-          <Toggle id="switch_theme" onClick={setTheme} />
-          <MiniProfile user={data?.userMe} />
+          <Toggle id="switch_theme" onClick={toggleTheme} />
+          <MiniProfile user={data?.userMe} dropdown />
         </div>
       </div>
     </header>

@@ -6,7 +6,7 @@ import Skeleton from "react-loading-skeleton";
 import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 
 export const MyPostsPage = () => {
-  const { data, loading } = useMyPostsQuery();
+  const { data, loading } = useMyPostsQuery({});
 
   const hasPosts = data?.myPosts?.data && data.myPosts.data.length > 0;
 

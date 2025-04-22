@@ -1,4 +1,4 @@
-import { AuthType } from "../../../pages/authorization/model/auth-type";
+import { AuthType } from "@pages/authorization/model/auth-type";
 import { Button } from "../buttons/button";
 import styles from "./tab.module.scss";
 

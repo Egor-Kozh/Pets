@@ -66,29 +66,31 @@ export const AuthorizationForm = () => {
         <span>Введите Ваш Email и пароль, чтобы войти в аккаунт.</span>
       </div>
       <form onSubmit={handleSubmit(handleOnClick)}>
-        <Input
-          id="authorization_email"
-          title="Email"
-          register={register("email", {
-            required: "required",
-          })}
-          wrong={!!(errors.email || authError)}
-        >
-          <span>{errors.email?.message}</span>
-          <span>{authError}</span>
-        </Input>
-        <Input
-          id="authorization_password"
-          title="Пароль"
-          type="password"
-          register={register("password", {
-            required: "required",
-          })}
-          wrong={!!(errors.password || authError)}
-        >
-          <span>{errors.email?.message}</span>
-          <span>{authError}</span>
-        </Input>
+        <div className={styles["inputs"]}>
+          <Input
+            id="authorization_email"
+            title="Email"
+            register={register("email", {
+              required: "required",
+            })}
+            wrong={!!(errors.email || authError)}
+          >
+            <span>{errors.email?.message}</span>
+            <span>{authError}</span>
+          </Input>
+          <Input
+            id="authorization_password"
+            title="Пароль"
+            type="password"
+            register={register("password", {
+              required: "required",
+            })}
+            wrong={!!(errors.password || authError)}
+          >
+            <span>{errors.email?.message}</span>
+            <span>{authError}</span>
+          </Input>
+        </div>
         <Button typeView="primary" size="large" type="submit" loading={loading}>
           Войти
         </Button>

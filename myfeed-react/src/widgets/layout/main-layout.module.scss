@@ -9,3 +9,10 @@ main {
 
   margin-inline: auto;
 }
+
+@media (max-width: 376px) {
+  main {
+    width: 375px;
+    padding-inline: 12px;
+  }
+}

@@ -107,9 +107,11 @@ export const Profile = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleLoadImg = () => {
+    setIsOpen(false);
     fileInputRef.current?.click();
   };
   const handleDeleteImg = () => {
+    setIsOpen(false);
     setIsNewImage(true);
     setFileImage(undefined);
     setImage(null);
@@ -141,7 +143,7 @@ export const Profile = () => {
               active={isOpen}
               setIsOpen={setIsOpen}
               parentRef={profileRef}
-              style={{ top: 0, left: 0, marginTop: "45px" }}
+              style={{ top: 0, left: 0, marginTop: "45px", minWidth: "130px" }}
             >
               <div onClick={handleLoadImg}>
                 <span>Загрузить фото</span>
@@ -165,7 +167,7 @@ export const Profile = () => {
           <Input
             id="profile_firstName"
             title="Имя"
-            size="415px"
+            size="100%"
             register={register("firstName", {
               required: "Поле не должно быть пустым!",
             })}
@@ -173,7 +175,7 @@ export const Profile = () => {
           <Input
             id="profile_lastName"
             title="Фамилия"
-            size="415px"
+            size="100%"
             register={register("lastName", {
               required: "Поле не должно быть пустым!",
             })}
@@ -181,7 +183,7 @@ export const Profile = () => {
           <Input
             id="profile_middleName"
             title="Отчество"
-            size="415px"
+            size="100%"
             wrong={!!errors.middleName}
             register={register("middleName", {
               required: "Поле не должно быть пустым!",
@@ -193,7 +195,7 @@ export const Profile = () => {
             id="profile_birthDay"
             type="date"
             title="Дата рождения"
-            size="415px"
+            size="100%"
             register={register("birthDay")}
           />
           <RadioGroup label="Выберите пол">
@@ -215,7 +217,7 @@ export const Profile = () => {
           <Input
             id="profile_email"
             title="Email"
-            size="415px"
+            size="100%"
             register={register("email", {
               required: "Поле не должно быть пустым!",
             })}
@@ -223,17 +225,17 @@ export const Profile = () => {
           <Input
             id="profile_phone"
             title="Номер телефона"
-            size="415px"
+            size="100%"
             register={register("phone")}
           />
           <Input
             id="profile_country"
             title="Страна"
-            size="415px"
+            size="100%"
             register={register("contry")}
           />
           <div className={styles["profile__actions"]}>
-            <Button typeView="secondary" size="small">
+            <Button typeView="secondary" size="small" type="button">
               Отменить
             </Button>
             <Button typeView="primary" size="small" type="submit">

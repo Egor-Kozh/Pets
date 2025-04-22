@@ -52,7 +52,8 @@ export const Post = ({ mine, post }: PostProps) => {
       setIsLike(false);
     },
   });
-  const [deletePost] = useDeletePostMutation({});
+
+  const [deletePost] = useDeletePostMutation();
 
   const containerRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {

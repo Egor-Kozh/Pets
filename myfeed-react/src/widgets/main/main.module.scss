@@ -1,5 +1,5 @@
 .posts-list {
-  width: 743px;
+  width: 100%;
   height: fit-content;
 
   &__sort {
@@ -14,5 +14,13 @@
     flex-direction: column;
 
     row-gap: 24px;
+  }
+}
+
+@media (max-width: 376px) {
+  .posts-list {
+    &__sort {
+      width: 100%;
+    }
   }
 }

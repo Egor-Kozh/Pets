@@ -8,6 +8,7 @@ import {
   useUserIdQuery,
   useUserMiniProfileQuery,
 } from "@shared/__generated__/hooks";
+import { MobileHeader } from "./mobile_header/mobile-header";
 
 export const MainLayout = () => {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export const MainLayout = () => {
     <div className={styles.layout}>
       <div id="modal"></div>
       <Header data={userData} />
+      <MobileHeader />
       <main>
         <Outlet />
       </main>

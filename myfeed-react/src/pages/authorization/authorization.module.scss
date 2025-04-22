@@ -40,3 +40,38 @@
     margin-inline: auto;
   }
 }
+
+@media (max-width: 376px) {
+  .authorization {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__inner {
+      width: 100%;
+      min-height: 100vh;
+      height: 100%;
+
+      background-color: var(--authorization-background-color);
+
+      border-radius: 0;
+
+      padding: 108px 15px 40px 15px;
+
+      display: flex;
+      flex-direction: column;
+      row-gap: 32px;
+
+      & path:last-child {
+        fill: var(--header-logo);
+      }
+    }
+
+    &__header {
+      margin-inline: auto;
+    }
+  }
+}

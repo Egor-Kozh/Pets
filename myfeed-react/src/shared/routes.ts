@@ -6,4 +6,5 @@ export const Routes = {
   uiKit: "/ui-kit",
   create_post: "/my-posts/create",
   profile: "/profile",
+  mobile_menu: "/menu",
 };

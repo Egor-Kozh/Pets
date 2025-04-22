@@ -42,9 +42,15 @@
 
   & button {
     width: 173px;
-    height: 32px;
+    height: 100%;
 
     font-size: 16px;
     font-family: "Gilroy_Regular";
+  }
+}
+
+@media (max-width: 376px) {
+  .tab {
+    height: 44px;
   }
 }

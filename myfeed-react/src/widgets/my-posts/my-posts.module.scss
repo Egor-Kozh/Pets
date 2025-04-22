@@ -16,7 +16,7 @@
 .my-posts {
   margin-top: 24px;
 
-  width: 743px;
+  width: 100%;
   height: fit-content;
 
   &__create {
@@ -32,6 +32,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    .mobile {
+      display: none;
+    }
 
     .my-posts__info {
       display: flex;
@@ -54,5 +58,21 @@
     margin-top: 24px;
 
     row-gap: 24px;
+  }
+}
+
+@media (max-width: 376px) {
+  .my-posts {
+    &__create {
+      padding: 10px 16px;
+
+      #mb {
+        display: block;
+      }
+
+      #ds {
+        display: none;
+      }
+    }
   }
 }

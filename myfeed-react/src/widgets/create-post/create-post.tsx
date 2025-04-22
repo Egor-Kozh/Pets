@@ -3,11 +3,15 @@ import styles from "./create-post.module.scss";
 import { Input } from "@shared/components/input/input";
 import { InputImage } from "@shared/components/uploader/input-image";
 import { Button } from "@shared/components/buttons/button";
-import { useCreatePostMutation } from "@shared/__generated__/hooks";
+import {
+  MyPostsQuery,
+  useCreatePostMutation,
+} from "@shared/__generated__/hooks";
 import { useState } from "react";
 import { uploadToS3 } from "@shared/hooks/imageToS3";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "@shared/routes";
+import { MY_POSTS } from "@entities/posts/api/my-posts";
 
 export const CreatePost = () => {
   const [imageFile, setImageFile] = useState<File | undefined>();
@@ -25,6 +29,16 @@ export const CreatePost = () => {
     onCompleted: () => {
       navigate(Routes.my_posts, { replace: true });
     },
+    update(cache, { data: newPost }) {
+      const posts = cache.readQuery<MyPostsQuery>({ query: MY_POSTS });
+
+      cache.writeQuery({
+        query: MY_POSTS,
+        data: {
+          myPosts: [newPost?.postCreate, ...(posts?.myPosts.data || [])],
+        },
+      });
+    },
   });
 
   const postTitle = watch("title");
@@ -34,9 +48,6 @@ export const CreatePost = () => {
     if (!imageFile) return;
 
     const imageUrl = await uploadToS3(imageFile);
-    console.log(imageUrl, "ссылка на фото");
-    console.log(postTitle);
-    console.log(postDescription);
 
     createPost({
       variables: {

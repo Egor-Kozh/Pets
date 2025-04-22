@@ -8,6 +8,7 @@ import { MyPostsPage } from "@pages/my-posts/my-posts";
 import { FavouritePage } from "@pages/favourite/favourite";
 import { CreatePostPage } from "@pages/create-post/create-post";
 import { ProfilePage } from "@pages/profile/profile";
+import { MobileMenuPage } from "@pages/mobile-menu/mobile-menu";
 
 export const routes: RouteObject[] = [
   {
@@ -33,6 +34,10 @@ export const routes: RouteObject[] = [
       {
         path: Routes.profile,
         element: <ProfilePage />,
+      },
+      {
+        path: Routes.mobile_menu,
+        element: <MobileMenuPage />,
       },
     ],
   },
