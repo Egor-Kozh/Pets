@@ -1,9 +1,9 @@
-import { PostsEmpty } from "@widgets/post/posts-empty.tsx/posts-empty";
+import { EmptyState } from "@shared/components/empty-state/empty-state";
 import { MyPosts } from "@pages/my-posts/ui/my-posts/my-posts";
-import { EmptyPostsType } from "@widgets/post/posts-empty.tsx/model/types";
 import Skeleton from "react-loading-skeleton";
 import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 import { useGetMyPosts } from "@entities/posts/model/get-my-posts/use-get-my-posts";
+import { Routes } from "@shared/routes";
 
 export const MyPostsPage = () => {
   const { data, loading, hasPosts } = useGetMyPosts();
@@ -15,7 +15,10 @@ export const MyPostsPage = () => {
       {hasPosts ? (
         <MyPosts data={data} />
       ) : (
-        <PostsEmpty type={EmptyPostsType.myPosts} />
+        <EmptyState
+          button={{ href: Routes.create_post, label: "Создать пост" }}
+          message="У вас пока нет ни одного поста"
+        />
       )}
     </>
   );

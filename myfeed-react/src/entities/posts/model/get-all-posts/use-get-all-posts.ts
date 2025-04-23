@@ -1,14 +1,9 @@
 import { PostFilterType, useAllPostsQuery } from "@shared/__generated__/hooks";
-import { useState } from "react";
 
-export const useGetAllPosts = () => {
-  const [postsSort, setPostsSort] = useState<PostFilterType>(
-    PostFilterType.New
-  );
-
+export const useGetAllPosts = (sortType: PostFilterType) => {
   const { data, loading, error } = useAllPostsQuery({
     variables: {
-      type: postsSort,
+      type: sortType,
     },
   });
 
@@ -16,6 +11,5 @@ export const useGetAllPosts = () => {
     data,
     isLoading: loading,
     isError: error,
-    setPostsSort,
   };
 };
