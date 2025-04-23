@@ -3,13 +3,14 @@ import { Post } from "@entities/posts/ui/post/post";
 import { SortPosts } from "@entities/posts/ui/sort-posts/sort-posts";
 import { useUserIdQuery } from "@shared/__generated__/hooks";
 import { useGetAllPosts } from "@entities/posts/model/get-all-posts/use-get-all-posts";
+import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 
 export const HomePage = () => {
   const { data: userData } = useUserIdQuery();
 
   const { data, setPostsSort, isLoading } = useGetAllPosts();
 
-  if (isLoading) return "loading...";
+  if (isLoading) return <PostSkeleton />;
 
   return (
     <div className={styles["posts-list"]}>

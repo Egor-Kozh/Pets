@@ -1,4 +1,4 @@
-import { Routes } from "../../../shared/routes";
+import { Routes } from "../../../../shared/routes";
 
 export enum EmptyPostsType {
   myPosts = "MY_POSTS",

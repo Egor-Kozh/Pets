@@ -1,5 +1,6 @@
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import styles from "./skeleton.module.scss";
 
 export function PostSkeleton() {
   const colorTheme = localStorage.getItem("colorTheme");
@@ -9,18 +10,9 @@ export function PostSkeleton() {
       baseColor={colorTheme === "light" ? "#DBDBDB" : "#000000"}
       customHighlightBackground="linear-gradient(90deg, var(--base-color) 40%, var(--highlight-color) 50%, var(--base-color) 60%)"
     >
-      <div
-        className="post"
-        style={{ position: "relative", marginTop: "24px", width: "100%" }}
-      >
-        <div
-          className="post-skeleton"
-          style={{ display: "flex", flexDirection: "column", rowGap: "16px" }}
-        >
-          <div
-            className="post-header"
-            style={{ display: "flex", flexDirection: "row", columnGap: "5px" }}
-          >
+      <div className={styles["post"]}>
+        <div className={styles["post-skeleton"]}>
+          <div className="post-header">
             <Skeleton circle width={40} height={40} />
             <div className="post-mini-profile">
               <Skeleton width={126} height={20} />
@@ -28,12 +20,9 @@ export function PostSkeleton() {
             </div>
           </div>
           <Skeleton width={333} />
-          <Skeleton height={346} width="100%" />
-          <Skeleton count={3} width="100%" />
-          <div
-            className="post-footer"
-            style={{ display: "flex", flexDirection: "row", columnGap: "24px" }}
-          >
+          <Skeleton height={346} />
+          <Skeleton count={3} />
+          <div className={styles["post-footer"]}>
             <Skeleton width={24} height={24} />
             <Skeleton width={24} height={24} />
           </div>

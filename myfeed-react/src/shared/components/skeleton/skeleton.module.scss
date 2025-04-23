@@ -1,0 +1,33 @@
+.post {
+  width: 100%;
+  position: relative;
+  margin-top: 24px;
+  width: 100%;
+
+  .post-skeleton {
+    display: flex;
+    width: 700px;
+    flex-direction: column;
+    row-gap: 16px;
+
+    .post-header {
+      display: flex;
+      flex-direction: row;
+      column-gap: 5px;
+    }
+
+    .post-footer {
+      display: flex;
+      flex-direction: row;
+      column-gap: 24px;
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .post {
+    .post-skeleton {
+      width: 100%;
+    }
+  }
+}

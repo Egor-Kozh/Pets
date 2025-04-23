@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { CreatePost } from "./types";
 import { useState } from "react";
 import { uploadToS3 } from "@shared/hooks/imageToS3";
-import { MY_POSTS } from "@entities/posts/api/my-posts";
+import { MY_POSTS } from "@entities/posts/model/get-my-posts/my-posts";
 
 interface Args {
   onCompleted: () => void;

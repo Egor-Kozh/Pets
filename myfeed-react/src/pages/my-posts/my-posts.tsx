@@ -1,14 +1,12 @@
-import { useMyPostsQuery } from "@shared/__generated__/hooks";
-import { PostsEmpty } from "@widgets/posts-empty.tsx/posts-empty";
-import { MyPosts } from "@widgets/my-posts/my-posts";
-import { EmptyPostsType } from "@widgets/posts-empty.tsx/model/types";
+import { PostsEmpty } from "@widgets/post/posts-empty.tsx/posts-empty";
+import { MyPosts } from "@pages/my-posts/ui/my-posts/my-posts";
+import { EmptyPostsType } from "@widgets/post/posts-empty.tsx/model/types";
 import Skeleton from "react-loading-skeleton";
 import { PostSkeleton } from "@shared/components/skeleton/skeleton";
+import { useGetMyPosts } from "@entities/posts/model/get-my-posts/use-get-my-posts";
 
 export const MyPostsPage = () => {
-  const { data, loading } = useMyPostsQuery({});
-
-  const hasPosts = data?.myPosts?.data && data.myPosts.data.length > 0;
+  const { data, loading, hasPosts } = useGetMyPosts();
 
   if (loading) return <Skeleton wrapper={PostSkeleton} count={2} />;
 
