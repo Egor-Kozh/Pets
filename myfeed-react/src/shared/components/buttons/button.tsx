@@ -16,10 +16,10 @@ interface ButtonProps {
 export const Button = ({
   typeView,
   size,
-  disabled = false,
-  loading = false,
+  disabled,
+  loading,
   children,
-  type,
+  type = "button",
   id,
   adaptive,
   onClick,

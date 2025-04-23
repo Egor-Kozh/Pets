@@ -1,65 +1,28 @@
-import { useForm } from "react-hook-form";
 import styles from "./create-post.module.scss";
 import { Input } from "@shared/components/input/input";
 import { InputImage } from "@shared/components/uploader/input-image";
 import { Button } from "@shared/components/buttons/button";
-import {
-  MyPostsQuery,
-  useCreatePostMutation,
-} from "@shared/__generated__/hooks";
-import { useState } from "react";
-import { uploadToS3 } from "@shared/hooks/imageToS3";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "@shared/routes";
-import { MY_POSTS } from "@entities/posts/api/my-posts";
+import { useCreatePost } from "../model/use-create-post";
 
 export const CreatePost = () => {
-  const [imageFile, setImageFile] = useState<File | undefined>();
-
   const navigate = useNavigate();
 
-  const {
-    register,
-    watch,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<{ title: string; description: string }>();
-
-  const [createPost] = useCreatePostMutation({
-    onCompleted: () => {
-      navigate(Routes.my_posts, { replace: true });
-    },
-    update(cache, { data: newPost }) {
-      const posts = cache.readQuery<MyPostsQuery>({ query: MY_POSTS });
-
-      cache.writeQuery({
-        query: MY_POSTS,
-        data: {
-          myPosts: [newPost?.postCreate, ...(posts?.myPosts.data || [])],
-        },
-      });
-    },
-  });
-
-  const postTitle = watch("title");
-  const postDescription = watch("description");
-
-  const onClick = async () => {
-    if (!imageFile) return;
-
-    const imageUrl = await uploadToS3(imageFile);
-
-    createPost({
-      variables: {
-        title: postTitle,
-        description: postDescription,
-        mediaUrl: imageUrl,
-      },
-    }).catch((error) => {
-      console.error("Ошибка при создании поста:", error.message);
-      console.error("Детали ошибки:", error.graphQLErrors);
-    });
+  const onCompleted = () => {
+    navigate(Routes.my_posts, { replace: true });
   };
+
+  const onFiled = () => {
+    console.log("failed!");
+  };
+
+  const { onSubmit, register, errors, setImageFile, isLoading } = useCreatePost(
+    {
+      onCompleted,
+      onFiled,
+    }
+  );
 
   return (
     <div className={styles["create-post"]}>
@@ -67,10 +30,7 @@ export const CreatePost = () => {
         <div className={styles["create-post__header"]}>
           <span>Создание поста</span>
         </div>
-        <form
-          className={styles["create-post__form"]}
-          onSubmit={handleSubmit(onClick)}
-        >
+        <form className={styles["create-post__form"]} onSubmit={onSubmit}>
           <Input
             id="create_post_title"
             placeholder="Придумайте название для своего поста"
@@ -97,10 +57,15 @@ export const CreatePost = () => {
             <span>{errors.description?.message}</span>
           </Input>
           <div className={styles["create-post__buttons"]}>
-            <Button typeView="secondary" size="small">
+            <Button typeView="secondary" size="small" type="button">
               Отменить
             </Button>
-            <Button typeView="primary" size="small" type="submit">
+            <Button
+              typeView="primary"
+              size="small"
+              type="submit"
+              loading={isLoading}
+            >
               Сохранить
             </Button>
           </div>

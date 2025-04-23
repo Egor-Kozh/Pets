@@ -60,7 +60,7 @@ export const InputImage = ({ setImageFile }: InputImageProps) => {
             <span>Перетащите фото сюда</span>
             <p>
               или
-              <Button typeView="flat" onClick={handleClick}>
+              <Button typeView="flat" onClick={handleClick} type="button">
                 выберите фото с вашего компьютера{" "}
               </Button>
             </p>

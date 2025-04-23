@@ -1,4 +1,4 @@
-import { CreatePost } from "@widgets/create-post/create-post";
+import { CreatePost } from "@features/posts/create-post/ui/create-post";
 
 export const CreatePostPage = () => {
   return <CreatePost />;

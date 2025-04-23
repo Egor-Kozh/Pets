@@ -9,7 +9,10 @@ export function PostSkeleton() {
       baseColor={colorTheme === "light" ? "#DBDBDB" : "#000000"}
       customHighlightBackground="linear-gradient(90deg, var(--base-color) 40%, var(--highlight-color) 50%, var(--base-color) 60%)"
     >
-      <div className="post" style={{ position: "relative", marginTop: "24px" }}>
+      <div
+        className="post"
+        style={{ position: "relative", marginTop: "24px", width: "100%" }}
+      >
         <div
           className="post-skeleton"
           style={{ display: "flex", flexDirection: "column", rowGap: "16px" }}
