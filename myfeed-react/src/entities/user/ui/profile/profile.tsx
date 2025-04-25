@@ -1,101 +1,30 @@
-import { useForm } from "react-hook-form";
 import styles from "./profile.module.scss";
-import { ProfileForm } from "./model/type";
 import { Input } from "@shared/components/input/input";
 import { Button } from "@shared/components/buttons/button";
 import { RadioButton } from "@shared/components/radio-buttons/radio-button";
 import { RadioGroup } from "@shared/components/radio-buttons/ui/radio-group";
-import {
-  GenderType,
-  useEditUserMutation,
-  useUserProfileQuery,
-} from "@shared/__generated__/hooks";
-import { useEffect, useRef, useState } from "react";
+import { GenderType, useUserProfileQuery } from "@shared/__generated__/hooks";
+import { useRef, useState } from "react";
 import { Avatar } from "../avatar/avatar";
 import { IconButton } from "@shared/components/icon-button/icon-button";
 import SvgEditButtonComponent from "@shared/assets/images/svg/components/edit-buttons";
 import { DropDown } from "@shared/components/dropdown/dropdown";
-import { uploadToS3 } from "@shared/hooks/imageToS3";
+import { useEditUser } from "@features/user/edit/model/use-edit-user";
+import Skeleton from "react-loading-skeleton";
+import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 
 export const Profile = () => {
-  const { data: userData } = useUserProfileQuery();
+  const { data: userData, loading } = useUserProfileQuery();
   const [isNewImage, setIsNewImage] = useState(false);
   const [image, setImage] = useState<string | null>(null);
   const [fileImage, setFileImage] = useState<File>();
 
-  const [editUser] = useEditUserMutation({
-    onCompleted: () => {
-      window.location.reload();
-    },
+  const gender = userData?.userMe.gender;
+
+  const { handleOnSubmit, register, errors } = useEditUser({
+    fileImage,
+    userData,
   });
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm<ProfileForm>({
-    defaultValues: {
-      firstName: userData?.userMe.firstName ?? "",
-      lastName: userData?.userMe.lastName ?? "",
-      middleName: userData?.userMe.middleName ?? "",
-      birthDay: userData?.userMe.birthDate ?? "",
-      email: userData?.userMe.email ?? "",
-      phone: userData?.userMe.phone ?? "",
-      contry: userData?.userMe.country ?? "",
-    },
-  });
-
-  useEffect(() => {
-    if (userData) {
-      reset({
-        firstName: userData.userMe.firstName ?? "",
-        lastName: userData.userMe.lastName ?? "",
-        middleName: userData.userMe.middleName ?? "",
-        birthDay: userData.userMe.birthDate ?? "",
-        gender: userData.userMe.gender ?? GenderType.Male,
-        email: userData.userMe.email ?? "",
-        phone: userData.userMe.phone ?? "",
-        contry: userData.userMe.country ?? "",
-      });
-    }
-  }, [userData]);
-
-  const fisrtName = watch("firstName");
-  const lastName = watch("lastName");
-  const middleName = watch("middleName");
-  const birthDate = watch("birthDay");
-  const gender = watch("gender") as GenderType;
-  const email = watch("email");
-  const phone = watch("phone");
-  const country = watch("contry");
-
-  const handleEditUser = async () => {
-    if (!email) return;
-
-    let imageUrl: string | null = null;
-    if (fileImage) {
-      console.log(fileImage);
-      imageUrl = await uploadToS3(fileImage);
-    }
-    editUser({
-      variables: {
-        firstName: fisrtName,
-        lastName: lastName,
-        middleName: middleName,
-        birthDate: birthDate || null,
-        gender: gender,
-        email: email,
-        phone: phone || null,
-        country: country || null,
-        avatarUrl: imageUrl || null,
-      },
-    }).catch((error) => {
-      console.error("Ошибка при создании поста:", error.message);
-      console.error("Детали ошибки:", error.graphQLErrors);
-    });
-  };
 
   const [isOpen, setIsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -126,6 +55,8 @@ export const Profile = () => {
     const imgURL = URL.createObjectURL(fileImg);
     setImage(imgURL);
   };
+
+  if (loading) return <Skeleton wrapper={PostSkeleton} />;
 
   return (
     <div className={styles["profile"]}>
@@ -160,10 +91,7 @@ export const Profile = () => {
             </DropDown>
           </IconButton>
         </Avatar>
-        <form
-          className={styles["profile__form"]}
-          onSubmit={handleSubmit(handleEditUser)}
-        >
+        <form className={styles["profile__form"]} onSubmit={handleOnSubmit}>
           <Input
             id="profile_firstName"
             title="Имя"

@@ -1,4 +1,4 @@
-export interface ProfileForm {
+export interface EditUser {
   firstName: string | null;
   lastName: string | null;
   middleName: string | null;
