@@ -1,5 +1,5 @@
 import { Button } from "@shared/components/buttons/button";
-import styles from "./posts-empty.module.scss";
+import styles from "./empty-state.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 

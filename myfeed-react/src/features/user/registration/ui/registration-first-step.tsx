@@ -1,9 +1,9 @@
-import { useForm } from "react-hook-form";
 import { Button } from "@shared/components/buttons/button";
 import { Input } from "@shared/components/input/input";
 import { tokenVar } from "@app/api/clients";
 import { useEffect, useState } from "react";
-import { useCreateUserMutation } from "@shared/__generated__/hooks";
+import { CreateUserMutation } from "@shared/__generated__/hooks";
+import { useCreateUser } from "@features/user/registration/model/create-user/use-create-user";
 
 interface RegistrationFirtStepProps {
   setNextStep: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,34 +16,21 @@ export const RegistrationFirtStep = ({
     string | null
   >(null);
 
-  const [login, { loading }] = useCreateUserMutation({
-    onCompleted: (data) => {
-      if (data.newUser.problem)
-        return setEmailError(data.newUser.problem.message);
+  const onCompleted = (data: CreateUserMutation) => {
+    if (data.newUser.problem)
+      return setEmailError(data.newUser.problem.message);
+    if (userPassword !== userPasswordConfirm)
+      return setPasswordConfirmError("Пароли не совпадают!");
 
-      if (data.newUser.token) {
-        tokenVar(data.newUser.token);
-        localStorage.setItem("registrToken", data.newUser.token);
-      }
-      setNextStep((active) => !active);
-    },
-    update(cache, { data }) {
-      cache.modify({
-        fields: {
-          token() {
-            return data?.newUser.token;
-          },
-        },
-      });
-    },
+    if (data.newUser.token) {
+      tokenVar(data.newUser.token);
+      localStorage.setItem("registrToken", data.newUser.token);
+    }
+    setNextStep((active) => !active);
+  };
+  const { handleOnSubmit, register, watch, errors, loading } = useCreateUser({
+    onCompleted,
   });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<{ email: string; password: string; accept_password: string }>();
 
   const userEmail = watch("email");
   const userPassword = watch("password");
@@ -59,20 +46,8 @@ export const RegistrationFirtStep = ({
     setPasswordConfirmError(null);
   }, [userPasswordConfirm]);
 
-  const handleLogin = () => {
-    if (userPassword !== userPasswordConfirm)
-      return setPasswordConfirmError("Пароли не совпадают!");
-    login({
-      variables: {
-        email: userEmail,
-        password: userPassword,
-        passwordConfirm: userPasswordConfirm,
-      },
-    });
-  };
-
   return (
-    <form onSubmit={handleSubmit(handleLogin)}>
+    <form onSubmit={handleOnSubmit}>
       <Input
         id="registration_email"
         title="Email"

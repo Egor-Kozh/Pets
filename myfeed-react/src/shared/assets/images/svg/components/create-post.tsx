@@ -1,4 +1,4 @@
-const SvgComponent = () => (
+const SvgCreatePostComponent = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -14,4 +14,4 @@ const SvgComponent = () => (
     />
   </svg>
 );
-export default SvgComponent;
+export default SvgCreatePostComponent;

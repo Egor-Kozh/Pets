@@ -9,13 +9,11 @@ import styles from "./post.module.scss";
 import { Button } from "@shared/components/buttons/button";
 import { Modal } from "@shared/components/modal/modal";
 import { PostModal } from "./post-modal";
-import {
-  useDeletePostMutation,
-  usePostLikeMutation,
-  usePostUnlikeMutation,
-} from "@shared/__generated__/hooks";
-import { PopUp } from "@widgets/pop-up/pop-up";
+import { PopUp } from "@shared/components/pop-up/pop-up";
 import { useLockScroll } from "@shared/hooks/useLockScroll";
+import { useDeletePost } from "@features/posts/delete-post/use-delete-post";
+import { usePostLike } from "@features/posts/post-like/use-post-like";
+import { usePostUnLike } from "@features/posts/post-unlike/use-post-unlike";
 
 interface PostProps {
   mine?: boolean;
@@ -42,18 +40,17 @@ export const Post = ({ mine, post }: PostProps) => {
 
   const setScroll = useLockScroll();
 
-  const [like] = usePostLikeMutation({
-    onCompleted: () => {
-      setIsLike(true);
-    },
-  });
-  const [unLike] = usePostUnlikeMutation({
-    onCompleted: () => {
-      setIsLike(false);
-    },
-  });
+  const onCompletedLike = () => {
+    setIsLike(true);
+  };
+  const { like } = usePostLike(onCompletedLike);
 
-  const [deletePost] = useDeletePostMutation();
+  const onCompletedUnLike = () => {
+    setIsLike(false);
+  };
+  const { unLike } = usePostUnLike(onCompletedUnLike);
+
+  const { deletePost } = useDeletePost();
 
   const containerRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {

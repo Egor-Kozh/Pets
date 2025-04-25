@@ -1,60 +1,28 @@
-import { useForm } from "react-hook-form";
 import { Button } from "@shared/components/buttons/button";
 import { Input } from "@shared/components/input/input";
-import {
-  useCreateUserInfoMutation,
-  useUserEmailQuery,
-} from "@shared/__generated__/hooks";
+import { useUserEmailQuery } from "@shared/__generated__/hooks";
 import { useContext } from "react";
 import { registrationContext } from "@pages/authorization/authorization";
+import { useCreateUserInfo } from "@features/user/registration/model/create-user-info/use-create-user-info";
 import { AuthType } from "@pages/authorization/model/auth-type";
 
 export const RegistrationSecondStep = () => {
   const context = useContext(registrationContext);
+  const { data: userData } = useUserEmailQuery();
+  const userEmail = userData?.userEmail.email ?? "";
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<{ first_name: string; last_name: string; patronymic: string }>();
+  const onCompleted = () => {
+    localStorage.removeItem("registrToken");
 
-  const firstName = watch("first_name");
-  const lastName = watch("last_name");
-  const middleName = watch("patronymic");
-  const { data } = useUserEmailQuery();
-
-  const [login, { loading }] = useCreateUserInfoMutation({
-    onCompleted: () => {
-      localStorage.removeItem("registrToken");
-      context?.setPage(AuthType.authorization);
-    },
-    update(cache) {
-      cache.modify({
-        fields: {
-          token() {
-            return null;
-          },
-        },
-      });
-    },
+    context?.setPage(AuthType.authorization);
+  };
+  const { handleOnSubmit, register, loading, errors } = useCreateUserInfo({
+    userEmail,
+    onCompleted,
   });
 
-  const handleClick = () => {
-    if (data?.userEmail) {
-      login({
-        variables: {
-          email: data.userEmail.email,
-          firstName: firstName,
-          lastName: lastName,
-          middleName: middleName,
-        },
-      });
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit(handleClick)}>
+    <form onSubmit={handleOnSubmit}>
       <Input
         id="registration_firt-name"
         title="Имя"

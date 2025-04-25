@@ -1,7 +1,7 @@
 import styles from "./registration-form.module.scss";
 import { useState } from "react";
-import { RegistrationFirtStep } from "./registration-first-step";
-import { RegistrationSecondStep } from "./registration-second-step";
+import { RegistrationFirtStep } from "@features/user/registration/ui/registration-first-step";
+import { RegistrationSecondStep } from "@features/user/registration/ui/registration-second-step";
 
 export const RegistrationForm = () => {
   const [nextStep, setNextStep] = useState(false);

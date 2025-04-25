@@ -1,9 +1,9 @@
 import { useGetFavouritePosts } from "@entities/posts/model/get-favourite-posts/use-get-favourite-posts";
 import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 import { FavouritePosts } from "@pages/favourite/ui/favourite-posts/favourite-posts";
-import { EmptyPostsType } from "@shared/components/empty-state/model/types";
-import { PostsEmpty } from "@shared/components/empty-state/empty-state";
 import Skeleton from "react-loading-skeleton";
+import { EmptyState } from "@shared/components/empty-state/empty-state";
+import { Routes } from "@shared/routes";
 
 export const FavouritePage = () => {
   const { data, loading, hasPosts } = useGetFavouritePosts();
@@ -15,7 +15,10 @@ export const FavouritePage = () => {
       {hasPosts ? (
         <FavouritePosts data={data} />
       ) : (
-        <PostsEmpty type={EmptyPostsType.favourite} />
+        <EmptyState
+          button={{ href: Routes.create_post, label: "Создать пост" }}
+          message="У вас пока нет ни одного поста"
+        />
       )}
     </>
   );
