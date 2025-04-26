@@ -28,24 +28,26 @@
   display: flex;
   flex-direction: row;
 
-  & #auth {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: none;
-  }
-
-  & #registr {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: none;
-  }
-
   & button {
     width: 173px;
     height: 100%;
 
+    border-radius: 0;
+
     font-size: 16px;
     font-family: "Gilroy_Regular";
+  }
+
+  & :first-child {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-right: none;
+  }
+
+  & :last-child {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-left: none;
   }
 }
 

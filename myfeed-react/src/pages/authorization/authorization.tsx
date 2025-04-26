@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
 import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
-import { Tab } from "@shared/components/tab/tab";
+import { Tabs } from "@shared/components/tabs/tabs";
 import { AuthorizationForm } from "@features/user/authorization/ui/authorization-form";
 import styles from "./authorization.module.scss";
 import { RegistrationForm } from "./ui/forms/registration/registration-form";
-import { AuthType, RegistrationContextType } from "./model/auth-type";
+import { AuthType, RegistrationContextType, AuthTabs } from "./model/auth-type";
 
 export const registrationContext = createContext<
   RegistrationContextType | undefined
@@ -20,7 +20,7 @@ export const AuthorizationPage = () => {
           <SvgLogoComponent />
         </div>
         <div className={styles["authorization__tab"]}>
-          <Tab page={page} setPage={setPage} />
+          <Tabs page={page} setPage={setPage} data={AuthTabs} />
         </div>
         {page === AuthType.authorization ? (
           <AuthorizationForm />
