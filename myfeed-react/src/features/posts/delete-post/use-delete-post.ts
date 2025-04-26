@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Post } from "@entities/posts/ui/post/post";
 import { useDeletePostMutation } from "@shared/__generated__/hooks";
 
-export const useDeletePost = () => {
+interface Args {
+  post: Post;
+}
+export const useDeletePost = ({ post }: Args) => {
   const [deletePost, { loading, error }] = useDeletePostMutation({
     update(cache, { data: removePost }) {
       const postId = removePost?.postDelete.id;
@@ -29,8 +33,16 @@ export const useDeletePost = () => {
     },
   });
 
+  const hadleDeletePost = () => {
+    deletePost({
+      variables: {
+        postId: post.id,
+      },
+    });
+  };
+
   return {
-    deletePost,
+    hadleDeletePost,
     loading,
     error,
   };

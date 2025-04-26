@@ -15,22 +15,23 @@ import { useDeletePost } from "@features/posts/delete-post/use-delete-post";
 import { usePostLike } from "@features/posts/post-like/use-post-like";
 import { usePostUnLike } from "@features/posts/post-unlike/use-post-unlike";
 
+export type Post = {
+  createdAt: string;
+  description: string;
+  likesCount: number;
+  isLiked: boolean;
+  title: string;
+  mediaUrl: string;
+  id: string;
+  author: {
+    firstName?: string | null;
+    lastName?: string | null;
+    avatarUrl?: string | null;
+  };
+};
 interface PostProps {
   mine?: boolean;
-  post: {
-    createdAt: string;
-    description: string;
-    likesCount: number;
-    isLiked: boolean;
-    title: string;
-    mediaUrl: string;
-    id: string;
-    author: {
-      firstName?: string | null;
-      lastName?: string | null;
-      avatarUrl?: string | null;
-    };
-  };
+  post: Post;
 }
 export const Post = ({ mine, post }: PostProps) => {
   const [activePostModal, setActivePostModal] = useState(false);
@@ -43,14 +44,14 @@ export const Post = ({ mine, post }: PostProps) => {
   const onCompletedLike = () => {
     setIsLike(true);
   };
-  const { like } = usePostLike(onCompletedLike);
+  const { handleLike } = usePostLike({ onCompletedLike, post });
 
   const onCompletedUnLike = () => {
     setIsLike(false);
   };
-  const { unLike } = usePostUnLike(onCompletedUnLike);
+  const { handleUnLike } = usePostUnLike({ onCompletedUnLike, post });
 
-  const { deletePost } = useDeletePost();
+  const { hadleDeletePost } = useDeletePost({ post });
 
   const containerRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -72,26 +73,10 @@ export const Post = ({ mine, post }: PostProps) => {
 
   const handleLikePost = () => {
     if (isLike) {
-      unLike({
-        variables: {
-          id: post.id,
-        },
-      });
+      handleUnLike();
     } else {
-      like({
-        variables: {
-          id: post.id,
-        },
-      });
+      handleLike();
     }
-  };
-
-  const hadleDeletePost = () => {
-    deletePost({
-      variables: {
-        postId: post.id,
-      },
-    });
   };
 
   return (

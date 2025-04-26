@@ -1,14 +1,27 @@
+import { Post } from "@entities/posts/ui/post/post";
 import { usePostLikeMutation } from "@shared/__generated__/hooks";
 
-export const usePostLike = (onComplete: () => void) => {
+interface Args {
+  onCompletedLike: () => void;
+  post: Post;
+}
+export const usePostLike = ({ onCompletedLike, post }: Args) => {
   const [like, { loading, error }] = usePostLikeMutation({
     onCompleted: () => {
-      onComplete();
+      onCompletedLike();
     },
   });
 
+  const handleLike = () => {
+    like({
+      variables: {
+        id: post.id,
+      },
+    });
+  };
+
   return {
-    like,
+    handleLike,
     loading,
     error,
   };
