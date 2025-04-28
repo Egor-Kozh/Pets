@@ -11,21 +11,21 @@ import {
 import { MobileHeader } from "./mobile_header/mobile-header";
 
 export const MainLayout = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const { data: userIdData } = useUserIdQuery();
+  // const { data: userIdData } = useUserIdQuery();
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      navigate(Routes.auth, { replace: true });
-    }
-    if (userIdData?.userId) {
-      localStorage.removeItem("authToken");
-      navigate(Routes.auth, { replace: true });
-    }
-    tokenVar(token);
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("authToken");
+  //   if (!token) {
+  //     navigate(Routes.auth, { replace: true });
+  //   }
+  //   if (userIdData?.userId) {
+  //     localStorage.removeItem("authToken");
+  //     navigate(Routes.auth, { replace: true });
+  //   }
+  //   tokenVar(token);
+  // }, []);
 
   const { data: userData } = useUserMiniProfileQuery({
     fetchPolicy: "cache-first",
