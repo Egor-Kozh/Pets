@@ -1,0 +1,98 @@
+@use "../../../shared/styles/themes/dark-theme.scss" as dark;
+@use "../../../shared/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --header-background-color: #{light.$color-light-white};
+
+  --header-text-color: #{light.$color-light-lighter-gray};
+  --header-text-color-active: #{light.$color-light-darkest-grey};
+  --header-text-color-hover: #{light.$color-light-primary-default};
+
+  --header-logo: #{light.$color-light-darkest-grey};
+}
+
+[color-theme="dark"] {
+  --header-background-color: #{dark.$color-dark-very-dark-grey};
+
+  --header-text-color: #{dark.$color-dark-grey};
+  --header-text-color-active: #{dark.$color-dark-lightest-grey};
+  --header-text-color-hover: #{dark.$color-dark-primary-dark};
+
+  --header-logo: #{dark.$color-dark-lightest-grey};
+}
+
+.header {
+  width: 100%;
+  height: 64px;
+
+  background-color: var(--header-background-color);
+
+  &__inner {
+    max-width: 1440px;
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-inline: auto;
+
+    .header__left {
+      width: fit-content;
+
+      display: flex;
+      align-items: center;
+
+      & path:last-child {
+        fill: var(--header-logo);
+      }
+    }
+
+    .header__center {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      margin-left: 10%;
+
+      .header__nav {
+        min-width: 415px;
+        width: fit-content;
+
+        &-list {
+          display: flex;
+          justify-content: space-between;
+
+          font-family: "Gilroy_Regular";
+          font-size: 16px;
+          color: var(--header-text-color);
+        }
+
+        &-item:hover {
+          color: var(--header-text-color-hover);
+        }
+      }
+    }
+
+    .header__right {
+      width: fit-content;
+
+      display: flex;
+      align-items: center;
+
+      column-gap: 40px;
+    }
+  }
+}
+
+.active {
+  font-family: "Gilroy_Semibold";
+  color: var(--header-text-color-active);
+}
+
+@media (max-width: 376px) {
+  .header {
+    display: none;
+  }
+}

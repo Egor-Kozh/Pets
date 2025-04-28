@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
-import SvgEyeComponent from "./icons/components/eye";
-import SvgEyeSlashComponent from "./icons/components/eye-slash";
+import { useEffect, useRef, useState } from "react";
+import SvgEyeComponent from "@shared/assets/images/svg/components/eye";
+import SvgEyeSlashComponent from "@shared/assets/images/svg/components/eye-slash";
 import styles from "./input.module.scss";
 import classNames from "classnames";
 import { UseFormRegisterReturn } from "react-hook-form";
-import SvgErrorComponent from "./icons/components/error";
+import SvgErrorComponent from "@shared/assets/images/svg/components/error";
 
 interface InputProps {
   id: string;
@@ -13,6 +13,7 @@ interface InputProps {
   type?: "password" | "date";
   children?: React.ReactNode;
   wrong?: boolean;
+  size?: string;
   register?: UseFormRegisterReturn<string>;
   large?: boolean;
 }
@@ -25,17 +26,24 @@ export const Input = ({
   wrong,
   register,
   large,
+  size,
 }: InputProps) => {
   const [isNotVisible, setIsNotVisible] = useState(type === "password");
-
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const handleInput = () => {
+
+  useEffect(() => {
     const textarea = textareaRef.current;
-    if (textarea) {
+    if (!textarea) return;
+
+    const updateHeight = () => {
       textarea.style.height = "22px";
       textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  };
+    };
+
+    textarea.addEventListener("input", updateHeight);
+
+    return () => textarea.removeEventListener("input", updateHeight);
+  }, []);
 
   const inputType = () => {
     if (isNotVisible) return "password";
@@ -67,16 +75,18 @@ export const Input = ({
   );
 
   return (
-    <div className={inputClass}>
+    <div className={inputClass} style={{ width: size }}>
       <label htmlFor={id}>{title}</label>
       <div className={styles.input__inner}>
         {large ? (
           <textarea
             placeholder={placeholder}
             id={id}
-            ref={textareaRef}
-            onInput={handleInput}
             {...register}
+            ref={(e) => {
+              register?.ref(e);
+              textareaRef.current = e;
+            }}
           />
         ) : (
           <input

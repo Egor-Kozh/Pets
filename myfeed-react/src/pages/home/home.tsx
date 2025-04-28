@@ -1,18 +1,8 @@
-import { useEffect } from "react";
-import { tokenVar } from "../../app/api/clients";
-import { useNavigate } from "react-router-dom";
-import { Routes } from "../../shared/routes";
+import { Feed } from "@widgets/post/feed/feed";
+import { useUserIdQuery } from "@shared/__generated__/hooks";
 
 export const HomePage = () => {
-  const navigate = useNavigate();
+  const { data: userData } = useUserIdQuery();
 
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-      navigate(Routes.auth, { replace: true });
-    }
-    tokenVar(token);
-  }, []);
-
-  return <></>;
+  return <Feed userId={userData?.userId.id} />;
 };

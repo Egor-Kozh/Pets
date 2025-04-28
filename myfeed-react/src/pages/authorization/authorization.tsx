@@ -1,12 +1,17 @@
-import { useState } from "react";
-import SvgLogoComponent from "../../app/assets/images/svg/components/logo";
-import { Tab } from "../../shared/components/tab/tab";
-import { AuthorizationForm } from "../../widgets/forms/authorization-form";
+import { createContext, useState } from "react";
+import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
+import { Tabs } from "@shared/components/tabs/tabs";
+import { AuthorizationForm } from "@features/user/authorization/ui/authorization-form";
 import styles from "./authorization.module.scss";
-import { RegistrationForm } from "../../widgets/forms/registration-form";
+import { RegistrationForm } from "./ui/forms/registration/registration-form";
+import { AuthType, RegistrationContextType, AuthTabs } from "./model/auth-type";
+
+export const registrationContext = createContext<
+  RegistrationContextType | undefined
+>(undefined);
 
 export const AuthorizationPage = () => {
-  const [page, setPage] = useState<"auth" | "registr">("auth");
+  const [page, setPage] = useState<AuthType>(AuthType.authorization);
 
   return (
     <div className={styles["authorization"]}>
@@ -15,9 +20,15 @@ export const AuthorizationPage = () => {
           <SvgLogoComponent />
         </div>
         <div className={styles["authorization__tab"]}>
-          <Tab page={page} setPage={setPage} />
+          <Tabs page={page} setPage={setPage} data={AuthTabs} />
         </div>
-        {page === "auth" ? <AuthorizationForm /> : <RegistrationForm />}
+        {page === AuthType.authorization ? (
+          <AuthorizationForm />
+        ) : (
+          <registrationContext.Provider value={{ page, setPage }}>
+            <RegistrationForm />
+          </registrationContext.Provider>
+        )}
       </div>
     </div>
   );

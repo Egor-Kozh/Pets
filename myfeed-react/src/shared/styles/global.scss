@@ -1,0 +1,39 @@
+@use "scss-reset";
+@use "./themes/dark-theme.scss" as dark;
+@use "./themes/ligth-theme.scss" as light;
+@use "fonts";
+
+$color-theme: "ligth";
+
+:root {
+  --background-color: #{light.$color-light-very-light-grey};
+  --text-color: #{light.$color-light-black};
+}
+
+[color-theme="dark"] {
+  --background-color: #{dark.$color-dark-darkest-grey};
+  --text-color: #{dark.$color-dark-white};
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+
+  height: fit-content;
+
+  font-family: "Gilroy_Bold";
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}

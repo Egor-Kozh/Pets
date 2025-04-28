@@ -1,0 +1,58 @@
+@use "@shared/styles/themes/dark-theme.scss" as dark;
+@use "@shared/styles/themes/ligth-theme.scss" as light;
+
+:root {
+  --tab-background-color-active: #{light.$color-light-primary-default};
+  --tab-background-color: #{light.$color-light-white};
+
+  --tab-text-color-active: #{light.$color-light-white};
+  --tab-text-color: #{light.$color-light-primary-default};
+
+  --tab-border-color: #{light.$color-light-primary-default};
+}
+
+[color-theme="dark"] {
+  --tab-background-color-active: #{dark.$color-dark-primary-dark};
+  --tab-background-color: #{dark.$color-dark-very-dark-grey};
+
+  --tab-text-color-active: #{dark.$color-dark-white};
+  --tab-text-color: #{dark.$color-dark-primary-dark};
+
+  --tab-border-color: #{dark.$color-dark-primary-dark};
+}
+
+.tab {
+  width: 343px;
+  height: 32px;
+
+  display: flex;
+  flex-direction: row;
+
+  & button {
+    width: 173px;
+    height: 100%;
+
+    border-radius: 0;
+
+    font-size: 16px;
+    font-family: "Gilroy_Regular";
+  }
+
+  & :first-child {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-right: none;
+  }
+
+  & :last-child {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-left: none;
+  }
+}
+
+@media (max-width: 376px) {
+  .tab {
+    height: 44px;
+  }
+}

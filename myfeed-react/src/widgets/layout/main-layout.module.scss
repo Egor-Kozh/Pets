@@ -1,0 +1,24 @@
+.layout {
+  width: 100%;
+  height: fit-content;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 743px;
+
+  width: 100%;
+  height: fit-content;
+
+  margin-inline: auto;
+}
+
+@media (max-width: 376px) {
+  main {
+    width: 375px;
+    padding-inline: 12px;
+  }
+}

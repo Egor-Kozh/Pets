@@ -1,5 +1,5 @@
-@use "../../../app/styles/themes/dark-theme.scss" as dark;
-@use "../../../app/styles/themes/ligth-theme.scss" as light;
+@use "../../../shared/styles/themes/dark-theme.scss" as dark;
+@use "../../../shared/styles/themes/ligth-theme.scss" as light;
 
 :root {
   --button-background-color-primary-initial: #{light.$color-light-primary-default};
@@ -130,4 +130,20 @@
 .svg_secondary {
   fill: var(--button-svg-color-secondary);
   animation: rotate 2s linear infinite;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 376px) {
+  .mobile {
+    display: block;
+
+    width: 44px;
+    height: 44px;
+  }
+  .desctop {
+    display: none;
+  }
 }

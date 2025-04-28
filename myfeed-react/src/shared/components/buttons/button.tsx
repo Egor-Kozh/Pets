@@ -1,6 +1,6 @@
 import className from "classnames";
 import styles from "./button.module.scss";
-import SvgLoadingComponent from "./icons/components/loading";
+import SvgLoadingComponent from "@shared/assets/images/svg/components/loading";
 
 interface ButtonProps {
   typeView: "primary" | "secondary" | "flat";
@@ -10,22 +10,25 @@ interface ButtonProps {
   children?: React.ReactNode;
   type?: "button" | "submit" | "reset";
   id?: string;
+  adaptive?: "mobile" | "desctop";
   onClick?: () => void;
 }
 export const Button = ({
   typeView,
   size,
-  disabled = false,
-  loading = false,
+  disabled,
+  loading,
   children,
-  type,
+  type = "button",
   id,
+  adaptive,
   onClick,
 }: ButtonProps) => {
   const buttonClass = className(
     styles.button,
     styles[typeView],
-    size && styles[size]
+    size && styles[size],
+    adaptive && styles[adaptive]
   );
 
   return (

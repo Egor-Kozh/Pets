@@ -1,5 +1,5 @@
-@use "../../../app/styles/themes/dark-theme.scss" as dark;
-@use "../../../app/styles/themes/ligth-theme.scss" as light;
+@use "../../../shared/styles/themes/dark-theme.scss" as dark;
+@use "../../../shared/styles/themes/ligth-theme.scss" as light;
 
 :root {
   --radio-background-color-unchecked-initial: #{light.$color-light-very-light-grey};

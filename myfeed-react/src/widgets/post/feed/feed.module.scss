@@ -1,0 +1,28 @@
+.posts-list {
+  width: 100%;
+  height: fit-content;
+
+  &__sort {
+    width: fit-content;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 24px;
+  }
+}
+
+@media (max-width: 376px) {
+  .posts-list {
+    &__sort {
+      width: 100%;
+    }
+  }
+}
