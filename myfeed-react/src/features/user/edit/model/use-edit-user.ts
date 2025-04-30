@@ -26,7 +26,7 @@ export const useEditUser = ({ fileImage, userData }: Args) => {
       gender: userData?.userMe.gender ?? undefined,
       email: userData?.userMe.email ?? "",
       phone: userData?.userMe.phone ?? "",
-      contry: userData?.userMe.country ?? "",
+      country: userData?.userMe.country ?? "",
     },
   });
 
@@ -52,7 +52,7 @@ export const useEditUser = ({ fileImage, userData }: Args) => {
         gender: values.gender as GenderType,
         email: values.email,
         phone: values.phone || null,
-        country: values.contry || null,
+        country: values.country || null,
         avatarUrl: imageUrl || null,
       },
     }).catch((error: any) => {

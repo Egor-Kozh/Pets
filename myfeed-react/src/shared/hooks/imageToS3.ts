@@ -22,7 +22,6 @@ export const uploadToS3 = async (fileImage: File) => {
   const signedUrl = await signedUrlResponse.text();
   console.log(signedUrl);
 
-  // 2. Загружаем файл напрямую в S3
   const uploadResponse = await fetch(signedUrl, {
     method: "PUT",
     body: fileImage,
@@ -34,8 +33,6 @@ export const uploadToS3 = async (fileImage: File) => {
   if (!uploadResponse.ok) {
     throw new Error("Ошибка загрузки файла в S3");
   }
-
-  // 3. Получаем чистый URL (без параметров подписи)
   const cleanUrl = signedUrl.split("?")[0] as string;
 
   // 4. Сохраняем URL на бекенде
