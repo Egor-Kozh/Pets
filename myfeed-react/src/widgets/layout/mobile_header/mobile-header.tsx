@@ -7,34 +7,40 @@ import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
 import { useState } from "react";
 import { MobileMenu } from "./ui/mobile-menu/mobile-menu";
 import SvgCloseModalComponent from "@shared/assets/images/svg/components/close-modal";
+import { useLockScroll } from "@shared/hooks/useLockScroll";
 
 export const MobileHeader = () => {
   const isAсtivePage = useLocation();
   const [isActiveMenu, setIsActiveMenu] = useState(false);
 
+  const setScroll = useLockScroll();
+
   const handleOpenMenu = () => {
     setIsActiveMenu((prev) => !prev);
+    setScroll();
   };
 
   const page = navItems.find((item) => isAсtivePage.pathname === item.href);
 
   return (
-    <header className={styles["mobile-header"]}>
-      <div className={styles["mobile-header__burger-button"]}>
-        {isActiveMenu ? (
-          <IconButton onClick={handleOpenMenu}>
-            <SvgBurgerButtonComponent />
-          </IconButton>
-        ) : (
-          <IconButton onClick={handleOpenMenu}>
-            <SvgCloseModalComponent />
-          </IconButton>
-        )}
-      </div>
-      <div className={styles["mobile-header__page"]}>
-        {page?.label ?? <SvgLogoComponent />}
-      </div>
-      <MobileMenu />
-    </header>
+    <>
+      <header className={styles["mobile-header"]}>
+        <div className={styles["mobile-header__burger-button"]}>
+          {!isActiveMenu ? (
+            <IconButton onClick={handleOpenMenu}>
+              <SvgBurgerButtonComponent />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleOpenMenu}>
+              <SvgCloseModalComponent />
+            </IconButton>
+          )}
+        </div>
+        <div className={styles["mobile-header__page"]}>
+          {page?.label ?? <SvgLogoComponent />}
+        </div>
+      </header>
+      <MobileMenu isActiveMenu={isActiveMenu} handleOpenMenu={handleOpenMenu} />
+    </>
   );
 };

@@ -28,12 +28,20 @@ export const Post = ({
     }
   }, []);
 
+  if (!post) return;
+
+  const author = post?.author || {
+    id: "unknown",
+    username: "Неизвестный автор",
+    avatarUrl: null,
+  };
+
   return (
     <section className={styles["post"]}>
       <div className={styles["post__inner"]}>
         <header className={styles["post__header"]}>
           <div className={styles["post__user-profile"]}>
-            <MiniProfilePost author={post.author} date={post.createdAt} />
+            <MiniProfilePost author={author} date={post.createdAt} />
           </div>
           {headerActionSlot}
         </header>

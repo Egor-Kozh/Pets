@@ -2,7 +2,7 @@ import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: {
-    "https://internship-social-media.purrweb.com/graphql": {
+    "https://internship-social-media.purrweb.net/graphql": {
       headers: {
         "Content-Type": "application/json",
       },

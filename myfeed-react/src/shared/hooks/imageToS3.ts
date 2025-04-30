@@ -1,6 +1,6 @@
 export const uploadToS3 = async (fileImage: File) => {
   const url = new URL(
-    "https://internship-social-media.purrweb.com/v1/aws/signed-url"
+    "https://internship-social-media.purrweb.net/v1/aws/signed-url"
   );
   url.searchParams.append("fileName", fileImage.name);
   url.searchParams.append("fileCategory", "POSTS");
