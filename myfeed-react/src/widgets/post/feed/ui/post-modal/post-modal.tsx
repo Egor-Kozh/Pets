@@ -50,9 +50,9 @@ export const PostModal = ({
   return (
     <Modal active={isOpen} setActiveModal={hanleCloseModal}>
       <Post
-        post={data}
+        post={data?.post as PostType}
         headerActionSlot={headerAction()}
-        footerActionSlot={footerAction(data)}
+        footerActionSlot={footerAction(data?.post as PostType)}
       />
     </Modal>
   );

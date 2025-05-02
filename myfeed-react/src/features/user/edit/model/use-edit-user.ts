@@ -6,7 +6,8 @@ import {
   useEditUserMutation,
   UserProfileQuery,
 } from "@shared/__generated__/hooks";
-import { uploadToS3 } from "@shared/hooks/imageToS3";
+import { uploadToS3 } from "@shared/hooks/imageToS3/imageToS3";
+import { TypeFiles } from "@shared/hooks/imageToS3/model/types";
 
 interface Args {
   fileImage: File | undefined;
@@ -41,7 +42,7 @@ export const useEditUser = ({ fileImage, userData }: Args) => {
 
     let imageUrl: string | null = null;
     if (fileImage) {
-      imageUrl = await uploadToS3(fileImage);
+      imageUrl = await uploadToS3({ fileImage, typeImage: TypeFiles.avatar });
     }
     editUser({
       variables: {

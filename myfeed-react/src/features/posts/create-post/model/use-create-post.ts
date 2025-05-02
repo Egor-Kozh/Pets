@@ -5,8 +5,9 @@ import {
 import { useForm } from "react-hook-form";
 import { CreatePost } from "./types";
 import { useState } from "react";
-import { uploadToS3 } from "@shared/hooks/imageToS3";
+import { uploadToS3 } from "@shared/hooks/imageToS3/imageToS3";
 import { MY_POSTS } from "@entities/posts/model/get-my-posts/my-posts";
+import { TypeFiles } from "@shared/hooks/imageToS3/model/types";
 
 interface Args {
   onCompleted: () => void;
@@ -38,7 +39,10 @@ export const useCreatePost = ({ onCompleted, onFiled }: Args) => {
   const onSubmit = handleSubmit(async (values: CreatePost) => {
     if (!imageFile) return;
 
-    const imageUrl = await uploadToS3(imageFile);
+    const imageUrl = await uploadToS3({
+      fileImage: imageFile,
+      typeImage: TypeFiles.posts,
+    });
 
     try {
       await createPost({

@@ -7,6 +7,10 @@ import styles from "./my-posts.module.scss";
 import { Routes } from "@shared/routes";
 import { Avatar } from "@entities/user/ui/avatar/avatar";
 import SvgCreatePostComponent from "@shared/assets/images/svg/components/create-post";
+import { PostType } from "@entities/posts/model/types";
+import { SharedPost } from "@features/posts/shared-post/ui/shared-post";
+import { DeletePost } from "@features/posts/delete-post/ui/delete-post";
+import { EditPost } from "@features/posts/edit-post/ui/edit-post";
 
 interface MyPostsProps {
   data: MyPostsQuery | undefined;
@@ -15,6 +19,16 @@ export const MyPosts = ({ data }: MyPostsProps) => {
   const { data: userData } = useUserMiniProfileQuery();
 
   const navigate = useNavigate();
+
+  const headerAction = (post: PostType) => {
+    return (
+      <>
+        <SharedPost />
+        <DeletePost post={post} />
+        <EditPost />
+      </>
+    );
+  };
 
   const handleCreatePost = () => {
     navigate(Routes.create_post, { replace: true });
@@ -46,7 +60,12 @@ export const MyPosts = ({ data }: MyPostsProps) => {
       </div>
       <div className={styles["my-posts__list"]}>
         {data?.myPosts.data?.map((post) => (
-          <Post mine post={post} key={post.id} />
+          <Post
+            mine
+            post={post}
+            key={post.id}
+            headerActionSlot={headerAction(post)}
+          />
         ))}
       </div>
     </div>

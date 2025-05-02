@@ -36,8 +36,8 @@ export const MobileMenu = ({ isActiveMenu, handleOpenMenu }: Args) => {
           />
         </div>
         <ul className={styles["mobile-menu__list"]}>
-          {MenuList.map((item) => (
-            <li>
+          {MenuList.map((item, index) => (
+            <li key={`link_menu_${index}`}>
               {item.href ? (
                 <Link to={item.href} onClick={handleOpenMenu}>
                   {item.label}

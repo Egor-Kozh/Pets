@@ -10,19 +10,21 @@ interface Args {
 export const ProtectedRoute = ({ children }: Args) => {
   const navigate = useNavigate();
 
-  const { data: userIdData } = useUserIdQuery();
+  const { loading, error } = useUserIdQuery();
+  const token = localStorage.getItem("authToken");
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
     if (!token) {
       navigate(Routes.auth, { replace: true });
     }
-    if (userIdData?.userId) {
+    if (error) {
       localStorage.removeItem("authToken");
       navigate(Routes.auth, { replace: true });
     }
     tokenVar(token);
   }, []);
+
+  if (loading) return;
 
   return <>{children}</>;
 };

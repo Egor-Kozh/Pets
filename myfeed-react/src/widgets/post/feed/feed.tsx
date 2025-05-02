@@ -29,6 +29,7 @@ export const Feed = () => {
   const setIsOpenPost = (id: string) => {
     setActivePostId(id);
     setIsOpenModal(true);
+    setScroll();
   };
 
   const handleCloseModal = () => {
@@ -74,8 +75,8 @@ export const Feed = () => {
               mine={isMyPost}
               post={post}
               key={post.id}
-              headerActionSlot={isMyPost && headerAction(post)}
-              footerActionSlot={!isMyPost && footerAction(post)}
+              headerActionSlot={isMyPost ? headerAction(post) : null}
+              footerActionSlot={!isMyPost ? footerAction(post) : null}
               handleClickReadMore={setIsOpenPost}
             />
           );

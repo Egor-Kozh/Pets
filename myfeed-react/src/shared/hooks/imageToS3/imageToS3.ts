@@ -1,9 +1,11 @@
-export const uploadToS3 = async (fileImage: File) => {
+import { Args } from "./model/types";
+
+export const uploadToS3 = async ({ fileImage, typeImage }: Args) => {
   const url = new URL(
     "https://internship-social-media.purrweb.net/v1/aws/signed-url"
   );
   url.searchParams.append("fileName", fileImage.name);
-  url.searchParams.append("fileCategory", "POSTS");
+  url.searchParams.append("fileCategory", typeImage);
 
   const signedUrlResponse = await fetch(url.toString(), {
     method: "GET",
@@ -27,6 +29,9 @@ export const uploadToS3 = async (fileImage: File) => {
     body: fileImage,
     headers: {
       "Content-Type": fileImage.type,
+      Origin: window.location.origin,
+      "Access-Control-Request-Method": "PUT",
+      mode: "cors",
     },
   });
 

@@ -22,7 +22,7 @@ export const Post = ({
   const containerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (containerRef.current && !handleClickReadMore) {
+    if (containerRef.current) {
       const { scrollHeight, clientHeight } = containerRef.current;
       setIsReadMore(scrollHeight > clientHeight);
     }
@@ -53,7 +53,12 @@ export const Post = ({
             <img src={post.mediaUrl} alt="post_img" />
           </div>
           <div className={styles["post__content-text"]}>
-            <span ref={containerRef}>{post.description}</span>
+            <span
+              ref={containerRef}
+              style={!handleClickReadMore ? { display: "block" } : {}}
+            >
+              {post.description}
+            </span>
             {isReadMore && (
               <Button
                 typeView="flat"
@@ -64,8 +69,12 @@ export const Post = ({
             )}
           </div>
         </section>
-        {!footerActionSlot && (
-          <footer className={styles["post__footer"]}>{footerActionSlot}</footer>
+        {footerActionSlot && (
+          <footer className={styles["post__footer"]}>
+            <div className={styles["post__actions-another"]}>
+              {footerActionSlot}
+            </div>
+          </footer>
         )}
       </div>
     </section>
