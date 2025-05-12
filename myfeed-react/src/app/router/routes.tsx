@@ -8,12 +8,16 @@ import { MyPostsPage } from "@pages/my-posts/my-posts";
 import { FavouritePage } from "@pages/favourite/favourite";
 import { CreatePostPage } from "@pages/create-post/create-post";
 import { ProfilePage } from "@pages/profile/profile";
-import { MobileMenuPage } from "@pages/mobile-menu/mobile-menu";
+import { ProtectedRoute } from "./protected-router";
 
 export const routes: RouteObject[] = [
   {
     path: Routes.home,
-    element: <MainLayout />,
+    element: (
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -34,10 +38,6 @@ export const routes: RouteObject[] = [
       {
         path: Routes.profile,
         element: <ProfilePage />,
-      },
-      {
-        path: Routes.mobile_menu,
-        element: <MobileMenuPage />,
       },
     ],
   },

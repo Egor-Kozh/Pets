@@ -4,22 +4,31 @@
 :root {
   --mobile-menu-border-color: #{light.$color-light-lighter-gray};
 
+  --mobile-menu-background-color: #{light.$color-light-white};
+
   --mobile-menu-switch-text-color: #{light.$color-light-lighter-gray0};
 }
 
 [color-theme="dark"] {
   --mobile-menu-border-color: #{dark.$color-dark-grey};
 
+  --mobile-menu-background-color: #{dark.$color-dark-darkest-grey};
+
   --mobile-menu-switch-text-color: #{dark.$color-dark-grey};
 }
 
 .mobile-menu {
   width: 100%;
-  height: 80vh;
+  height: calc(100vh - 64px);
+  z-index: 100;
 
   padding: 10px;
 
-  display: flex;
+  position: absolute;
+
+  background-color: var(--mobile-menu-background-color);
+
+  display: none;
   flex-direction: column;
   justify-content: space-between;
 
@@ -65,4 +74,8 @@
       color: var(--mobile-menu-switch-text-color);
     }
   }
+}
+
+.active {
+  display: flex;
 }

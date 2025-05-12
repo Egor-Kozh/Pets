@@ -6,5 +6,5 @@ export interface EditUser {
   gender: string | null;
   email: string | null;
   phone: string | null;
-  contry: string | null;
+  country: string | null;
 }

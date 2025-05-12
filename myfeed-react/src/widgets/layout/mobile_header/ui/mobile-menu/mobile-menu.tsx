@@ -5,8 +5,13 @@ import { MiniProfile } from "@entities/user/ui/mini-profile/mini-profile";
 import { useUserMiniProfileQuery } from "@shared/__generated__/hooks";
 import { Toggle } from "@shared/components/toggle/toggle";
 import { useTheme } from "@app/providers/theme-provider";
+import className from "classnames";
 
-export const MobileMenuPage = () => {
+interface Args {
+  isActiveMenu: boolean;
+  handleOpenMenu: () => void;
+}
+export const MobileMenu = ({ isActiveMenu, handleOpenMenu }: Args) => {
   const { data: userData } = useUserMiniProfileQuery({
     fetchPolicy: "cache-first",
     nextFetchPolicy: "cache-first",
@@ -16,8 +21,13 @@ export const MobileMenuPage = () => {
 
   const colorTheme = localStorage.getItem("colorTheme");
 
+  const mobileMenuClass = className(
+    styles["mobile-menu"],
+    isActiveMenu && styles.active
+  );
+
   return (
-    <div className={styles["mobile-menu"]}>
+    <div className={mobileMenuClass}>
       <div className={styles["mobile-menu__info"]}>
         <div className={styles["mobile-menu__mini-profile"]}>
           <MiniProfile
@@ -26,10 +36,12 @@ export const MobileMenuPage = () => {
           />
         </div>
         <ul className={styles["mobile-menu__list"]}>
-          {MenuList.map((item) => (
-            <li>
+          {MenuList.map((item, index) => (
+            <li key={`link_menu_${index}`}>
               {item.href ? (
-                <Link to={item.href}>{item.label}</Link>
+                <Link to={item.href} onClick={handleOpenMenu}>
+                  {item.label}
+                </Link>
               ) : (
                 <p onClick={item.onClick}>{item.label}</p>
               )}

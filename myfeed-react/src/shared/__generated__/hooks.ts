@@ -258,6 +258,13 @@ export type MyPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MyPostsQuery = { myPosts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } }> | null } };
 
+export type PostByIdQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type PostByIdQuery = { post: { createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } } };
+
 export type UserEmailQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -316,6 +323,21 @@ export type LoginUserMutationVariables = Exact<{
 
 export type LoginUserMutation = { loginUser: { token?: string | null, problem?: { message: string } | null } };
 
+export type EditUserMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+  middleName?: InputMaybe<Scalars['String']['input']>;
+  birthDate?: InputMaybe<Scalars['String']['input']>;
+  gender?: InputMaybe<GenderType>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  avatarUrl?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type EditUserMutation = { editUser: { problem?: { message: string } | { message: string } | null } };
+
 export type CreateUserInfoMutationVariables = Exact<{
   email: Scalars['String']['input'];
   firstName?: InputMaybe<Scalars['String']['input']>;
@@ -334,21 +356,6 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { newUser: { token?: string | null, problem?: { message: string } | null } };
-
-export type EditUserMutationVariables = Exact<{
-  email: Scalars['String']['input'];
-  firstName?: InputMaybe<Scalars['String']['input']>;
-  lastName?: InputMaybe<Scalars['String']['input']>;
-  middleName?: InputMaybe<Scalars['String']['input']>;
-  birthDate?: InputMaybe<Scalars['String']['input']>;
-  gender?: InputMaybe<GenderType>;
-  country?: InputMaybe<Scalars['String']['input']>;
-  avatarUrl?: InputMaybe<Scalars['String']['input']>;
-  phone?: InputMaybe<Scalars['String']['input']>;
-}>;
-
-
-export type EditUserMutation = { editUser: { problem?: { message: string } | { message: string } | null } };
 
 
 export const AllPostsDocument = gql`
@@ -512,6 +519,58 @@ export type MyPostsQueryHookResult = ReturnType<typeof useMyPostsQuery>;
 export type MyPostsLazyQueryHookResult = ReturnType<typeof useMyPostsLazyQuery>;
 export type MyPostsSuspenseQueryHookResult = ReturnType<typeof useMyPostsSuspenseQuery>;
 export type MyPostsQueryResult = Apollo.QueryResult<MyPostsQuery, MyPostsQueryVariables>;
+export const PostByIdDocument = gql`
+    query postById($id: String!) {
+  post(input: {id: $id}) {
+    author {
+      firstName
+      lastName
+      avatarUrl
+      id
+    }
+    createdAt
+    description
+    likesCount
+    isLiked
+    title
+    mediaUrl
+    id
+  }
+}
+    `;
+
+/**
+ * __usePostByIdQuery__
+ *
+ * To run a query within a React component, call `usePostByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePostByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePostByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePostByIdQuery(baseOptions: Apollo.QueryHookOptions<PostByIdQuery, PostByIdQueryVariables> & ({ variables: PostByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PostByIdQuery, PostByIdQueryVariables>(PostByIdDocument, options);
+      }
+export function usePostByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PostByIdQuery, PostByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PostByIdQuery, PostByIdQueryVariables>(PostByIdDocument, options);
+        }
+export function usePostByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PostByIdQuery, PostByIdQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PostByIdQuery, PostByIdQueryVariables>(PostByIdDocument, options);
+        }
+export type PostByIdQueryHookResult = ReturnType<typeof usePostByIdQuery>;
+export type PostByIdLazyQueryHookResult = ReturnType<typeof usePostByIdLazyQuery>;
+export type PostByIdSuspenseQueryHookResult = ReturnType<typeof usePostByIdSuspenseQuery>;
+export type PostByIdQueryResult = Apollo.QueryResult<PostByIdQuery, PostByIdQueryVariables>;
 export const UserEmailDocument = gql`
     query userEmail {
   userEmail: userMe {
@@ -854,6 +913,56 @@ export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<Lo
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
 export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
 export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
+export const EditUserDocument = gql`
+    mutation EditUser($email: String!, $firstName: String, $lastName: String, $middleName: String, $birthDate: String, $gender: GenderType, $country: String, $avatarUrl: String, $phone: String) {
+  editUser: userEditProfile(
+    input: {email: $email, firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate, gender: $gender, country: $country, avatarUrl: $avatarUrl, phone: $phone}
+  ) {
+    problem {
+      ... on EmailAlreadyUsedProblem {
+        message
+      }
+      ... on PhoneAlreadyUsedProblem {
+        message
+      }
+    }
+  }
+}
+    `;
+export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
+
+/**
+ * __useEditUserMutation__
+ *
+ * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      firstName: // value for 'firstName'
+ *      lastName: // value for 'lastName'
+ *      middleName: // value for 'middleName'
+ *      birthDate: // value for 'birthDate'
+ *      gender: // value for 'gender'
+ *      country: // value for 'country'
+ *      avatarUrl: // value for 'avatarUrl'
+ *      phone: // value for 'phone'
+ *   },
+ * });
+ */
+export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
+      }
+export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
+export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
+export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const CreateUserInfoDocument = gql`
     mutation CreateUserInfo($email: String!, $firstName: String, $lastName: String, $middleName: String) {
   newUserInfo: userEditProfile(
@@ -939,53 +1048,3 @@ export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
 export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
-export const EditUserDocument = gql`
-    mutation EditUser($email: String!, $firstName: String, $lastName: String, $middleName: String, $birthDate: String, $gender: GenderType, $country: String, $avatarUrl: String, $phone: String) {
-  editUser: userEditProfile(
-    input: {email: $email, firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate, gender: $gender, country: $country, avatarUrl: $avatarUrl, phone: $phone}
-  ) {
-    problem {
-      ... on EmailAlreadyUsedProblem {
-        message
-      }
-      ... on PhoneAlreadyUsedProblem {
-        message
-      }
-    }
-  }
-}
-    `;
-export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
-
-/**
- * __useEditUserMutation__
- *
- * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
- *   variables: {
- *      email: // value for 'email'
- *      firstName: // value for 'firstName'
- *      lastName: // value for 'lastName'
- *      middleName: // value for 'middleName'
- *      birthDate: // value for 'birthDate'
- *      gender: // value for 'gender'
- *      country: // value for 'country'
- *      avatarUrl: // value for 'avatarUrl'
- *      phone: // value for 'phone'
- *   },
- * });
- */
-export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, options);
-      }
-export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
-export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
-export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
