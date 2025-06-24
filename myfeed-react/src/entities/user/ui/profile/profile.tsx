@@ -25,6 +25,7 @@ export const Profile = ({ userData }: Args) => {
   });
 
   const gender = userData?.userMe.gender;
+  console.log({ gender });
 
   const [isOpen, setIsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);

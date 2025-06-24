@@ -42,7 +42,7 @@ export const Feed = () => {
   const headerAction = (post: PostType) => {
     return (
       <>
-        <SharedPost />
+        <SharedPost post={post} />
         <DeletePost post={post} />
         <EditPost />
       </>
@@ -53,7 +53,7 @@ export const Feed = () => {
     return (
       <>
         <LikePost post={post} />
-        <SharedPost />
+        <SharedPost post={post} />
       </>
     );
   };

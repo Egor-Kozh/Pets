@@ -16,8 +16,8 @@ export const FavouritePage = () => {
         <FavouritePosts data={data} />
       ) : (
         <EmptyState
-          button={{ href: Routes.create_post, label: "Создать пост" }}
-          message="У вас пока нет ни одного поста"
+          button={{ href: Routes.home, label: "На главную" }}
+          message="У вас пока нет избранных постов"
         />
       )}
     </>
