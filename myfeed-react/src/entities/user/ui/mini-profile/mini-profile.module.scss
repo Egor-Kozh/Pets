@@ -101,6 +101,9 @@
       flex-direction: column;
       justify-content: center;
 
+      overflow: hidden;
+      max-width: 200px;
+
       .mini-profile__date-post {
         width: 100%;
 

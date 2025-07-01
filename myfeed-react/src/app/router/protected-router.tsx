@@ -1,7 +1,7 @@
 import { tokenVar } from "@app/api/clients";
 import { useUserIdQuery } from "@shared/__generated__/hooks";
 import { Routes } from "@shared/routes";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Args {
@@ -10,21 +10,25 @@ interface Args {
 export const ProtectedRoute = ({ children }: Args) => {
   const navigate = useNavigate();
 
-  const { loading, error } = useUserIdQuery();
+  const { loading, data } = useUserIdQuery();
   const token = localStorage.getItem("authToken");
 
-  useEffect(() => {
+  const checkAuth = () => {
     if (!token) {
       navigate(Routes.auth, { replace: true });
     }
-    if (error) {
+    if (!data?.userId.id) {
       localStorage.removeItem("authToken");
       navigate(Routes.auth, { replace: true });
     }
-    tokenVar(token);
-  }, []);
+    if (token) {
+      tokenVar(token);
+    }
+  };
 
   if (loading) return;
+
+  checkAuth();
 
   return <>{children}</>;
 };

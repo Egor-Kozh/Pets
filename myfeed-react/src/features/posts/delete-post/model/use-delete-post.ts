@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Post } from "@entities/posts/ui/post/post";
+import { PostType } from "@entities/posts/model/types";
 import { useDeletePostMutation } from "@shared/__generated__/hooks";
 
 interface Args {
-  post: Post;
+  post: PostType;
 }
 export const useDeletePost = ({ post }: Args) => {
   const [deletePost, { loading, error }] = useDeletePostMutation({

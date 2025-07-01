@@ -34,7 +34,7 @@ export const PostModal = ({
     if (mine)
       return (
         <>
-          <SharedPost />
+          <SharedPost post={post} />
           <DeletePost post={post} />
           <EditPost />
         </>
@@ -42,7 +42,7 @@ export const PostModal = ({
     return (
       <>
         <LikePost post={post} />
-        <SharedPost />
+        <SharedPost post={post} />
       </>
     );
   };

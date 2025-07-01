@@ -1,14 +1,23 @@
-import { Post } from "@entities/posts/ui/post/post";
+import { PostType } from "@entities/posts/model/types";
 import { usePostLikeMutation } from "@shared/__generated__/hooks";
 
 interface Args {
   onCompletedLike: () => void;
-  post: Post;
+  post: PostType;
 }
 export const usePostLike = ({ onCompletedLike, post }: Args) => {
   const [like, { loading, error }] = usePostLikeMutation({
     onCompleted: () => {
       onCompletedLike();
+    },
+    update(cache, { data }) {
+      cache.modify({
+        fields: {
+          favouritePosts(existingFavourites = { data: [] }) {
+            return { ...existingFavourites, data };
+          },
+        },
+      });
     },
   });
 
