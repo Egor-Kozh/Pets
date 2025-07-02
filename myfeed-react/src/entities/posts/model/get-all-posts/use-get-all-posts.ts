@@ -1,7 +1,7 @@
 import { PostFilterType, useAllPostsQuery } from "@shared/__generated__/hooks";
 
 export const useGetAllPosts = (sortType: PostFilterType) => {
-  const { data, loading, error } = useAllPostsQuery({
+  const { data, loading, error, fetchMore } = useAllPostsQuery({
     variables: {
       type: sortType,
     },
@@ -11,5 +11,6 @@ export const useGetAllPosts = (sortType: PostFilterType) => {
     data,
     isLoading: loading,
     isError: error,
+    fetchMore,
   };
 };

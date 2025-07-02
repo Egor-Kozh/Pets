@@ -243,10 +243,11 @@ export type UserModel = {
 export type AllPostsQueryVariables = Exact<{
   type: PostFilterType;
   limit?: InputMaybe<Scalars['Int']['input']>;
+  afterCursor?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } }> | null } };
+export type AllPostsQuery = { posts: { data?: Array<{ createdAt: string, description: string, likesCount: number, isLiked: boolean, title: string, mediaUrl: string, id: string, author: { firstName?: string | null, lastName?: string | null, avatarUrl?: string | null, id: string } }> | null, pageInfo?: { afterCursor?: string | null } | null } };
 
 export type FavouritePostsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -359,8 +360,8 @@ export type CreateUserMutation = { newUser: { token?: string | null, problem?: {
 
 
 export const AllPostsDocument = gql`
-    query allPosts($type: PostFilterType!, $limit: Int = 10) {
-  posts(input: {type: $type, limit: $limit}) {
+    query allPosts($type: PostFilterType!, $limit: Int = 10, $afterCursor: String) {
+  posts(input: {type: $type, limit: $limit, afterCursor: $afterCursor}) {
     data {
       author {
         firstName
@@ -375,6 +376,9 @@ export const AllPostsDocument = gql`
       title
       mediaUrl
       id
+    }
+    pageInfo {
+      afterCursor
     }
   }
 }
@@ -394,6 +398,7 @@ export const AllPostsDocument = gql`
  *   variables: {
  *      type: // value for 'type'
  *      limit: // value for 'limit'
+ *      afterCursor: // value for 'afterCursor'
  *   },
  * });
  */

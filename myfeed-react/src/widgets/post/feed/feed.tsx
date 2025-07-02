@@ -2,7 +2,7 @@ import { useGetAllPosts } from "@entities/posts/model/get-all-posts/use-get-all-
 import { Post } from "@entities/posts/ui/post/post";
 import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 import { SortPosts } from "./ui/sort-posts/sort-posts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostFilterType, useUserIdQuery } from "@shared/__generated__/hooks";
 import styles from "./feed.module.scss";
 import { LikePost } from "@features/posts/post-reaction/ui/post-like";
@@ -12,6 +12,7 @@ import { useLockScroll } from "@shared/hooks/useLockScroll";
 import { SharedPost } from "@features/posts/shared-post/ui/shared-post";
 import { DeletePost } from "@features/posts/delete-post/ui/delete-post";
 import { EditPost } from "@features/posts/edit-post/ui/edit-post";
+import { useInView } from "react-intersection-observer";
 
 export const Feed = () => {
   const [postsSort, setPostsSort] = useState<PostFilterType>(
@@ -37,7 +38,7 @@ export const Feed = () => {
     setIsOpenModal(false);
   };
 
-  const { data, isLoading } = useGetAllPosts(postsSort);
+  const { data, isLoading, fetchMore } = useGetAllPosts(postsSort);
 
   const headerAction = (post: PostType) => {
     return (
@@ -57,6 +58,27 @@ export const Feed = () => {
       </>
     );
   };
+
+  const {ref, inView} = useInView({
+    threshold: 0.5
+  })
+
+  useEffect(() => {
+    const cursor = data?.posts.pageInfo?.afterCursor
+
+    fetchMore({
+      variables: {afterCursor: cursor},
+
+      updateQuery: (previousQueryResult, {fetchMoreResult}) => {
+        fetchMoreResult.posts.data = [
+          ...previousQueryResult.posts.data,
+          ...fetchMoreResult.posts.data
+        ];
+
+        return fetchMoreResult
+      }
+    })
+  }, [inView])
 
   if (isLoading) return <PostSkeleton />;
 
@@ -81,6 +103,17 @@ export const Feed = () => {
             />
           );
         })}
+      </div>
+
+      <div
+        ref={ref} 
+        style={{ 
+          height: '1px', 
+          width: '100%',
+          background: 'transparent',
+          margin: '20px 0'
+        }}
+      >
       </div>
 
       <PostModal
