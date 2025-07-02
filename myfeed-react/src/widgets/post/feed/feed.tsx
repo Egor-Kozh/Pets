@@ -64,6 +64,8 @@ export const Feed = () => {
   })
 
   useEffect(() => {
+    if(inView) return ;
+    
     const cursor = data?.posts.pageInfo?.afterCursor
 
     fetchMore({
@@ -71,8 +73,8 @@ export const Feed = () => {
 
       updateQuery: (previousQueryResult, {fetchMoreResult}) => {
         fetchMoreResult.posts.data = [
-          ...previousQueryResult.posts.data,
-          ...fetchMoreResult.posts.data
+          ...previousQueryResult.posts.data || [],
+          ...fetchMoreResult.posts.data || []
         ];
 
         return fetchMoreResult
