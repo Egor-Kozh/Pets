@@ -19,6 +19,8 @@ export const Feed = () => {
     PostFilterType.New
   );
 
+  const [nextPage, setNextPage] = useState<boolean>(false)
+
   const { data: userData } = useUserIdQuery();
   const userId = userData?.userId.id;
 
@@ -63,9 +65,7 @@ export const Feed = () => {
     threshold: 0.5
   })
 
-  useEffect(() => {
-    if(inView) return ;
-    
+  if(nextPage){
     const cursor = data?.posts.pageInfo?.afterCursor
 
     fetchMore({
@@ -80,6 +80,12 @@ export const Feed = () => {
         return fetchMoreResult
       }
     })
+
+    setNextPage(false)
+  }
+
+  useEffect(() => {
+    setNextPage(true)
   }, [inView])
 
   if (isLoading) return <PostSkeleton />;
