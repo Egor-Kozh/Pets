@@ -48,6 +48,12 @@
         min-width: 175px;
         height: 41px;
       }
+
+      .post__actions-header {
+        display: flex;
+        flex-direction: row;
+        column-gap: 30px;
+      }
     }
 
     .post__content {

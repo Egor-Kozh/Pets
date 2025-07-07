@@ -43,7 +43,9 @@ export const Post = ({
           <div className={styles["post__user-profile"]}>
             <MiniProfilePost author={author} date={post.createdAt} />
           </div>
-          {headerActionSlot}
+          <div className={styles["post__actions-header"]}>
+            {headerActionSlot}
+          </div>
         </header>
         <section className={styles["post__content"]}>
           <header className={styles["post__content-header"]}>

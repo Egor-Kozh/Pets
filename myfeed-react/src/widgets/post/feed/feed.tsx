@@ -2,7 +2,7 @@ import { useGetAllPosts } from "@entities/posts/model/get-all-posts/use-get-all-
 import { Post } from "@entities/posts/ui/post/post";
 import { PostSkeleton } from "@shared/components/skeleton/skeleton";
 import { SortPosts } from "./ui/sort-posts/sort-posts";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PostFilterType, useUserIdQuery } from "@shared/__generated__/hooks";
 import styles from "./feed.module.scss";
 import { LikePost } from "@features/posts/post-reaction/ui/post-like";
@@ -12,14 +12,13 @@ import { useLockScroll } from "@shared/hooks/useLockScroll";
 import { SharedPost } from "@features/posts/shared-post/ui/shared-post";
 import { DeletePost } from "@features/posts/delete-post/ui/delete-post";
 import { EditPost } from "@features/posts/edit-post/ui/edit-post";
-import { useInView } from "react-intersection-observer";
+import { Virtuoso } from "react-virtuoso";
+import React from "react";
 
 export const Feed = () => {
   const [postsSort, setPostsSort] = useState<PostFilterType>(
     PostFilterType.New
   );
-
-  const [nextPage, setNextPage] = useState<boolean>(false)
 
   const { data: userData } = useUserIdQuery();
   const userId = userData?.userId.id;
@@ -61,34 +60,23 @@ export const Feed = () => {
     );
   };
 
-  const {ref, inView} = useInView({
-    threshold: 0.5
-  })
-
-  if(nextPage){
-    const cursor = data?.posts.pageInfo?.afterCursor
+  const nextPage = () => {
+    const cursor = data?.posts.pageInfo?.afterCursor;
 
     fetchMore({
-      variables: {afterCursor: cursor},
+      variables: { afterCursor: cursor },
 
-      updateQuery: (previousQueryResult, {fetchMoreResult}) => {
-        fetchMoreResult.posts.data = [
-          ...previousQueryResult.posts.data || [],
-          ...fetchMoreResult.posts.data || []
-        ];
-
-        return fetchMoreResult
-      }
-    })
-
-    setNextPage(false)
-  }
-
-  useEffect(() => {
-    setNextPage(true)
-  }, [inView])
-
-  if (isLoading) return <PostSkeleton />;
+      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
+        if (fetchMoreResult.posts.data && previousQueryResult.posts.data) {
+          fetchMoreResult.posts.data = [
+            ...previousQueryResult.posts.data,
+            ...fetchMoreResult.posts.data,
+          ];
+        }
+        return fetchMoreResult;
+      },
+    });
+  };
 
   return (
     <div className={styles["posts-list"]}>
@@ -96,33 +84,55 @@ export const Feed = () => {
         <SortPosts setPostsSort={setPostsSort} />
       </div>
 
-      <div className={styles["posts-list__list"]}>
-        {data?.posts.data?.map((post) => {
-          const isMyPost = userId === post.author.id;
+      {isLoading ? (
+        <PostSkeleton />
+      ) : (
+        <div className={styles["posts-list__list"]}>
+          <Virtuoso
+            data={data?.posts.data || []}
+            useWindowScroll
+            endReached={nextPage}
+            components={{
+              List: React.forwardRef<
+                HTMLDivElement,
+                React.HTMLAttributes<HTMLDivElement>
+              >(({ style, children }, ref) => (
+                <div
+                  ref={ref}
+                  style={{
+                    ...style,
+                    display: "flex",
+                    rowGap: "20px",
+                    flexDirection: "column",
+                  }}
+                >
+                  {children}
+                </div>
+              )),
+            }}
+            itemContent={(index, post) => {
+              const isMyPost = userId === post.author.id;
 
-          return (
-            <Post
-              mine={isMyPost}
-              post={post}
-              key={post.id}
-              headerActionSlot={isMyPost ? headerAction(post) : null}
-              footerActionSlot={!isMyPost ? footerAction(post) : null}
-              handleClickReadMore={setIsOpenPost}
-            />
-          );
-        })}
-      </div>
-
-      <div
-        ref={ref} 
-        style={{ 
-          height: '1px', 
-          width: '100%',
-          background: 'transparent',
-          margin: '20px 0'
-        }}
-      >
-      </div>
+              return (
+                <Post
+                  mine={isMyPost}
+                  post={post}
+                  key={post.id + index}
+                  headerActionSlot={isMyPost ? headerAction(post) : null}
+                  footerActionSlot={!isMyPost ? footerAction(post) : null}
+                  handleClickReadMore={setIsOpenPost}
+                />
+              );
+            }}
+            style={{
+              height: "100vh",
+              width: "100%",
+              overflow: "auto",
+              scrollbarWidth: "none",
+            }}
+          />
+        </div>
+      )}
 
       <PostModal
         isOpen={isOpenModal}

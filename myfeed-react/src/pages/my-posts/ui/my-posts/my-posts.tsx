@@ -23,7 +23,7 @@ export const MyPosts = ({ data }: MyPostsProps) => {
   const headerAction = (post: PostType) => {
     return (
       <>
-        <SharedPost />
+        <SharedPost post={post} />
         <DeletePost post={post} />
         <EditPost />
       </>
