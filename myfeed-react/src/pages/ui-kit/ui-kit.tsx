@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import "../../shared/styles/global.scss";
 import { Button } from "../../shared/components/buttons/button";
-import { Input } from "../../shared/components/input/input";
+// import { Input } from "../../shared/components/inputs/base-input/input";
 // import { RadioButton } from "../../shared/components/radio-buttons/radio-button";
 // import { Tab } from "../../shared/components/tab/tab";
 import { Toggle } from "../../shared/components/toggle/toggle";
@@ -11,16 +11,16 @@ import { Toggle } from "../../shared/components/toggle/toggle";
 // import { InputImage } from "../../shared/components/inputs/uploader/input-image";
 
 export const UiKitPage = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<{ name: string; password: string }>();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  //   watch,
+  // } = useForm<{ name: string; password: string }>();
 
-  const onSubmit = () => {
-    console.log(watch("name"));
-  };
+  // const onSubmit = () => {
+  //   console.log(watch("name"));
+  // };
 
   return (
     <>
@@ -62,7 +62,7 @@ export const UiKitPage = () => {
       {/* <Tab type="auth" />
       <Tab type="registr" /> */}
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           id="8"
           placeholder="Placeholder"
@@ -90,9 +90,9 @@ export const UiKitPage = () => {
         <Button size="small" typeView="primary" type="submit">
           Отправить
         </Button>
-      </form>
+      </form> */}
 
-      <Input id="9" type="password" title="input eye" />
+      {/* <Input id="9" type="password" title="input eye" />
       <Input id="10" type="password" title="input eye/slash" />
       <Input id="11" type="date" title="calender" />
       <Input
@@ -100,7 +100,7 @@ export const UiKitPage = () => {
         placeholder="Придумайте описание для своего поста"
         title="Описание"
         large
-      ></Input>
+      ></Input> */}
       {/* <Input id="112" title="large" large /> */}
       {/* <InputImage /> */}
 

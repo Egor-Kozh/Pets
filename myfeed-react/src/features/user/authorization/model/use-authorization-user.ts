@@ -24,7 +24,7 @@ export const useAuthorizationUser = (
   });
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
     watch,
@@ -41,7 +41,7 @@ export const useAuthorizationUser = (
 
   return {
     handleOnSubmit,
-    register,
+    control,
     handleSubmit,
     watch,
     loading,

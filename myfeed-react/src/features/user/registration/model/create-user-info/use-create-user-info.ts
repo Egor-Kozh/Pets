@@ -8,7 +8,7 @@ interface Args {
 }
 export const useCreateUserInfo = ({ userEmail, onCompleted }: Args) => {
   const {
-    register,
+    control,
     handleSubmit,
     watch,
     formState: { errors },
@@ -44,7 +44,7 @@ export const useCreateUserInfo = ({ userEmail, onCompleted }: Args) => {
 
   return {
     handleOnSubmit,
-    register,
+    control,
     watch,
     error,
     loading,

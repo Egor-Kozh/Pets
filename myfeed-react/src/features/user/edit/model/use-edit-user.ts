@@ -13,22 +13,22 @@ interface Args {
   fileImage: File | undefined;
   userData: UserProfileQuery | undefined;
 }
-export const useEditUser = ({ fileImage, userData }: Args) => {
+export const useEditUser = ({ fileImage }: Args) => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<EditUser>({
-    defaultValues: {
-      firstName: userData?.userMe.firstName ?? "",
-      lastName: userData?.userMe.lastName ?? "",
-      middleName: userData?.userMe.middleName ?? "",
-      birthDay: userData?.userMe.birthDate ?? "",
-      gender: userData?.userMe.gender ?? undefined,
-      email: userData?.userMe.email ?? "",
-      phone: userData?.userMe.phone ?? "",
-      country: userData?.userMe.country ?? "",
-    },
+    // defaultValues: {
+    //   firstName: userData?.userMe.firstName ?? "",
+    //   lastName: userData?.userMe.lastName ?? "",
+    //   middleName: userData?.userMe.middleName ?? "",
+    //   birthDay: userData?.userMe.birthDate ?? "",
+    //   gender: userData?.userMe.gender ?? undefined,
+    //   email: userData?.userMe.email ?? "",
+    //   phone: userData?.userMe.phone ?? "",
+    //   country: userData?.userMe.country ?? "",
+    // },
   });
 
   const [editUser, { loading: edit_loading, error }] = useEditUserMutation({
@@ -62,5 +62,5 @@ export const useEditUser = ({ fileImage, userData }: Args) => {
     });
   });
 
-  return { handleOnSubmit, register, errors, edit_loading, error };
+  return { handleOnSubmit, control, errors, edit_loading, error };
 };

@@ -1,9 +1,11 @@
 import { Button } from "@shared/components/buttons/button";
-import { Input } from "@shared/components/input/input";
+import { Input } from "@shared/components/inputs/base-input/input";
 import { tokenVar } from "@app/api/clients";
 import { useEffect, useState } from "react";
 import { CreateUserMutation } from "@shared/__generated__/hooks";
 import { useCreateUser } from "@features/user/registration/model/create-user/use-create-user";
+import { Controller } from "react-hook-form";
+import { InputPassword } from "@shared/components/inputs/passowrd-input/password-input";
 
 interface RegistrationFirtStepProps {
   setNextStep: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +30,7 @@ export const RegistrationFirtStep = ({
     }
     setNextStep((active) => !active);
   };
-  const { handleOnSubmit, register, watch, errors, loading } = useCreateUser({
+  const { handleOnSubmit, control, watch, loading } = useCreateUser({
     onCompleted,
   });
 
@@ -48,44 +50,66 @@ export const RegistrationFirtStep = ({
 
   return (
     <form onSubmit={handleOnSubmit}>
-      <Input
-        id="registration_email"
-        title="Email"
-        register={register("email", {
+      <Controller
+        name="email"
+        control={control}
+        defaultValue=""
+        rules={{
           required: "Это поле обязательно!",
           pattern: {
             value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+[.]+[A-Z]{2,4}$/i,
             message: "Неверный формат почты",
           },
-        })}
-        wrong={!!(errors.email || emailError)}
-      >
-        <span>{errors.email?.message}</span>
-        <span>{emailError}</span>
-      </Input>
-      <Input
-        id="registration_password"
-        title="Пароль"
-        type="password"
-        register={register("password", {
+        }}
+        render={({ field, fieldState: { error } }) => (
+          <Input
+            id="registration_email"
+            title="Email"
+            wrong={!!(error || emailError)}
+            {...field}
+          >
+            <span>{error?.message}</span>
+            <span>{emailError}</span>
+          </Input>
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        defaultValue=""
+        rules={{
           required: "Это поле обязательно!",
-        })}
-        wrong={!!errors.password}
-      >
-        <span>{errors.password?.message}</span>
-      </Input>
-      <Input
-        id="registration_accept-password"
-        title="Введите пароль еще раз"
-        type="password"
-        register={register("accept_password", {
+        }}
+        render={({ field, fieldState: { error } }) => (
+          <InputPassword
+            id="registration_password"
+            title="Пароль"
+            wrong={!!error}
+            {...field}
+          >
+            <span>{error?.message}</span>
+          </InputPassword>
+        )}
+      />
+      <Controller
+        name="accept_password"
+        control={control}
+        defaultValue=""
+        rules={{
           required: "Это поле обязательно!",
-        })}
-        wrong={!!(errors.accept_password || passwordConfirmError)}
-      >
-        <span>{errors.accept_password?.message}</span>
-        <span>{passwordConfirmError}</span>
-      </Input>
+        }}
+        render={({ field, fieldState: { error } }) => (
+          <InputPassword
+            id="registration_accept-password"
+            title="Введите пароль еще раз"
+            wrong={!!(error || passwordConfirmError)}
+            {...field}
+          >
+            <span>{error?.message}</span>
+            <span>{passwordConfirmError}</span>
+          </InputPassword>
+        )}
+      />
       <Button typeView="primary" size="large" type="submit" loading={loading}>
         Далее
       </Button>

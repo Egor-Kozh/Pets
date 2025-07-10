@@ -1,4 +1,4 @@
-import { Input } from "@shared/components/input/input";
+import { Input } from "@shared/components/inputs/base-input/input";
 import styles from "./authorization-form.module.scss";
 import { Button } from "@shared/components/buttons/button";
 import { LoginUserMutation } from "@shared/__generated__/hooks";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Routes } from "@shared/routes";
 import { useEffect, useState } from "react";
 import { useAuthorizationUser } from "@features/user/authorization/model/use-authorization-user";
+import { Controller } from "react-hook-form";
+import { InputPassword } from "@shared/components/inputs/passowrd-input/password-input";
 
 export const AuthorizationForm = () => {
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export const AuthorizationForm = () => {
 
     navigate(Routes.home, { replace: true });
   };
-  const { handleOnSubmit, register, errors, watch, loading } =
+  const { handleOnSubmit, control, watch, loading } =
     useAuthorizationUser(onCompleted);
 
   const userEmail = watch("email");
@@ -42,29 +44,38 @@ export const AuthorizationForm = () => {
       </div>
       <form onSubmit={handleOnSubmit}>
         <div className={styles["inputs"]}>
-          <Input
-            id="authorization_email"
-            title="Email"
-            register={register("email", {
-              required: "required",
-            })}
-            wrong={!!(errors.email || authError)}
-          >
-            <span>{errors.email?.message}</span>
-            <span>{authError}</span>
-          </Input>
-          <Input
-            id="authorization_password"
-            title="Пароль"
-            type="password"
-            register={register("password", {
-              required: "required",
-            })}
-            wrong={!!(errors.password || authError)}
-          >
-            <span>{errors.email?.message}</span>
-            <span>{authError}</span>
-          </Input>
+          <Controller
+            name="email"
+            control={control}
+            rules={{ required: "Почта пользователя обязательно!" }}
+            render={({ field, fieldState: { error } }) => (
+              <Input
+                id="authorization_email"
+                title="Email"
+                wrong={!!(error || authError)}
+                {...field}
+              >
+                <span>{error?.message}</span>
+                <span>{authError}</span>
+              </Input>
+            )}
+          />
+          <Controller
+            name="password"
+            control={control}
+            rules={{ required: "Пароль пользователя обязательно!" }}
+            render={({ field, fieldState: { error } }) => (
+              <InputPassword
+                id="authorization_password"
+                title="Пароль"
+                wrong={!!(error || authError)}
+                {...field}
+              >
+                <span>{error?.message}</span>
+                <span>{authError}</span>
+              </InputPassword>
+            )}
+          />
         </div>
         <Button typeView="primary" size="large" type="submit" loading={loading}>
           Войти

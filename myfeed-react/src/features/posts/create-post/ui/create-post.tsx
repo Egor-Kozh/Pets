@@ -1,10 +1,11 @@
 import styles from "./create-post.module.scss";
-import { Input } from "@shared/components/input/input";
 import { InputImage } from "@shared/components/uploader/input-image";
 import { Button } from "@shared/components/buttons/button";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "@shared/routes";
 import { useCreatePost } from "../model/use-create-post";
+import { Controller } from "react-hook-form";
+import { InputBig } from "@shared/components/inputs/big-input/big-input";
 
 export const CreatePostFeature = () => {
   const navigate = useNavigate();
@@ -17,40 +18,46 @@ export const CreatePostFeature = () => {
     console.log("failed!");
   };
 
-  const { onSubmit, register, errors, setImageFile, isLoading } = useCreatePost(
-    {
-      onCompleted,
-      onFiled,
-    }
-  );
+  const { onSubmit, control, setImageFile, isLoading } = useCreatePost({
+    onCompleted,
+    onFiled,
+  });
 
   return (
     <form className={styles["create-post__form"]} onSubmit={onSubmit}>
-      <Input
-        id="create_post_title"
-        placeholder="Придумайте название для своего поста"
-        title="Заголовок"
-        large
-        register={register("title", {
-          required: "Поле не должно быть пустым!",
-        })}
-        wrong={!!errors.title}
-      >
-        <span>{errors.title?.message}</span>
-      </Input>
+      <Controller
+        name="title"
+        control={control}
+        rules={{ required: "Это поле обязательное!" }}
+        render={({ field, fieldState: { error } }) => (
+          <InputBig
+            id="create_post_title"
+            placeholder="Придумайте название для своего поста"
+            title="Заголовок"
+            wrong={!!error}
+            {...field}
+          >
+            <span>{error?.message}</span>
+          </InputBig>
+        )}
+      />
       <InputImage setImageFile={setImageFile} />
-      <Input
-        id="create_post_description"
-        placeholder="Придумайте описание для своего поста"
-        title="Описание"
-        large
-        register={register("description", {
-          required: "Поле не должно быть пустым!",
-        })}
-        wrong={!!errors.description}
-      >
-        <span>{errors.description?.message}</span>
-      </Input>
+      <Controller
+        name="description"
+        control={control}
+        rules={{ required: "Это поле обязательное!" }}
+        render={({ field, fieldState: { error } }) => (
+          <InputBig
+            id="create_post_description"
+            placeholder="Придумайте описание для своего поста"
+            title="Описание"
+            wrong={!!error}
+            {...field}
+          >
+            <span>{error?.message}</span>
+          </InputBig>
+        )}
+      />
       <div className={styles["create-post__buttons"]}>
         <Button typeView="secondary" size="small" type="button">
           Отменить

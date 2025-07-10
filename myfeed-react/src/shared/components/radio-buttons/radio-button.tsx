@@ -1,4 +1,3 @@
-import { UseFormRegisterReturn } from "react-hook-form";
 import styles from "./radio-button.module.scss";
 
 interface RadioButtonProps {
@@ -7,8 +6,7 @@ interface RadioButtonProps {
   disabled?: boolean;
   checked?: boolean;
   info: string;
-  onClick?: () => void;
-  register?: UseFormRegisterReturn<string>;
+  onChange?: () => void;
 }
 export const RadioButton = ({
   id,
@@ -16,8 +14,7 @@ export const RadioButton = ({
   disabled,
   checked,
   info,
-  register,
-  onClick,
+  onChange,
 }: RadioButtonProps) => {
   return (
     <div className={styles.radio_button}>
@@ -28,8 +25,7 @@ export const RadioButton = ({
         disabled={disabled}
         checked={checked}
         value={value}
-        onClick={onClick}
-        {...register}
+        onChange={onChange}
       />
       <label htmlFor={id}></label>
       <span>{info}</span>

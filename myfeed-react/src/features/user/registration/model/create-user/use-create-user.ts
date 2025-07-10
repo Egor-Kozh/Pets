@@ -10,7 +10,7 @@ interface Args {
 }
 export const useCreateUser = ({ onCompleted }: Args) => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
     watch,
@@ -43,7 +43,7 @@ export const useCreateUser = ({ onCompleted }: Args) => {
 
   return {
     handleOnSubmit,
-    register,
+    control,
     watch,
     loading,
     errors,

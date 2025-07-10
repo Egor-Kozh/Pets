@@ -16,7 +16,7 @@ interface Args {
 
 export const useCreatePost = ({ onCompleted, onFiled }: Args) => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<CreatePost>();
@@ -63,7 +63,7 @@ export const useCreatePost = ({ onCompleted, onFiled }: Args) => {
 
   return {
     onSubmit,
-    register,
+    control,
     setImageFile,
     errors,
     isLoading: loading,

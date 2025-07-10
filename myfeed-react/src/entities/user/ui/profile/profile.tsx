@@ -1,5 +1,5 @@
 import styles from "./profile.module.scss";
-import { Input } from "@shared/components/input/input";
+import { Input } from "@shared/components/inputs/base-input/input";
 import { Button } from "@shared/components/buttons/button";
 import { RadioButton } from "@shared/components/radio-buttons/radio-button";
 import { RadioGroup } from "@shared/components/radio-buttons/ui/radio-group";
@@ -10,6 +10,8 @@ import { IconButton } from "@shared/components/icon-button/icon-button";
 import SvgEditButtonComponent from "@shared/assets/images/svg/components/edit-buttons";
 import { DropDown } from "@shared/components/dropdown/dropdown";
 import { useEditUser } from "@features/user/edit/model/use-edit-user";
+import { Controller } from "react-hook-form";
+import { InputDate } from "@shared/components/inputs/date-input/date-input";
 
 interface Args {
   userData: UserProfileQuery | undefined;
@@ -19,13 +21,10 @@ export const Profile = ({ userData }: Args) => {
   const [image, setImage] = useState<string | null>(null);
   const [fileImage, setFileImage] = useState<File>();
 
-  const { handleOnSubmit, register, errors } = useEditUser({
+  const { handleOnSubmit, control } = useEditUser({
     fileImage,
     userData,
   });
-
-  const gender = userData?.userMe.gender;
-  console.log({ gender });
 
   const [isOpen, setIsOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -87,75 +86,108 @@ export const Profile = ({ userData }: Args) => {
         </IconButton>
       </Avatar>
       <form className={styles["profile__form"]} onSubmit={handleOnSubmit}>
-        <Input
-          id="profile_firstName"
-          title="Имя"
-          size="100%"
-          register={register("firstName", {
-            required: "Поле не должно быть пустым!",
-          })}
+        <Controller
+          name="firstName"
+          control={control}
+          defaultValue={userData?.userMe.firstName}
+          rules={{ required: "Поле не должно быть пустым!" }}
+          render={({ field }) => (
+            <Input id="profile_firstName" title="Имя" size="100%" {...field} />
+          )}
         />
-        <Input
-          id="profile_lastName"
-          title="Фамилия"
-          size="100%"
-          register={register("lastName", {
-            required: "Поле не должно быть пустым!",
-          })}
+        <Controller
+          name="lastName"
+          control={control}
+          defaultValue={userData?.userMe.lastName}
+          rules={{ required: "Поле не должно быть пустым!" }}
+          render={({ field }) => (
+            <Input
+              id="profile_lastName"
+              title="Фамилия"
+              size="100%"
+              {...field}
+            />
+          )}
         />
-        <Input
-          id="profile_middleName"
-          title="Отчество"
-          size="100%"
-          wrong={!!errors.middleName}
-          register={register("middleName", {
-            required: "Поле не должно быть пустым!",
-          })}
-        >
-          <span>{errors.middleName?.message}</span>
-        </Input>
-        <Input
-          id="profile_birthDay"
-          type="date"
-          title="Дата рождения"
-          size="100%"
-          register={register("birthDay")}
+        <Controller
+          name="middleName"
+          control={control}
+          defaultValue={userData?.userMe.middleName}
+          rules={{ required: "Поле не должно быть пустым!" }}
+          render={({ field }) => (
+            <Input
+              id="profile_middleName"
+              title="Отчество"
+              size="100%"
+              {...field}
+            ></Input>
+          )}
         />
-        <RadioGroup label="Выберите пол">
-          <RadioButton
-            id="profile_male"
-            value={GenderType.Male}
-            info="Мужской"
-            checked={gender === GenderType.Male}
-            register={register("gender")}
-          />
-          <RadioButton
-            id="profile_female"
-            value={GenderType.Female}
-            info="Женский"
-            checked={gender === GenderType.Female}
-            register={register("gender")}
-          />
-        </RadioGroup>
-        <Input
-          id="profile_email"
-          title="Email"
-          size="100%"
-          register={register("email", {
-            required: "Поле не должно быть пустым!",
-          })}
+        <Controller
+          name="birthDay"
+          control={control}
+          defaultValue={userData?.userMe.birthDate}
+          render={({ field }) => (
+            <InputDate
+              id="profile_birthDay"
+              title="Дата рождения"
+              size="100%"
+              {...field}
+            />
+          )}
         />
-        <Input
-          id="profile_phone"
-          title="Номер телефона"
-          size="100%"
-          register={register("phone")}
+        <Controller
+          name="gender"
+          control={control}
+          defaultValue={userData?.userMe.gender}
+          render={({ field }) => (
+            <RadioGroup label="Выберите пол" {...field}>
+              <RadioButton
+                id="profile_male"
+                value={GenderType.Male}
+                info="Мужской"
+                checked={field.value === GenderType.Male}
+                onChange={field.onChange}
+              />
+              <RadioButton
+                id="profile_female"
+                value={GenderType.Female}
+                info="Женский"
+                checked={field.value === GenderType.Female}
+                onChange={field.onChange}
+              />
+            </RadioGroup>
+          )}
         />
-        <Input
-          id="profile_country"
-          title="Страна"
-          size="100%"
-          register={register("country")}
+        <Controller
+          name="email"
+          control={control}
+          defaultValue={userData?.userMe.email}
+          rules={{ required: "Поле не должно быть пустым!" }}
+          render={({ field }) => (
+            <Input id="profile_email" title="Email" size="100%" {...field} />
+          )}
+        />
+        <Controller
+          name="phone"
+          control={control}
+          defaultValue={userData?.userMe.phone}
+          render={({ field }) => (
+            <Input
+              id="profile_phone"
+              title="Номер телефона"
+              size="100%"
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          name="country"
+          control={control}
+          defaultValue={userData?.userMe.country}
+          render={({ field }) => (
+            <Input id="profile_country" title="Страна" size="100%" {...field} />
+          )}
         />
         <div className={styles["profile__actions"]}>
           <Button typeView="secondary" size="small" type="button">
