@@ -1,14 +1,11 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import SvgLogoComponent from "@shared/assets/images/svg/components/logo";
 import { Tabs } from "@shared/components/tabs/tabs";
 import { AuthorizationForm } from "@features/user/authorization/ui/authorization-form";
 import styles from "./authorization.module.scss";
 import { RegistrationForm } from "./ui/forms/registration/registration-form";
-import { AuthType, RegistrationContextType, AuthTabs } from "./model/auth-type";
+import { AuthType, AuthTabs } from "./model/auth-type";
 
-export const registrationContext = createContext<
-  RegistrationContextType | undefined
->(undefined);
 
 export const AuthorizationPage = () => {
   const [page, setPage] = useState<AuthType>(AuthType.authorization);
@@ -25,9 +22,7 @@ export const AuthorizationPage = () => {
         {page === AuthType.authorization ? (
           <AuthorizationForm />
         ) : (
-          <registrationContext.Provider value={{ page, setPage }}>
-            <RegistrationForm />
-          </registrationContext.Provider>
+          <RegistrationForm />
         )}
       </div>
     </div>

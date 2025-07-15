@@ -1,21 +1,19 @@
 import { Button } from "@shared/components/buttons/button";
 import { Input } from "@shared/components/inputs/base-input/input";
 import { useUserEmailQuery } from "@shared/__generated__/hooks";
-import { useContext } from "react";
-import { registrationContext } from "@pages/authorization/authorization";
 import { useCreateUserInfo } from "@features/user/registration/model/create-user-info/use-create-user-info";
-import { AuthType } from "@pages/authorization/model/auth-type";
 import { Controller } from "react-hook-form";
+import { useNavigate  } from "react-router-dom";
 
 export const RegistrationSecondStep = () => {
-  const context = useContext(registrationContext);
   const { data: userData } = useUserEmailQuery();
   const userEmail = userData?.userEmail.email ?? "";
+  const navigate = useNavigate()
 
   const onCompleted = () => {
+    localStorage.setItem("authToken", localStorage.getItem("registrToken") || "")
     localStorage.removeItem("registrToken");
-
-    context?.setPage(AuthType.authorization);
+    navigate("/")
   };
   const { handleOnSubmit, control, loading } = useCreateUserInfo({
     userEmail,
