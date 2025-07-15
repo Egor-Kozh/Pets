@@ -89,7 +89,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="firstName"
           control={control}
-          defaultValue={userData?.userMe.firstName}
+          defaultValue={userData?.userMe.firstName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
             <Input id="profile_firstName" title="Имя" size="100%" {...field} />
@@ -98,7 +98,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="lastName"
           control={control}
-          defaultValue={userData?.userMe.lastName}
+          defaultValue={userData?.userMe.lastName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
             <Input
@@ -112,7 +112,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="middleName"
           control={control}
-          defaultValue={userData?.userMe.middleName}
+          defaultValue={userData?.userMe.middleName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
             <Input
@@ -126,7 +126,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="birthDay"
           control={control}
-          defaultValue={userData?.userMe.birthDate}
+          defaultValue={userData?.userMe.birthDate || ""}
           render={({ field }) => (
             <InputDate
               id="profile_birthDay"
@@ -139,7 +139,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="gender"
           control={control}
-          defaultValue={userData?.userMe.gender}
+          defaultValue={userData?.userMe.gender || ""}
           render={({ field }) => (
             <RadioGroup label="Выберите пол" {...field}>
               <RadioButton
@@ -162,7 +162,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="email"
           control={control}
-          defaultValue={userData?.userMe.email}
+          defaultValue={userData?.userMe.email || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
             <Input id="profile_email" title="Email" size="100%" {...field} />
@@ -171,7 +171,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="phone"
           control={control}
-          defaultValue={userData?.userMe.phone}
+          defaultValue={userData?.userMe.phone || ""}
           render={({ field }) => (
             <Input
               id="profile_phone"
@@ -184,7 +184,7 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="country"
           control={control}
-          defaultValue={userData?.userMe.country}
+          defaultValue={userData?.userMe.country || ""}
           render={({ field }) => (
             <Input id="profile_country" title="Страна" size="100%" {...field} />
           )}
