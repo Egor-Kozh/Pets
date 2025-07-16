@@ -11,6 +11,7 @@ interface InputProps {
   children?: React.ReactNode;
   wrong?: boolean;
   size?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export const InputPassword = ({
   id,
@@ -19,6 +20,7 @@ export const InputPassword = ({
   children,
   wrong,
   size,
+  onChange,
   ...props
 }: InputProps) => {
   const [isNotVisible, setIsNotVisible] = useState(true);
@@ -41,6 +43,7 @@ export const InputPassword = ({
           placeholder={placeholder}
           id={id}
           type={isNotVisible ? "password" : ""}
+          onChange={onChange}
           {...props}
         />
         <div className={styles.input__svg} onClick={handleLogoAction}>

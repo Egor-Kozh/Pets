@@ -18,18 +18,7 @@ export const useEditUser = ({ fileImage }: Args) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<EditUser>({
-    // defaultValues: {
-    //   firstName: userData?.userMe.firstName ?? "",
-    //   lastName: userData?.userMe.lastName ?? "",
-    //   middleName: userData?.userMe.middleName ?? "",
-    //   birthDay: userData?.userMe.birthDate ?? "",
-    //   gender: userData?.userMe.gender ?? undefined,
-    //   email: userData?.userMe.email ?? "",
-    //   phone: userData?.userMe.phone ?? "",
-    //   country: userData?.userMe.country ?? "",
-    // },
-  });
+  } = useForm<EditUser>();
 
   const [editUser, { loading: edit_loading, error }] = useEditUserMutation({
     onCompleted: () => {

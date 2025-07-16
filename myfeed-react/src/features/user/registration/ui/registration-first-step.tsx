@@ -1,7 +1,7 @@
 import { Button } from "@shared/components/buttons/button";
 import { Input } from "@shared/components/inputs/base-input/input";
 import { tokenVar } from "@app/api/clients";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CreateUserMutation } from "@shared/__generated__/hooks";
 import { useCreateUser } from "@features/user/registration/model/create-user/use-create-user";
 import { Controller } from "react-hook-form";
@@ -14,15 +14,10 @@ export const RegistrationFirtStep = ({
   setNextStep,
 }: RegistrationFirtStepProps) => {
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [passwordConfirmError, setPasswordConfirmError] = useState<
-    string | null
-  >(null);
 
   const onCompleted = (data: CreateUserMutation) => {
     if (data.newUser.problem)
       return setEmailError(data.newUser.problem.message);
-    if (userPassword !== userPasswordConfirm)
-      return setPasswordConfirmError("Пароли не совпадают!");
 
     if (data.newUser.token) {
       tokenVar(data.newUser.token);
@@ -30,23 +25,9 @@ export const RegistrationFirtStep = ({
     }
     setNextStep((active) => !active);
   };
-  const { handleOnSubmit, control, watch, loading } = useCreateUser({
+  const { handleOnSubmit, control, passwordError, loading } = useCreateUser({
     onCompleted,
   });
-
-  const userEmail = watch("email");
-  const userPassword = watch("password");
-  const userPasswordConfirm = watch("accept_password");
-
-  useEffect(() => {
-    if (!emailError) return;
-    setEmailError(null);
-  }, [userEmail]);
-
-  useEffect(() => {
-    if (!passwordConfirmError) return;
-    setPasswordConfirmError(null);
-  }, [userPasswordConfirm]);
 
   return (
     <form onSubmit={handleOnSubmit}>
@@ -102,11 +83,15 @@ export const RegistrationFirtStep = ({
           <InputPassword
             id="registration_accept-password"
             title="Введите пароль еще раз"
-            wrong={!!(error || passwordConfirmError)}
+            wrong={!!(error || passwordError.message)}
             {...field}
+            onChange={(e) => {
+              field.onChange(e)
+              passwordError.setPasswordError(null)
+            }}
           >
             <span>{error?.message}</span>
-            <span>{passwordConfirmError}</span>
+            <span>{passwordError.message}</span>
           </InputPassword>
         )}
       />

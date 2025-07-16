@@ -4,16 +4,18 @@ import {
 } from "@shared/__generated__/hooks";
 import { useForm } from "react-hook-form";
 import { CreateUser } from "./types";
+import { useState } from "react";
 
 interface Args {
   onCompleted: (data: CreateUserMutation) => void;
 }
 export const useCreateUser = ({ onCompleted }: Args) => {
+  const [passwordError, setPasswordError] = useState<string | null>(null)
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<CreateUser>();
 
   const [login, { loading, error }] = useCreateUserMutation({
@@ -32,6 +34,10 @@ export const useCreateUser = ({ onCompleted }: Args) => {
   });
 
   const handleOnSubmit = handleSubmit((values: CreateUser) => {
+    if(values.password !== values.accept_password){
+      return setPasswordError("Пароли не совпадают!")
+    }
+
     login({
       variables: {
         email: values.email,
@@ -44,9 +50,9 @@ export const useCreateUser = ({ onCompleted }: Args) => {
   return {
     handleOnSubmit,
     control,
-    watch,
     loading,
     errors,
     error,
+    passwordError : {message : passwordError, setPasswordError}
   };
 };
