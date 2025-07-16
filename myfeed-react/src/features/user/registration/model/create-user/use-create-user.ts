@@ -11,6 +11,7 @@ interface Args {
 }
 export const useCreateUser = ({ onCompleted }: Args) => {
   const [passwordError, setPasswordError] = useState<string | null>(null)
+  const [passwordErrorWeak, setPasswordErrorWeak] = useState<string | null>(null)
 
   const {
     control,
@@ -21,6 +22,24 @@ export const useCreateUser = ({ onCompleted }: Args) => {
   const [login, { loading, error }] = useCreateUserMutation({
     onCompleted: (data) => {
       onCompleted(data);
+    },
+    onError: (error : unknown) => {
+      interface GraphQLError {
+        message: string;
+        extensions?: {
+          errors?: Array<{
+            errors?: string[];
+            field?: string;
+          }>;
+        };
+      }
+
+      const gqlError = error as { graphQLErrors?: GraphQLError[] };
+      const validError = gqlError.graphQLErrors?.[0];
+
+      if(validError){
+        return setPasswordErrorWeak(validError.extensions?.errors?.[0]?.errors?.[1] || "")
+      }
     },
     update(cache, { data }) {
       cache.modify({
@@ -53,6 +72,7 @@ export const useCreateUser = ({ onCompleted }: Args) => {
     loading,
     errors,
     error,
-    passwordError : {message : passwordError, setPasswordError}
+    passwordError : {message : passwordError, setPasswordError},
+    passwordErrorWeak: {message: passwordErrorWeak, setPasswordErrorWeak}
   };
 };

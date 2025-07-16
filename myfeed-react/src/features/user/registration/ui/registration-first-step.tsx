@@ -25,7 +25,7 @@ export const RegistrationFirtStep = ({
     }
     setNextStep((active) => !active);
   };
-  const { handleOnSubmit, control, passwordError, loading } = useCreateUser({
+  const { handleOnSubmit, control, passwordError, loading, passwordErrorWeak } = useCreateUser({
     onCompleted,
   });
 
@@ -65,10 +65,15 @@ export const RegistrationFirtStep = ({
           <InputPassword
             id="registration_password"
             title="Пароль"
-            wrong={!!error}
+            wrong={!!(error || passwordErrorWeak.message)}
             {...field}
+            onChange={(e) => {
+              field.onChange(e)
+              passwordErrorWeak.setPasswordErrorWeak(null)
+            }}
           >
             <span>{error?.message}</span>
+            <span>{passwordErrorWeak.message}</span>
           </InputPassword>
         )}
       />
