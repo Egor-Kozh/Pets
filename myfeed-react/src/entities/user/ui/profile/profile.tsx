@@ -14,12 +14,25 @@ import { Controller } from "react-hook-form";
 import { InputDate } from "@shared/components/inputs/date-input/date-input";
 
 interface Args {
-  userData: UserProfileQuery | undefined;
+  userData: UserProfileQuery;
 }
 export const Profile = ({ userData }: Args) => {
   const [isNewImage, setIsNewImage] = useState(false);
   const [image, setImage] = useState<string | null>(null);
   const [fileImage, setFileImage] = useState<File>();
+  const [inputChanges, setInputChanges] = useState<string[]>([]);
+
+  const checkInputChanges = (
+    name: keyof typeof userData.userMe,
+    value: string | null
+  ) => {
+    if (userData?.userMe[name] == value) {
+      setInputChanges((arr) => arr.filter((input) => input !== name));
+    }
+    if (!inputChanges.includes(name)) {
+      setInputChanges((arr) => [...arr, name]);
+    }
+  };
 
   const { handleOnSubmit, control } = useEditUser({
     fileImage,
@@ -75,7 +88,10 @@ export const Profile = ({ userData }: Args) => {
               <input
                 type="file"
                 ref={fileInputRef}
-                onChange={handleFileChange}
+                onChange={(e) => {
+                  handleFileChange(e);
+                  checkInputChanges("avatarUrl", "");
+                }}
                 style={{ display: "none" }}
               />
             </div>
@@ -92,7 +108,17 @@ export const Profile = ({ userData }: Args) => {
           defaultValue={userData?.userMe.firstName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
-            <Input id="profile_firstName" title="Имя" size="100%" {...field} />
+            <Input
+              id="profile_firstName"
+              title="Имя"
+              size="100%"
+              {...field}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                field.onChange(newValue);
+                checkInputChanges(field.name, newValue);
+              }}
+            />
           )}
         />
         <Controller
@@ -106,6 +132,11 @@ export const Profile = ({ userData }: Args) => {
               title="Фамилия"
               size="100%"
               {...field}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                field.onChange(newValue);
+                checkInputChanges(field.name, newValue);
+              }}
             />
           )}
         />
@@ -120,6 +151,11 @@ export const Profile = ({ userData }: Args) => {
               title="Отчество"
               size="100%"
               {...field}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                field.onChange(newValue);
+                checkInputChanges(field.name, newValue);
+              }}
             ></Input>
           )}
         />
@@ -147,14 +183,22 @@ export const Profile = ({ userData }: Args) => {
                 value={GenderType.Male}
                 info="Мужской"
                 checked={field.value === GenderType.Male}
-                onChange={field.onChange}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  field.onChange(newValue);
+                  checkInputChanges(field.name, newValue);
+                }}
               />
               <RadioButton
                 id="profile_female"
                 value={GenderType.Female}
                 info="Женский"
                 checked={field.value === GenderType.Female}
-                onChange={field.onChange}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  field.onChange(newValue);
+                  checkInputChanges(field.name, newValue);
+                }}
               />
             </RadioGroup>
           )}
@@ -165,20 +209,45 @@ export const Profile = ({ userData }: Args) => {
           defaultValue={userData?.userMe.email || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
-            <Input id="profile_email" title="Email" size="100%" {...field} />
+            <Input
+              id="profile_email"
+              title="Email"
+              size="100%"
+              {...field}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                field.onChange(newValue);
+                checkInputChanges(field.name, newValue);
+              }}
+            />
           )}
         />
         <Controller
           name="phone"
           control={control}
           defaultValue={userData?.userMe.phone || ""}
-          render={({ field }) => (
+          rules={{
+            pattern: {
+              value:
+                /(\+7|8)[- _]*\(?[- _]*(\d{3}[- _]*\)?([- _]*\d){7}|\d\d[- _]*\d\d[- _]*\)?([- _]*\d){6})/i,
+              message: "Неверный формат телефона",
+            },
+          }}
+          render={({ field, fieldState: { error } }) => (
             <Input
               id="profile_phone"
               title="Номер телефона"
               size="100%"
+              wrong={!!error}
               {...field}
-            />
+              onChange={(e) => {
+                const newValue = e.target.value;
+                field.onChange(newValue);
+                checkInputChanges(field.name, newValue);
+              }}
+            >
+              <span>{error?.message}</span>
+            </Input>
           )}
         />
         <Controller
@@ -186,14 +255,29 @@ export const Profile = ({ userData }: Args) => {
           control={control}
           defaultValue={userData?.userMe.country || ""}
           render={({ field }) => (
-            <Input id="profile_country" title="Страна" size="100%" {...field} />
+            <Input
+              id="profile_country"
+              title="Страна"
+              size="100%"
+              {...field}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                field.onChange(newValue);
+                checkInputChanges(field.name, newValue);
+              }}
+            />
           )}
         />
         <div className={styles["profile__actions"]}>
           <Button typeView="secondary" size="small" type="button">
             Отменить
           </Button>
-          <Button typeView="primary" size="small" type="submit">
+          <Button
+            typeView="primary"
+            size="small"
+            type="submit"
+            disabled={inputChanges.length === 0}
+          >
             Сохранить
           </Button>
         </div>

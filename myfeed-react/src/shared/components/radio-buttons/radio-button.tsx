@@ -6,7 +6,7 @@ interface RadioButtonProps {
   disabled?: boolean;
   checked?: boolean;
   info: string;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export const RadioButton = ({
   id,

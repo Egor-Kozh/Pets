@@ -13,7 +13,7 @@ export const FavouritePosts = ({ data }: FavouritePostsProps) => {
     return (
       <>
         <LikePost post={post} />
-        <SharedPost />
+        <SharedPost post={post} />
       </>
     );
   };

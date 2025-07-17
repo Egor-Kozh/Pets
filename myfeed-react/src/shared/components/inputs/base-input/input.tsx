@@ -9,6 +9,7 @@ interface InputProps {
   children?: React.ReactNode;
   wrong?: boolean;
   size?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export const Input = ({
   id,
@@ -17,6 +18,7 @@ export const Input = ({
   children,
   wrong,
   size,
+  onChange,
   ...props
 }: InputProps) => {
   const handleChangeLogo = () => {
@@ -31,7 +33,7 @@ export const Input = ({
     <div className={inputClass} style={{ width: size }}>
       <label htmlFor={id}>{title}</label>
       <div className={styles.input__inner}>
-        <input placeholder={placeholder} id={id} {...props} />
+        <input placeholder={placeholder} id={id} onChange={onChange} {...props}/>
         <div className={styles.input__svg}>{handleChangeLogo()}</div>
       </div>
       {children}

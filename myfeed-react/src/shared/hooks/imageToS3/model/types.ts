@@ -5,5 +5,5 @@ export interface Args {
 
 export enum TypeFiles {
   posts = "POSTS",
-  avatar = "AVATAR",
+  avatar = "AVATARS",
 }

@@ -21,9 +21,7 @@ export const useEditUser = ({ fileImage }: Args) => {
   } = useForm<EditUser>();
 
   const [editUser, { loading: edit_loading, error }] = useEditUserMutation({
-    onCompleted: () => {
-      window.location.reload();
-    },
+    onCompleted: () => {},
   });
 
   const handleOnSubmit = handleSubmit(async (values: EditUser) => {
