@@ -11,7 +11,7 @@ interface Args {
 }
 export const useCreateUser = ({ onCompleted }: Args) => {
   const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [passwordErrorWeak, setPasswordErrorWeak] = useState<string | null>(
+  const [passwordErrorWeak, setPasswordErrorWeak] = useState<string[] | null>(
     null
   );
 
@@ -41,7 +41,7 @@ export const useCreateUser = ({ onCompleted }: Args) => {
 
       if (validError) {
         return setPasswordErrorWeak(
-          validError.extensions?.errors?.[0]?.errors?.[1] || ""
+          validError.extensions?.errors?.[0]?.errors || []
         );
       }
     },

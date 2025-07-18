@@ -25,9 +25,10 @@ export const RegistrationFirtStep = ({
     }
     setNextStep((active) => !active);
   };
-  const { handleOnSubmit, control, passwordError, loading, passwordErrorWeak } = useCreateUser({
-    onCompleted,
-  });
+  const { handleOnSubmit, control, passwordError, loading, passwordErrorWeak } =
+    useCreateUser({
+      onCompleted,
+    });
 
   return (
     <form onSubmit={handleOnSubmit}>
@@ -68,12 +69,16 @@ export const RegistrationFirtStep = ({
             wrong={!!(error || passwordErrorWeak.message)}
             {...field}
             onChange={(e) => {
-              field.onChange(e)
-              passwordErrorWeak.setPasswordErrorWeak(null)
+              field.onChange(e);
+              passwordErrorWeak.setPasswordErrorWeak(null);
             }}
           >
             <span>{error?.message}</span>
-            <span>{passwordErrorWeak.message}</span>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {passwordErrorWeak.message?.map((error, index) => (
+                <span key={index}>{error}</span>
+              ))}
+            </div>
           </InputPassword>
         )}
       />
@@ -91,8 +96,8 @@ export const RegistrationFirtStep = ({
             wrong={!!(error || passwordError.message)}
             {...field}
             onChange={(e) => {
-              field.onChange(e)
-              passwordError.setPasswordError(null)
+              field.onChange(e);
+              passwordError.setPasswordError(null);
             }}
           >
             <span>{error?.message}</span>
