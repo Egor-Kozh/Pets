@@ -13,8 +13,9 @@ import { USER_PROFILE } from "@entities/user/model/user-profile/user-profile";
 interface Args {
   fileImage: File | undefined;
   userData: UserProfileQuery | undefined;
+  image: string | null | undefined;
 }
-export const useEditUser = ({ fileImage }: Args) => {
+export const useEditUser = ({ fileImage, image }: Args) => {
   const {
     control,
     handleSubmit,
@@ -35,9 +36,11 @@ export const useEditUser = ({ fileImage }: Args) => {
   const handleOnSubmit = handleSubmit(async (values: EditUser) => {
     if (!values.email) return;
 
-    let imageUrl: string | null = null;
+    let imageUrl: string | null | undefined;
     if (fileImage) {
       imageUrl = await uploadToS3({ fileImage, typeImage: TypeFiles.avatar });
+    } else {
+      imageUrl = image;
     }
     editUser({
       variables: {

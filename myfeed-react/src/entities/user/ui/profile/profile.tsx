@@ -18,7 +18,9 @@ interface Args {
 }
 export const Profile = ({ userData }: Args) => {
   const [isNewImage, setIsNewImage] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string | undefined | null>(
+    userData.userMe.avatarUrl
+  );
   const [fileImage, setFileImage] = useState<File>();
   const [inputChanges, setInputChanges] = useState<string[]>([]);
 
@@ -36,6 +38,7 @@ export const Profile = ({ userData }: Args) => {
 
   const { handleOnSubmit, control } = useEditUser({
     fileImage,
+    image,
     userData,
   });
 
