@@ -9,6 +9,7 @@ interface InputProps {
   children?: React.ReactNode;
   wrong?: boolean;
   size?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 export const InputBig = ({
   id,
@@ -17,6 +18,7 @@ export const InputBig = ({
   children,
   wrong,
   size,
+  onChange,
   ...props
 }: InputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -51,6 +53,7 @@ export const InputBig = ({
           ref={(e) => {
             textareaRef.current = e;
           }}
+          onChange={onChange}
           {...props}
         />
       </div>

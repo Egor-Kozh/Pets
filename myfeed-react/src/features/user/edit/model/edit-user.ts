@@ -25,6 +25,18 @@ export const EDIT_USER = gql`
         phone: $phone
       }
     ) {
+      user {
+        id
+        email
+        firstName
+        lastName
+        middleName
+        birthDate
+        gender
+        country
+        avatarUrl
+        phone
+      }
       problem {
         ... on EmailAlreadyUsedProblem {
           message

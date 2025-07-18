@@ -57,6 +57,7 @@ export const Profile = ({ userData }: Args) => {
     setIsNewImage(true);
     setFileImage(undefined);
     setImage(null);
+    checkInputChanges("avatarUrl", "");
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

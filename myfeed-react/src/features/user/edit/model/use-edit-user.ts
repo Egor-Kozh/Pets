@@ -8,6 +8,7 @@ import {
 } from "@shared/__generated__/hooks";
 import { uploadToS3 } from "@shared/hooks/imageToS3/imageToS3";
 import { TypeFiles } from "@shared/hooks/imageToS3/model/types";
+import { USER_PROFILE } from "@entities/user/model/user-profile/user-profile";
 
 interface Args {
   fileImage: File | undefined;
@@ -21,7 +22,14 @@ export const useEditUser = ({ fileImage }: Args) => {
   } = useForm<EditUser>();
 
   const [editUser, { loading: edit_loading, error }] = useEditUserMutation({
-    onCompleted: () => {},
+    update(cache, { data }) {
+      cache.writeQuery({
+        query: USER_PROFILE,
+        data: {
+          userMe: data?.editUser.user,
+        },
+      });
+    },
   });
 
   const handleOnSubmit = handleSubmit(async (values: EditUser) => {

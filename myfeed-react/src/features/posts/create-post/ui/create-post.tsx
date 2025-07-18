@@ -18,7 +18,14 @@ export const CreatePostFeature = () => {
     console.log("failed!");
   };
 
-  const { onSubmit, control, setImageFile, isLoading } = useCreatePost({
+  const {
+    onSubmit,
+    control,
+    setImageFile,
+    isLoading,
+    titleError,
+    descriptionError,
+  } = useCreatePost({
     onCompleted,
     onFiled,
   });
@@ -34,10 +41,15 @@ export const CreatePostFeature = () => {
             id="create_post_title"
             placeholder="Придумайте название для своего поста"
             title="Заголовок"
-            wrong={!!error}
+            wrong={!!(error || titleError.message)}
             {...field}
+            onChange={(e) => {
+              field.onChange(e);
+              titleError.setTitleError(undefined);
+            }}
           >
             <span>{error?.message}</span>
+            <span>{titleError.message}</span>
           </InputBig>
         )}
       />
@@ -51,10 +63,15 @@ export const CreatePostFeature = () => {
             id="create_post_description"
             placeholder="Придумайте описание для своего поста"
             title="Описание"
-            wrong={!!error}
+            wrong={!!(error || descriptionError.message)}
             {...field}
+            onChange={(e) => {
+              field.onChange(e);
+              descriptionError.setDescriptionError(undefined);
+            }}
           >
             <span>{error?.message}</span>
+            <span>{descriptionError.message}</span>
           </InputBig>
         )}
       />

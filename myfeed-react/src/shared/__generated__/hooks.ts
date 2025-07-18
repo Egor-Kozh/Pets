@@ -337,7 +337,7 @@ export type EditUserMutationVariables = Exact<{
 }>;
 
 
-export type EditUserMutation = { editUser: { problem?: { message: string } | { message: string } | null } };
+export type EditUserMutation = { editUser: { user?: { id: string, email: string, firstName?: string | null, lastName?: string | null, middleName?: string | null, birthDate?: string | null, gender?: string | null, country?: string | null, avatarUrl?: string | null, phone?: string | null } | null, problem?: { message: string } | { message: string } | null } };
 
 export type CreateUserInfoMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -923,6 +923,18 @@ export const EditUserDocument = gql`
   editUser: userEditProfile(
     input: {email: $email, firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate, gender: $gender, country: $country, avatarUrl: $avatarUrl, phone: $phone}
   ) {
+    user {
+      id
+      email
+      firstName
+      lastName
+      middleName
+      birthDate
+      gender
+      country
+      avatarUrl
+      phone
+    }
     problem {
       ... on EmailAlreadyUsedProblem {
         message
