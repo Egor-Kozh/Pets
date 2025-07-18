@@ -1,4 +1,5 @@
 import {
+  AllPostsQuery,
   MyPostsQuery,
   useCreatePostMutation,
 } from "@shared/__generated__/hooks";
@@ -8,6 +9,7 @@ import { useState } from "react";
 import { uploadToS3 } from "@shared/hooks/imageToS3/imageToS3";
 import { MY_POSTS } from "@entities/posts/model/get-my-posts/my-posts";
 import { TypeFiles } from "@shared/hooks/imageToS3/model/types";
+import { ALL_POSTS } from "@entities/posts/model/get-all-posts/all-posts";
 
 interface Args {
   onCompleted: () => void;
@@ -56,11 +58,18 @@ export const useCreatePost = ({ onCompleted, onFiled }: Args) => {
     },
     update(cache, { data: newPost }) {
       const posts = cache.readQuery<MyPostsQuery>({ query: MY_POSTS });
+      const allPosts = cache.readQuery<AllPostsQuery>({ query: ALL_POSTS });
 
       cache.writeQuery({
         query: MY_POSTS,
         data: {
           myPosts: [newPost?.postCreate, ...(posts?.myPosts.data || [])],
+        },
+      });
+      cache.writeQuery({
+        query: ALL_POSTS,
+        data: {
+          posts: [newPost?.postCreate, ...(allPosts?.posts.data || [])],
         },
       });
     },
