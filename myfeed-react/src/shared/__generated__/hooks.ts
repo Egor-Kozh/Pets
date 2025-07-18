@@ -309,12 +309,14 @@ export type PostLikeMutationVariables = Exact<{
 
 export type PostLikeMutation = { postLike: { id: string } };
 
-export type PostUnlikeMutationVariables = Exact<{
+export type UnlikePostMutationVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type PostUnlikeMutation = { postUnlike: { id: string } };
+export type UnlikePostMutation = { postUnlike: { __typename: 'PostModel', id: string, isLiked: boolean } };
+
+export type UnlikeFragmentFragment = { isLiked: boolean };
 
 export type LoginUserMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -358,7 +360,11 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { newUser: { token?: string | null, problem?: { message: string } | null } };
 
-
+export const UnlikeFragmentFragmentDoc = gql`
+    fragment UnlikeFragment on PostModel {
+  isLiked
+}
+    `;
 export const AllPostsDocument = gql`
     query allPosts($type: PostFilterType!, $limit: Int = 10, $afterCursor: String) {
   posts(input: {type: $type, limit: $limit, afterCursor: $afterCursor}) {
@@ -848,39 +854,41 @@ export function usePostLikeMutation(baseOptions?: Apollo.MutationHookOptions<Pos
 export type PostLikeMutationHookResult = ReturnType<typeof usePostLikeMutation>;
 export type PostLikeMutationResult = Apollo.MutationResult<PostLikeMutation>;
 export type PostLikeMutationOptions = Apollo.BaseMutationOptions<PostLikeMutation, PostLikeMutationVariables>;
-export const PostUnlikeDocument = gql`
-    mutation postUnlike($id: String!) {
+export const UnlikePostDocument = gql`
+    mutation UnlikePost($id: String!) {
   postUnlike(input: {id: $id}) {
     id
+    isLiked
+    __typename
   }
 }
     `;
-export type PostUnlikeMutationFn = Apollo.MutationFunction<PostUnlikeMutation, PostUnlikeMutationVariables>;
+export type UnlikePostMutationFn = Apollo.MutationFunction<UnlikePostMutation, UnlikePostMutationVariables>;
 
 /**
- * __usePostUnlikeMutation__
+ * __useUnlikePostMutation__
  *
- * To run a mutation, you first call `usePostUnlikeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePostUnlikeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUnlikePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnlikePostMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [postUnlikeMutation, { data, loading, error }] = usePostUnlikeMutation({
+ * const [unlikePostMutation, { data, loading, error }] = useUnlikePostMutation({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function usePostUnlikeMutation(baseOptions?: Apollo.MutationHookOptions<PostUnlikeMutation, PostUnlikeMutationVariables>) {
+export function useUnlikePostMutation(baseOptions?: Apollo.MutationHookOptions<UnlikePostMutation, UnlikePostMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<PostUnlikeMutation, PostUnlikeMutationVariables>(PostUnlikeDocument, options);
+        return Apollo.useMutation<UnlikePostMutation, UnlikePostMutationVariables>(UnlikePostDocument, options);
       }
-export type PostUnlikeMutationHookResult = ReturnType<typeof usePostUnlikeMutation>;
-export type PostUnlikeMutationResult = Apollo.MutationResult<PostUnlikeMutation>;
-export type PostUnlikeMutationOptions = Apollo.BaseMutationOptions<PostUnlikeMutation, PostUnlikeMutationVariables>;
+export type UnlikePostMutationHookResult = ReturnType<typeof useUnlikePostMutation>;
+export type UnlikePostMutationResult = Apollo.MutationResult<UnlikePostMutation>;
+export type UnlikePostMutationOptions = Apollo.BaseMutationOptions<UnlikePostMutation, UnlikePostMutationVariables>;
 export const LoginUserDocument = gql`
     mutation loginUser($email: String!, $password: String!) {
   loginUser: userSignIn(input: {email: $email, password: $password}) {
