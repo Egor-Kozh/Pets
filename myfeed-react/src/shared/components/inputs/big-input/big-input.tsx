@@ -50,11 +50,11 @@ export const InputBig = ({
         <textarea
           placeholder={placeholder}
           id={id}
+          {...props}
           ref={(e) => {
             textareaRef.current = e;
           }}
           onChange={onChange}
-          {...props}
         />
       </div>
       {children}
