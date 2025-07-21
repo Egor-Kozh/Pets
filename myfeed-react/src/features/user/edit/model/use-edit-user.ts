@@ -9,20 +9,53 @@ import {
 import { uploadToS3 } from "@shared/hooks/imageToS3/imageToS3";
 import { TypeFiles } from "@shared/hooks/imageToS3/model/types";
 import { USER_PROFILE } from "@entities/user/model/user-profile/user-profile";
+import { useEffect } from "react";
 
 interface Args {
   fileImage: File | undefined;
   userData: UserProfileQuery | undefined;
   image: string | null | undefined;
 }
-export const useEditUser = ({ fileImage, image }: Args) => {
+export const useEditUser = ({ fileImage, image, userData }: Args) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm<EditUser>();
+    formState: { errors, isDirty },
+    reset,
+  } = useForm<EditUser>({
+    defaultValues: {
+      firstName: userData?.userMe.firstName ?? "",
+      lastName: userData?.userMe.lastName ?? "",
+      middleName: userData?.userMe.middleName ?? "",
+      birthDay: userData?.userMe.birthDate ?? "",
+      gender: userData?.userMe.gender ?? undefined,
+      email: userData?.userMe.email ?? "",
+      phone: userData?.userMe.phone ?? "",
+      country: userData?.userMe.country ?? "",
+    },
+  });
 
-  const [editUser, { loading: edit_loading, error }] = useEditUserMutation({
+  useEffect(() => {
+    if (userData?.userMe) {
+      reset(
+        {
+          firstName: userData?.userMe.firstName || "",
+          lastName: userData?.userMe.lastName || "",
+          middleName: userData?.userMe.middleName || "",
+          birthDay: userData?.userMe.birthDate || "",
+          gender: userData?.userMe.gender || "",
+          email: userData?.userMe.email || "",
+          phone: userData?.userMe.phone || "",
+          country: userData?.userMe.country || "",
+        },
+        {
+          keepDirty: false,
+        }
+      );
+    }
+  }, [userData?.userMe, reset]);
+
+  const [editUser, { loading: isEditLoading, error }] = useEditUserMutation({
     update(cache, { data }) {
       cache.writeQuery({
         query: USER_PROFILE,
@@ -60,5 +93,5 @@ export const useEditUser = ({ fileImage, image }: Args) => {
     });
   });
 
-  return { handleOnSubmit, control, errors, edit_loading, error };
+  return { handleOnSubmit, control, errors, isEditLoading, error, isDirty };
 };

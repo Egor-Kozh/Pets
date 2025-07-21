@@ -1,6 +1,6 @@
 import { useGetAllPosts } from "@entities/posts/model/get-all-posts/use-get-all-posts";
 import { Post } from "@entities/posts/ui/post/post";
-import { PostSkeleton } from "@shared/components/skeleton/skeleton";
+import { PostSkeleton } from "@shared/components/skeleton/post-skeleton/post-skeleton";
 import { SortPosts } from "./ui/sort-posts/sort-posts";
 import { useState } from "react";
 import { PostFilterType, useUserIdQuery } from "@shared/__generated__/hooks";

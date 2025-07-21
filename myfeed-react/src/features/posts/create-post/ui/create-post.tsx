@@ -25,6 +25,7 @@ export const CreatePostFeature = () => {
     isLoading,
     titleError,
     descriptionError,
+    isValid,
   } = useCreatePost({
     onCompleted,
     onFiled,
@@ -53,6 +54,7 @@ export const CreatePostFeature = () => {
           </InputBig>
         )}
       />
+
       <InputImage setImageFile={setImageFile} />
       <Controller
         name="description"
@@ -84,6 +86,7 @@ export const CreatePostFeature = () => {
           size="small"
           type="submit"
           loading={isLoading}
+          disabled={!isValid}
         >
           Сохранить
         </Button>

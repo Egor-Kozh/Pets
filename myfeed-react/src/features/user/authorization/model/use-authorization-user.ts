@@ -8,7 +8,7 @@ import { AuthorizationUser } from "./types";
 export const useAuthorizationUser = (
   onComplete: (data: LoginUserMutation) => void
 ) => {
-  const [login, { loading, error }] = useLoginUserMutation({
+  const [loginUser, { loading, error }] = useLoginUserMutation({
     onCompleted: (data) => {
       onComplete(data);
     },
@@ -31,7 +31,7 @@ export const useAuthorizationUser = (
   } = useForm<AuthorizationUser>();
 
   const handleOnSubmit = handleSubmit((values: AuthorizationUser) => {
-    login({
+    loginUser({
       variables: {
         email: values.email,
         password: values.password,

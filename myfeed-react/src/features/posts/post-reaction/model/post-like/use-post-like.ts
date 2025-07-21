@@ -6,7 +6,7 @@ interface Args {
   post: PostType;
 }
 export const usePostLike = ({ onCompletedLike, post }: Args) => {
-  const [like, { loading, error }] = usePostLikeMutation({
+  const [postLike, { loading, error }] = usePostLikeMutation({
     onCompleted: () => {
       onCompletedLike();
     },
@@ -22,7 +22,7 @@ export const usePostLike = ({ onCompletedLike, post }: Args) => {
   });
 
   const handleLike = () => {
-    like({
+    postLike({
       variables: {
         id: post.id,
       },

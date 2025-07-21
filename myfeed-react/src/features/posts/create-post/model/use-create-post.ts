@@ -20,7 +20,7 @@ export const useCreatePost = ({ onCompleted, onFiled }: Args) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<CreatePost>();
 
   const [imageFile, setImageFile] = useState<File | undefined>();
@@ -106,6 +106,7 @@ export const useCreatePost = ({ onCompleted, onFiled }: Args) => {
     control,
     setImageFile,
     errors,
+    isValid,
     isLoading: loading,
     isError: error,
     titleError: { message: titleError, setTitleError },

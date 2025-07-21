@@ -1,7 +1,7 @@
 import { EmptyState } from "@shared/components/empty-state/empty-state";
 import { MyPosts } from "@pages/my-posts/ui/my-posts/my-posts";
 import Skeleton from "react-loading-skeleton";
-import { PostSkeleton } from "@shared/components/skeleton/skeleton";
+import { PostSkeleton } from "@shared/components/skeleton/post-skeleton/post-skeleton";
 import { useGetMyPosts } from "@entities/posts/model/get-my-posts/use-get-my-posts";
 import { Routes } from "@shared/routes";
 

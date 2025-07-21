@@ -14,7 +14,7 @@ export const useCreateUserInfo = ({ userEmail, onCompleted }: Args) => {
     formState: { errors },
   } = useForm<CreatePostInfo>();
 
-  const [login, { loading, error }] = useCreateUserInfoMutation({
+  const [createPostInfo, { loading, error }] = useCreateUserInfoMutation({
     onCompleted: () => {
       onCompleted();
     },
@@ -31,7 +31,7 @@ export const useCreateUserInfo = ({ userEmail, onCompleted }: Args) => {
 
   const handleOnSubmit = handleSubmit((values: CreatePostInfo) => {
     if (userEmail) {
-      login({
+      createPostInfo({
         variables: {
           email: userEmail,
           firstName: values.first_name,

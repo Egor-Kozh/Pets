@@ -7,7 +7,7 @@ interface Args {
   post: PostType;
 }
 export const usePostUnLike = ({ onCompletedUnLike, post }: Args) => {
-  const [unLike, { loading, error }] = useUnlikePostMutation({
+  const [unlikePost, { loading, error }] = useUnlikePostMutation({
     onCompleted: () => {
       onCompletedUnLike();
     },
@@ -37,7 +37,7 @@ export const usePostUnLike = ({ onCompletedUnLike, post }: Args) => {
   });
 
   const handleUnLike = () => {
-    unLike({
+    unlikePost({
       variables: {
         id: post.id,
       },

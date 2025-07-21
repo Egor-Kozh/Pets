@@ -35,7 +35,6 @@ export const RegistrationFirtStep = ({
       <Controller
         name="email"
         control={control}
-        defaultValue=""
         rules={{
           required: "Это поле обязательно!",
           pattern: {
@@ -58,7 +57,6 @@ export const RegistrationFirtStep = ({
       <Controller
         name="password"
         control={control}
-        defaultValue=""
         rules={{
           required: "Это поле обязательно!",
         }}
@@ -85,7 +83,6 @@ export const RegistrationFirtStep = ({
       <Controller
         name="accept_password"
         control={control}
-        defaultValue=""
         rules={{
           required: "Это поле обязательно!",
         }}

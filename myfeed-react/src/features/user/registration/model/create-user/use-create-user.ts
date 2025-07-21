@@ -21,7 +21,7 @@ export const useCreateUser = ({ onCompleted }: Args) => {
     formState: { errors },
   } = useForm<CreateUser>();
 
-  const [login, { loading, error }] = useCreateUserMutation({
+  const [createUser, { loading, error }] = useCreateUserMutation({
     onCompleted: (data) => {
       onCompleted(data);
     },
@@ -61,7 +61,7 @@ export const useCreateUser = ({ onCompleted }: Args) => {
       return setPasswordError("Пароли не совпадают!");
     }
 
-    login({
+    createUser({
       variables: {
         email: values.email,
         password: values.password,

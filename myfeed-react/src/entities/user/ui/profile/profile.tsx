@@ -13,30 +13,17 @@ import { useEditUser } from "@features/user/edit/model/use-edit-user";
 import { Controller } from "react-hook-form";
 import { InputDate } from "@shared/components/inputs/date-input/date-input";
 
-interface Args {
-  userData: UserProfileQuery;
+interface ProfileProps {
+  userData: UserProfileQuery | undefined;
 }
-export const Profile = ({ userData }: Args) => {
+export const Profile = ({ userData }: ProfileProps) => {
   const [isNewImage, setIsNewImage] = useState(false);
   const [image, setImage] = useState<string | undefined | null>(
-    userData.userMe.avatarUrl
+    userData?.userMe.avatarUrl
   );
   const [fileImage, setFileImage] = useState<File>();
-  const [inputChanges, setInputChanges] = useState<string[]>([]);
 
-  const checkInputChanges = (
-    name: keyof typeof userData.userMe,
-    value: string | null
-  ) => {
-    if (userData?.userMe[name] == value) {
-      setInputChanges((arr) => arr.filter((input) => input !== name));
-    }
-    if (!inputChanges.includes(name)) {
-      setInputChanges((arr) => [...arr, name]);
-    }
-  };
-
-  const { handleOnSubmit, control } = useEditUser({
+  const { handleOnSubmit, control, isEditLoading, isDirty } = useEditUser({
     fileImage,
     image,
     userData,
@@ -60,7 +47,6 @@ export const Profile = ({ userData }: Args) => {
     setIsNewImage(true);
     setFileImage(undefined);
     setImage(null);
-    checkInputChanges("avatarUrl", "");
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +80,6 @@ export const Profile = ({ userData }: Args) => {
                 ref={fileInputRef}
                 onChange={(e) => {
                   handleFileChange(e);
-                  checkInputChanges("avatarUrl", "");
                 }}
                 style={{ display: "none" }}
               />
@@ -109,26 +94,14 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="firstName"
           control={control}
-          defaultValue={userData?.userMe.firstName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
-            <Input
-              id="profile_firstName"
-              title="Имя"
-              size="100%"
-              {...field}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                field.onChange(newValue);
-                checkInputChanges(field.name, newValue);
-              }}
-            />
+            <Input id="profile_firstName" title="Имя" size="100%" {...field} />
           )}
         />
         <Controller
           name="lastName"
           control={control}
-          defaultValue={userData?.userMe.lastName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
             <Input
@@ -136,18 +109,12 @@ export const Profile = ({ userData }: Args) => {
               title="Фамилия"
               size="100%"
               {...field}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                field.onChange(newValue);
-                checkInputChanges(field.name, newValue);
-              }}
             />
           )}
         />
         <Controller
           name="middleName"
           control={control}
-          defaultValue={userData?.userMe.middleName || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
             <Input
@@ -155,18 +122,12 @@ export const Profile = ({ userData }: Args) => {
               title="Отчество"
               size="100%"
               {...field}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                field.onChange(newValue);
-                checkInputChanges(field.name, newValue);
-              }}
             ></Input>
           )}
         />
         <Controller
           name="birthDay"
           control={control}
-          defaultValue={userData?.userMe.birthDate || ""}
           render={({ field }) => (
             <InputDate
               id="profile_birthDay"
@@ -179,7 +140,6 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="gender"
           control={control}
-          defaultValue={userData?.userMe.gender || ""}
           render={({ field }) => (
             <RadioGroup label="Выберите пол" {...field}>
               <RadioButton
@@ -187,22 +147,12 @@ export const Profile = ({ userData }: Args) => {
                 value={GenderType.Male}
                 info="Мужской"
                 checked={field.value === GenderType.Male}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  field.onChange(newValue);
-                  checkInputChanges(field.name, newValue);
-                }}
               />
               <RadioButton
                 id="profile_female"
                 value={GenderType.Female}
                 info="Женский"
                 checked={field.value === GenderType.Female}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  field.onChange(newValue);
-                  checkInputChanges(field.name, newValue);
-                }}
               />
             </RadioGroup>
           )}
@@ -210,26 +160,14 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="email"
           control={control}
-          defaultValue={userData?.userMe.email || ""}
           rules={{ required: "Поле не должно быть пустым!" }}
           render={({ field }) => (
-            <Input
-              id="profile_email"
-              title="Email"
-              size="100%"
-              {...field}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                field.onChange(newValue);
-                checkInputChanges(field.name, newValue);
-              }}
-            />
+            <Input id="profile_email" title="Email" size="100%" {...field} />
           )}
         />
         <Controller
           name="phone"
           control={control}
-          defaultValue={userData?.userMe.phone || ""}
           rules={{
             pattern: {
               value:
@@ -244,11 +182,6 @@ export const Profile = ({ userData }: Args) => {
               size="100%"
               wrong={!!error}
               {...field}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                field.onChange(newValue);
-                checkInputChanges(field.name, newValue);
-              }}
             >
               <span>{error?.message}</span>
             </Input>
@@ -257,19 +190,8 @@ export const Profile = ({ userData }: Args) => {
         <Controller
           name="country"
           control={control}
-          defaultValue={userData?.userMe.country || ""}
           render={({ field }) => (
-            <Input
-              id="profile_country"
-              title="Страна"
-              size="100%"
-              {...field}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                field.onChange(newValue);
-                checkInputChanges(field.name, newValue);
-              }}
-            />
+            <Input id="profile_country" title="Страна" size="100%" {...field} />
           )}
         />
         <div className={styles["profile__actions"]}>
@@ -280,7 +202,8 @@ export const Profile = ({ userData }: Args) => {
             typeView="primary"
             size="small"
             type="submit"
-            disabled={inputChanges.length === 0}
+            disabled={!isDirty}
+            loading={isEditLoading}
           >
             Сохранить
           </Button>
