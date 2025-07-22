@@ -27,5 +27,32 @@ const authLink = setContext((_, { headers }) => {
 export const apolloClient = new ApolloClient({
   connectToDevTools: true,
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          posts: {
+            keyArgs: (args) => {
+              if (!args?.input) return false;
+              const { type, limit } = args.input;
+              return `type:${type}-limit:${limit}`;
+            },
+
+            merge(existing = { data: [] }, incoming) {
+              const mergedData = existing.data ? existing.data.slice(0) : [];
+
+              if (incoming?.data) {
+                mergedData.push(...incoming.data);
+              }
+
+              return {
+                ...incoming,
+                data: mergedData,
+              };
+            },
+          },
+        },
+      },
+    },
+  }),
 });

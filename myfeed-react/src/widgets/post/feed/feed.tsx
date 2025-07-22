@@ -64,17 +64,7 @@ export const Feed = () => {
     const cursor = data?.posts.pageInfo?.afterCursor;
 
     fetchMore({
-      variables: { afterCursor: cursor },
-
-      updateQuery: (previousQueryResult, { fetchMoreResult }) => {
-        if (fetchMoreResult.posts.data && previousQueryResult.posts.data) {
-          fetchMoreResult.posts.data = [
-            ...previousQueryResult.posts.data,
-            ...fetchMoreResult.posts.data,
-          ];
-        }
-        return fetchMoreResult;
-      },
+      variables: { afterCursor: cursor, type: postsSort },
     });
   };
 
