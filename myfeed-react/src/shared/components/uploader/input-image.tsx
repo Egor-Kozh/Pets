@@ -1,13 +1,18 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import styles from "./input-image.module.scss";
 import SvgLoadFileComponent from "@shared/assets/images/svg/components/load-file";
 import { Button } from "@shared/components/buttons/button";
 import { ProgressBar } from "./ui/progress-bar/progress-bar";
 
 interface InputImageProps {
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setImageFile: React.Dispatch<React.SetStateAction<File | undefined>>;
 }
-export const InputImage = ({ setImageFile }: InputImageProps) => {
+export const InputImage = ({
+  setImageFile,
+  onChange,
+  ...props
+}: InputImageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
   const [fileImage, setFileImage] = useState<File>();
@@ -41,7 +46,11 @@ export const InputImage = ({ setImageFile }: InputImageProps) => {
       <input
         type="file"
         accept="image/*"
-        onChange={handleChange}
+        {...props}
+        onChange={(e) => {
+          onChange(e);
+          handleChange(e);
+        }}
         disabled={loadImage}
         ref={inputRef}
       />

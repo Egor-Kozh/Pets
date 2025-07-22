@@ -147,12 +147,14 @@ export const Profile = ({ userData }: ProfileProps) => {
                 value={GenderType.Male}
                 info="Мужской"
                 checked={field.value === GenderType.Male}
+                onChange={field.onChange}
               />
               <RadioButton
                 id="profile_female"
                 value={GenderType.Female}
                 info="Женский"
                 checked={field.value === GenderType.Female}
+                onChange={field.onChange}
               />
             </RadioGroup>
           )}

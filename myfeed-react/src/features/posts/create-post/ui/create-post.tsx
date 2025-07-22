@@ -54,8 +54,20 @@ export const CreatePostFeature = () => {
           </InputBig>
         )}
       />
-
-      <InputImage setImageFile={setImageFile} />
+      <Controller
+        name="image"
+        control={control}
+        rules={{ required: "Это поле обязательное!" }}
+        render={({ field }) => (
+          <InputImage
+            {...field}
+            setImageFile={setImageFile}
+            onChange={(e) => {
+              field.onChange(e);
+            }}
+          />
+        )}
+      />
       <Controller
         name="description"
         control={control}
