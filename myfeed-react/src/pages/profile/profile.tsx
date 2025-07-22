@@ -2,12 +2,12 @@ import { Profile } from "@entities/user/ui/profile/profile";
 import styles from "./profile.module.scss";
 import { useUserProfileQuery } from "@shared/__generated__/hooks";
 import Skeleton from "react-loading-skeleton";
-import { PostSkeleton } from "@shared/components/skeleton/post-skeleton/post-skeleton";
+import { ProfileSkeleton } from "@shared/components/skeleton/profile-skeleton/profile-skeleton";
 
 export const ProfilePage = () => {
   const { data: userData, loading } = useUserProfileQuery();
 
-  if (loading) return <Skeleton wrapper={PostSkeleton} />;
+  if (loading) return <Skeleton wrapper={ProfileSkeleton} />;
 
   return (
     <div className={styles["profile"]}>

@@ -1,0 +1,49 @@
+.profile {
+  width: 100%;
+  position: relative;
+  margin-top: 24px;
+  width: 100%;
+
+  .profile-skeleton {
+    display: flex;
+    width: 415px;
+    flex-direction: column;
+    row-gap: 24px;
+
+    .profile-header {
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-avatar {
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-main {
+      display: flex;
+      flex-direction: column;
+      column-gap: 24px;
+
+      .profile-checkbox {
+        display: flex;
+        flex-direction: row;
+        column-gap: 24px;
+      }
+    }
+
+    .profile-footer {
+      display: flex;
+      flex-direction: row;
+      column-gap: 24px;
+    }
+  }
+}
+
+@media (max-width: 376px) {
+  .post {
+    .post-skeleton {
+      width: 100%;
+    }
+  }
+}
